@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<!-- begin header -->
+	<div id="header" th:fragment="headerFragment">
+		haader.html <br>
+		상단 메뉴<br><br>
+		<a href="#">01회원가입</a>
+		<!-- /* <%= request.getContextPath() %>/minsert == th:href="@{#}" */-->
+		<a th:href="@{#}">02회원전체검색</a>
+		<a href="#">03상품등록</a>
+		<a href="#">04상품전체검색</a>
+	
+	</div>
+	<!-- end header -->
+</html>
