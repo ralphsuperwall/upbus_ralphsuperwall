@@ -37,8 +37,8 @@ public class MainController {
 	 */
 	@GetMapping("/")
 	public String main(Model model) {
-		model.addAttribute("title", "메인화면");
-		model.addAttribute("h1text", "HELLO! SPRING BOOT LAYOUT");
+		model.addAttribute("title", "UPCYCLING PROJECT");
+		model.addAttribute("h1text", "page configuration example");
 		return "main";
 	}
 }
