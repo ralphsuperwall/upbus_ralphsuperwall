@@ -1,10 +1,10 @@
-package ksmart.springboot_test;
+package thedrivers.upbus;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringbootTestApplicationTests {
+class UpbusApplicationTests {
 
 	@Test
 	void contextLoads() {
