@@ -1,0 +1,23 @@
+<!DOCTYPE html> <!--HTML 버전 5 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<!--thyleaf 를 사용할 것이다-->
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="${title}">회원 정보1111111111</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 값을 조작할 수 있다.
+			// 화면에서 제어를 한다. 화면에서 조작을 한다.
+		</script>
+	
+		<h1 th:text="${m}">member 클래스를 통해서 생성된 객체 정보</h1>		
+		<h1 th:text="${'memberId : ' + m.setMemberId()}"></h1> <!-- set, get 메소드명은 카멜 형식으로  정해져 있다. -->
+		<h1 th:text="${'memberId : ' + m.getMemberId()}"></h1> <!-- set, get 메소드명은 카멜 형식으로  정해져 있다. -->
+		<h1 th:text="${'memberId : ' + m.MemberId}"></h1> <!--tyhmeleaf 사용가능한 방법 : 체인기법 -->
+		
+		<!-- 프론트엔드언어 : 받았던 객체를 임의적으로 조작을 하면 안된다. 유지보수가 안된다-->
+		<!-- 무조건 달러는 값을 받는 용도로 사용을 해야 한다. -->
+		<!-- 프론트엔드언어 : 값을 받고 화면에서 조작을 한다. -->
+	</body>
+</html>
