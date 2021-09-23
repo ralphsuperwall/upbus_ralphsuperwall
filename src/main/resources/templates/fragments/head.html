@@ -1,28 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head th:fragment="headFragment">
+		<meta charset="utf-8">
+		<link rel="icon" th:href="@{/images/favicon.ico}"  type="image/x-icon">
+		<link rel="stylesheet" th:href="@{/fonts/fontawesome/css/fontawesome-all.min.css}">
+		<link rel="stylesheet" th:href="@{/plugins/animation/css/animate.min.css}" >
+		<link rel="stylesheet" th:href="@{/css/style.css}" >
+		<link rel="stylesheet" th:href="@{/plugins/chart-morris/css/morris.css}" >
 
-<!-- head 조각 1 -->
-<head th:fragment="headFragment">
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"> <!-- contextpath -->
-	<!-- 사용자 지정 css -->
-	<th:block layout:fragment="customCss"></th:block>
-	<title th:text="${title}"></title>
-	<!-- 사용자 지정 js -->
-	<th:block layout:fragment="customjs"></th:block>
-</head>
-
-<!-- head 조각 2 -->
-<head th:fragment="headFragment2">
-	<meta charset="UTF-8">
-	<link th:href="@{/css/style.css}"> <!-- contextpath -->
-	<!-- 사용자 지정 css -->
-	<th:block layout:fragment="customCss"></th:block>
-	<!-- 사용자 지정 title -->
-	<th:block layout:fragment="customTitle"></th:block>
-	<!-- 사용자 지정 js -->
-	<th:block layout:fragment="customjs"></th:block>
-</head>
+   
+		<title>UPCYCLING</title>
+	</head>
 
 </html>
