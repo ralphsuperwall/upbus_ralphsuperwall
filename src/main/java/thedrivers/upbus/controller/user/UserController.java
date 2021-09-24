@@ -1,4 +1,4 @@
-package thedrivers.upbus.controller;
+package thedrivers.upbus.controller.user;
 
 import org.springframework.stereotype.Controller;
 

@@ -1,34 +1,32 @@
-package thedrivers.upbus.controller;
+package thedrivers.upbus.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/admin")
+@RequestMapping("/admin/standard")
 @Controller
-public class AdminController {
+public class StandardController {
 	
-	String pageType = "admin";
+	String pageType = "admin/standard";
 	
-	@GetMapping("/standard/MileageManage")
+	@GetMapping("/MileageManage")
 	public String mileageManage(Model model) {
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "마일리지 등급 기준 관리");
-		return pageType+"/standard/MileageManage";
+		return pageType+"/MileageManage";
 	}
-	
-	@GetMapping("/standard/ExpManage")
+	@GetMapping("/ExpManage")
 	public String expManage(Model model) {
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "경험치 기준관리");
-		return pageType+"/standard/ExpManage";
+		return pageType+"/ExpManage";
 	}
-	@GetMapping("/standard/ExpManage")
+	@GetMapping("/MemberAccessManage")
 	public String memberAccessManage(Model model) {
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "전체 회원 권한 관리");
-		return pageType+"/standard/MemberAccessManage";
+		return pageType+"/MemberAccessManage";
 	}
-	
 }
