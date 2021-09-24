@@ -5,9 +5,7 @@
 <head th:replace="fragments/head :: headFragment"></head>
 <body>
 	<div id="wrapper">
-		<!-- begin header -->
-		<div th:replace="fragments/header :: headerFragment"></div>
-		<!-- end header -->
+		
 		
 		<!-- begin leftmenu -->
 		<!-- <div id="leftcolumn"
@@ -16,10 +14,12 @@
 			 </div>	 -->
 		<div th:replace="fragments/leftmenu :: leftmenuFragment"></div>
 		<!-- end leftmenu -->
+		<!-- begin header -->
+		<div th:replace="fragments/header :: headerFragment"></div>
+		<!-- end header -->
 
-		<!-- begin contents layout:fragment 정의-->
-		<th:block layout:fragment="customContents"></th:block>
-		<div id="rightcolumn">
+		
+		
 
 			<div class="pcoded-main-container">
 				<div class="pcoded-wrapper">
@@ -39,6 +39,8 @@
 														<li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
 														<li class="breadcrumb-item"><a href="#!">업사이클링 관리자 도구</a></li>
 													</ul>
+													<!--여기가 컨텐츠 집어넣을거 -->
+													<div layout:fragment="customContents"></div>
 												</div>
 											</div>
 										</div>
@@ -51,7 +53,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		<!-- end contents -->
 	
 		<!-- begin footer -->
