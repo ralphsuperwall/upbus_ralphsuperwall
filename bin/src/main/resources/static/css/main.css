@@ -40,17 +40,7 @@ body {
  width: 195px;
  float: left;
 }
-#rightcolumn { 
- float: right;
- color: #333;
- border: 1px solid #ccc;
- background: #F2F2E6;
- margin: 0px 0px 5px 0px;
- padding: 10px;
- height: 350px;
- width: 678px;
- display: inline;
-}
+
 #footer { 
  width: 900px;
  clear: both;
@@ -59,4 +49,4 @@ body {
  background: #BD9C8C;
  margin: 0px 0px 10px 0px;
  padding: 10px;
-}.
+}

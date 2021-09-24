@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+@RequestMapping("/user/class")
 @Controller
-@RequestMapping("/Class")
 public class ClassController {
 	
 	// 1. 클래스 강사를 신청하는 페이지로 이동하흔 GetMapping("ClassAdd")
@@ -22,12 +21,12 @@ public class ClassController {
 		
 		model.addAttribute("title", "클래스강사신청");
 		
-		return "/Class/ClassAdd";
+		return "user/class/ClassAdd";
 	}
 	
-	@GetMapping("/ClassAddJsonCall")
+/*	@GetMapping("/ClassAddJsonCall")
 	public String ClassAddJsonCall() {
-		return "/Class/ClassAddJsonCall";
+		return "user/class/ClassAddJsonCall";
 	}
 	
 	
@@ -46,6 +45,5 @@ public class ClassController {
 		Map<String,Object> map = new HashMap<String,Object>();		
 		map.put("result", result);		
 		return map;
-	}
-
+	}*/
 }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- th:replace=fragments/head.html (html 확장자를 제외한 경로 :: (해당 html안에 선언된 조각 변수이름) -->
+  <head th:replace="fragments/user/head :: userHeadFragment">
+   
+  </head> 
+  <body>
+	<header th:replace="fragments/user/header :: userHeaderFragment">
+	
+	</header>
+	
+	<div th:replace="fragments/user/navbar :: userNavbarFragment">
+
+		
+	</div>	
+	
+
+	<div class="container-fluid">
+		<div class="row">
+			<div id="leftcolumn" class="col-md-9" >
+				<div layout:fragment="userCustomContents"></div>
+			</div>
+			<div th:replace="fragments/user/rightcolunm :: userRightcolunmFragment">
+				
+			</div>			
+		</div>
+	</div>
+	
+	<footer>
+	</footer>
+	
+	
+	    <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
+    <script th:src="@{/user/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript">
+	var clickCheck = false;
+		function navClick(){
+			
+			if(clickCheck == false){
+				console.log($('#collapse1').height());
+				$('#collapse1').collapse('show');
+				console.log($('#collapse1').width());
+				clickCheck = true;
+				console.log(clickCheck);
+			} else if(clickCheck == true) {
+				$('#collapse1').collapse('hide');
+				clickCheck = false;
+				console.log(clickCheck);
+			}
+			
+		}
+		
+	</script>
+
+</body>
+</html>
