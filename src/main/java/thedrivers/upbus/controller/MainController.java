@@ -14,6 +14,6 @@ public class MainController {
 	public String main(Model model) {
 		model.addAttribute("title", "UPCYCLING PROJECT");
 		model.addAttribute("h1text", "page configuration example");
-		return "mainuser";
+		return "main";
 	}
 }
