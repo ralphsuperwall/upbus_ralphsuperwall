@@ -24,5 +24,11 @@ public class AdminController {
 		model.addAttribute("h1text", "경험치 기준관리");
 		return pageType+"/standard/ExpManage";
 	}
+	@GetMapping("/standard/ExpManage")
+	public String memberAccessManage(Model model) {
+		model.addAttribute("title", "UPBUS");
+		model.addAttribute("h1text", "전체 회원 권한 관리");
+		return pageType+"/standard/MemberAccessManage";
+	}
 	
 }
