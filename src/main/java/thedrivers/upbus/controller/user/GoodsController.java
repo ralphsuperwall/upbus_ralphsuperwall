@@ -17,6 +17,7 @@ public class GoodsController {
 		model.addAttribute("h1text", "기업 판매 상품 목록");
 		return pageType+"/EnterpriseList";
 	}
+	
 	@GetMapping("/MemberList")
 	public String memberList(Model model) {		
 		model.addAttribute("title", "UPBUS");
