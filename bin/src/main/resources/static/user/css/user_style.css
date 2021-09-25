@@ -1,0 +1,72 @@
+@charset "UTF-8";
+.jumbotron{
+	margin: 0;
+}
+a{
+	color:black;
+	text-decoration:none;	
+}
+a:link{
+	color:black;
+	text-decoration:none;	
+}
+a:visited{
+	color:black;
+	text-decoration:none;	
+}
+a:hover{
+	color:black;
+	text-decoration:none;	
+}
+.navbar-default {
+	background-image: linear-gradient(to bottom,#5dd52c 0,#2ec41c 100%);
+	display: flex; 
+	align-items: center; 
+	margin-bottom: 0;
+	border: 0;
+	}
+.navbar-default a {
+	color: gray;
+	font-size: 20px;
+}	
+.navbar-fixed-top{
+	position: sticky;
+}
+
+#profile{
+	background-color: #ECF8E0;
+	margin-bottom: 15px;
+}
+#profile-container{
+	margin: 20px;
+	text-align: center;
+}
+#profile .btn{
+	margin: 5px;
+	
+}
+.navbar-option{
+	text-align:center; font-size: 30px;
+}
+#collapse1{
+	margin-bottom: 0 ;
+	border: 0; 
+	background-color: #F2F2F2;
+}
+ul{
+	list-style: none;
+}
+.navbar-detail{	
+	padding-top:15px;
+	padding-left:15px;
+	padding-right:15px;
+	padding-bottom:15px;
+	text-align: center;
+	font-size: 15px;
+	margin-bottom : -1px;
+	
+}
+.navbar-detail-li{
+	margin-top: 7px;
+	margin-bottom: 7px;
+}
