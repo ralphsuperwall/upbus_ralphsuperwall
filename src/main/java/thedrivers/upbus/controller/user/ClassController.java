@@ -24,7 +24,7 @@ public class ClassController {
 		return "user/class/ClassAdd";
 	}
 	
-/*	@GetMapping("/ClassAddJsonCall")
+	@GetMapping("/ClassAddJsonCall")
 	public String ClassAddJsonCall() {
 		return "user/class/ClassAddJsonCall";
 	}
@@ -45,5 +45,5 @@ public class ClassController {
 		Map<String,Object> map = new HashMap<String,Object>();		
 		map.put("result", result);		
 		return map;
-	}*/
+	}
 }
