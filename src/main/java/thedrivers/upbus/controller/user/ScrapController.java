@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ScrapController {
 
-	String pageType = "admin/scrap";
+	String pageType = "user/scrap";
 	
 	@GetMapping("/List")
 	public String list(Model model) {		

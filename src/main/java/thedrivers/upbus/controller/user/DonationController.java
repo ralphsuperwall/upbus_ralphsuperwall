@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class DonationController {
 
-	String pageType = "admin/donation";
+	String pageType = "user/donation";
 	
 	@GetMapping("/Application")
 	public String application(Model model) {		

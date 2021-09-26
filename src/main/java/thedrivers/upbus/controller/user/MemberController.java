@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MemberController {
 
-	String pageType = "admin/member";
+	String pageType = "user/member";
 	
 	@GetMapping("/Signup")
 	public String signup(Model model) {		
