@@ -17,11 +17,11 @@ public class MileageController {
 		model.addAttribute("h1text", "마일리지 통계 조회");
 		return pageType+"/Statistics";
 	}
-	@GetMapping("/List")
+	@GetMapping("/ListManage")
 	public String list(Model model) {
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "전체 회원 마일리지 내역 조회");
-		return pageType+"/List";
+		return pageType+"/ListManage";
 	}
 
 }
