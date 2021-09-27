@@ -1,23 +1,23 @@
 package thedrivers.upbus.domain;
 
 public class Member {
-	String member_id;
-	String member_pw;
-	String member_name;
-	String member_email;
-	String member_gender;
-	String member_addr;
-	String member_phone_number;
-	String member_birth;
-	String member_mile;
-	String member_sign;
-	String grade_code;
-	String member_exp;
-	String member_status;
-	String member_image;
-	String class_job;
-	String member_login_history_code;
-	String member_division;
+	private String member_id;
+	private String member_pw;
+	private String member_name;
+	private String member_email;
+	private String member_gender;
+	private String member_addr;
+	private String member_phone_number;
+	private String member_birth;
+	private String member_mile;
+	private String member_sign;
+	private String grade_code;
+	private String member_exp;
+	private String member_status;
+	private String member_image;
+	private String class_job;
+	private String member_login_history_code;
+	private String member_division;
 	
 	public String getMember_id() {
 		return member_id;
