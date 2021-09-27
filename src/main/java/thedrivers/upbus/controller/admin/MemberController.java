@@ -32,13 +32,6 @@ public class MemberController {
 		return pageType+"/GradeManage";
 	}
 	
-	@GetMapping("/MileageManage")
-	public String mileageManage(Model model) {
-		model.addAttribute("title", "UPBUS");
-		model.addAttribute("h1text", "전체 회원 마일리지 관리");
-		return pageType+"/MileageManage";
-	}
-	
 	@GetMapping("/ExpManage")
 	public String expManage(Model model) {
 		model.addAttribute("title", "UPBUS");
