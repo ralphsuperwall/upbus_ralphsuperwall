@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="thedrivers.upbus.mapper.MileageMapper">
+	<resultMap type="MileageUserList" id="mileageUserListResultMap">
+		<result property="mileageUserListCode" column="mileage_user_list_code"/>
+		<result property="memberId" column="member_id"/>
+		<result property="mileageUserListAmount" column="mileage_user_list_amount"/>
+		<result property="mileageUserListDate" column="mileage_user_list_date"/>
+		<result property="mileageUserListType" column="mileage_user_list_type"/>
+		<result property="mileageUserListCancel" column="mileage_user_list_cancel"/>
+	</resultMap>
+	<select id="getMileageUserList" resultMap="mileageUserListResultMap" parameterType="map" fetchSize="100">
+		SELECT
+			mileage_user_list_code,
+			member_id,
+			mileage_user_list_amount,
+			mileage_user_list_type,
+			mileage_user_list_date,
+			mileage_user_list_cancel
+		FROM
+			mileage_user_list
+	</select>
+</mapper>

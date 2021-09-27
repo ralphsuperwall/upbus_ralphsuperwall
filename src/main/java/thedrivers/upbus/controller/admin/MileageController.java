@@ -1,15 +1,25 @@
 package thedrivers.upbus.controller.admin;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import thedriver.upbus.service.MileageService;
+import thedrivers.upbus.domain.MileageUserList;
 
 @RequestMapping("/admin/mileage")
 @Controller
 public class MileageController {
 	
 	String pageType = "admin/mileage";
+	private final MileageService mileageService;
+	
+	public MileageController(MileageService mileageService) {
+		this.mileageService = mileageService;
+	}
 	
 	@GetMapping("/Statistics")
 	public String statistics(Model model) {
@@ -19,8 +29,10 @@ public class MileageController {
 	}
 	@GetMapping("/ListManage")
 	public String list(Model model) {
+		List<MileageUserList> mileageUserList = mileageService.getMileageUserList();
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "전체 회원 마일리지 내역 조회");
+		model.addAttribute("mileageUserList",mileageUserList);
 		return pageType+"/ListManage";
 	}
 
