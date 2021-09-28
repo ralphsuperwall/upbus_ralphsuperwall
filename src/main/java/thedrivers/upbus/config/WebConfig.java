@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import thedrivers.upbus.interceptor.CommonInterceptor;
-/*
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
 	
@@ -26,4 +26,4 @@ public class WebConfig implements WebMvcConfigurer{
 		WebMvcConfigurer.super.addInterceptors(registry);
 	}
 
-}*/
+}

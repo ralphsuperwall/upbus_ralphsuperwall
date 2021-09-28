@@ -1,7 +1,6 @@
 package thedrivers.upbus.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +18,7 @@ public class MileageService {
 	
 	private final MileageMapper mileageMapper;
 	
+	@Autowired
 	public MileageService(MileageMapper mileageMapper) {
 		this.mileageMapper = mileageMapper;
 	}

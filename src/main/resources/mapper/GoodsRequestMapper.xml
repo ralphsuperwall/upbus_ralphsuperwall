@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="upbus.ralph.mapper.GoodsRequestMapper">
+
+    <insert id="goodsRequest" parameterType="GoodsRequest">
+        INSERT INTO goods_request
+        (member_id,
+         goods_request_name,
+         goods_category_sub_code,
+         goods_request_price,
+         goods_request_amount,
+         goods_request_image,
+         goods_request_desc,
+         goods_request_date,
+         goods_request_approval
+        )VALUES (
+        #{goodsSellerId},
+        #{goodsRequestName},
+        #{goodsCategorySubCode},
+        #{goodsRequestPrice},
+        #{goodsRequestAmount},
+        #{goodsRequestImage},
+        #{goodsRequestDesc},
+        CURDATE(),
+        false
+                );
+    </insert>
+</mapper>
