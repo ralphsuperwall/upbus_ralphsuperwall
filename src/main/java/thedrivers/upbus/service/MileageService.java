@@ -37,7 +37,7 @@ public class MileageService {
 		return mileageUserList;
 	}
 	public List<MileageUserList> getMileageUserList(String memberId){
-		List<MileageUserList> mileageUserList = mileageMapper.getListById(memberId);
+		List<MileageUserList> mileageUserList = mileageMapper.getMileageUserList(memberId);
 		
 		for(int i = 0 ; i < mileageUserList.size() ; i++) {
 			if(mileageUserList.get(i).getMileageUserListCancel() == 0) {

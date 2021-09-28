@@ -9,6 +9,7 @@
 		<result property="mileageUserListType" column="mileage_user_list_type"/>
 		<result property="mileageUserListCancel" column="mileage_user_list_cancel"/>
 	</resultMap>
+	
 	<select id="getMileageUserList" resultMap="mileageUserListResultMap" parameterType="map" fetchSize="100">
 		SELECT
 			mileage_user_list_code,
@@ -19,19 +20,14 @@
 			mileage_user_list_cancel
 		FROM
 			mileage_user_list
+		<trim>
+			<if test="memberId != null">
+				WHERE
+					member_id = #{memberId}	
+			</if>
+		</trim>
+		ORDER BY
+		 	mileage_user_list_code desc;
 	</select>
 	
-	<select id="getListById" resultMap="mileageUserListResultMap" parameterType="map" fetchSize="100">
-		SELECT
-			mileage_user_list_code,
-			member_id,
-			mileage_user_list_amount,
-			mileage_user_list_type,
-			mileage_user_list_date,
-			mileage_user_list_cancel
-		FROM
-			mileage_user_list
-		WHERE
-			member_id = #{memberId};
-	</select>
 </mapper>

@@ -40,7 +40,7 @@
 			</thead>
 			<tbody>
 				<th:block th:if="${#lists.size(mileageUserList) > 0}" >
-					<tr th:id="${l.memberId}" th:each="l : ${mileageUserList}" data-toggle="modal" data-target="#userInfoModal" onclick="ajaxRequest(this)">
+					<tr th:id="${l.memberId}" th:each="l : ${mileageUserList}" data-toggle="modal" data-target="#memberInfoModal" onclick="ajaxRequest(this)">
 						<td th:text="${l.mileageUserListCode}"></td>
 						<td th:text="${l.memberId}"></td>
 						<td th:text="${l.mileageUserListAmount}"></td>
@@ -52,18 +52,18 @@
 			</tbody>
 		</table>
 		<!-- Modal -->
-		<div class="modal fade" id="userInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		<div class="modal fade" id="memberInfoModal" tabindex="-1" role="dialog" aria-labelledby="memberInfoTitle" aria-hidden="true">
 		  <div class="modal-dialog modal-lg" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLongTitle" >Modal title</h5>
+		        <h3 class="modal-title" id="memberInfoTitle"></h3>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
 		      <div class="modal-body">
 		        <table class="table table-hover" style="text-align: center;">
-					<thead>
+					<thead id="memberInfoHead">
 						<tr>
 							<th>코드</th>
 							<th>마일리지량</th>
@@ -77,7 +77,7 @@
 		        </table>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary">Save changes</button>
+		        <button type="button" class="btn btn-warning" id="deleteChangeBtn" onclick="deleteChange()">삭제기능으로 변경</button>
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 		      </div>
 		    </div>
@@ -86,6 +86,18 @@
 	</div>
 	
 	<script>
+		
+		function deleteChange(){
+			$("#memberInfoHead").children("tr").append('<th id="deleteCol">삭제</th>');
+			$("#deleteChangeBtn").remove();
+			$(".modal-footer").prepend('<button type="button" class="btn btn-info" id="normalChangeBtn" onclick="normalChange()">조회기능으로 변경</button>');
+		}
+		function normalChange(){
+			$("#deleteCol").remove();
+			$("#normalChangeBtn").remove();
+			$(".modal-footer").prepend('<button type="button" class="btn btn-warning" id="deleteChangeBtn" onclick="deleteChange()">삭제기능으로 변경</button>');
+		}
+	
 		 function ajaxRequest(row){
 			 var param = {
 					 memberId:row.id
@@ -97,6 +109,7 @@
 			      dataType : "json",
 			      success : function(data) {
 			    	$("#memberInfoBody").empty();
+			    	$("#memberInfoTitle").empty();
 			       /* console.log(data.length);
 			        console.log(data);
 			        //객체 속성의 개수
@@ -104,32 +117,43 @@
 			      	//객체의 첫번쨰 속성
 			      	console.log(Object.keys(data[0])[0]);*/
 			        for(var i = 0 ; i < data.length ; i++){
-			        	createMemberInfo(data[i]);
-			        	
+			        	createMemberInfoTitle(data[i]);	
+			        	createMemberInfoBody(data[i]);			        	
 			        }
 			      },
 			      error : function(error) {
-			          alert("전송 실패");
+			          alert("통신 오류");
 			          
 			      }
 			  });
 			 
 		 }
-		var createMemberInfo = function(row){
+		var createMemberInfoTitle = function(row){
+			var titleText = "";
+			for(var i = 0 ; i < Object.keys(row).length ; i++){
+				 //아이디 찾기
+				  if(Object.keys(row)[i] == "memberId"){
+					  titleText += row[Object.keys(row)[i]]+" 님의 마일리지 이력";
+					  break;
+				  }
+			}
+			$("#memberInfoTitle").text(titleText);
+		}
+		var createMemberInfoBody = function(row){
 			
-			 var html = "<tr>";
+			 var htmlBody = "<tr>";
 			 for(var i = 0 ; i < Object.keys(row).length ; i++){
 				 //아이디와 취소여부(숫자) 빼고 저장
 				 if(Object.keys(row)[i] == "memberId" || Object.keys(row)[i] == "mileageUserListCancel"){
 					 
 				 } else {
-					 html += "<td>"+row[Object.keys(row)[i]]+"</td>";
+					 htmlBody += "<td>"+row[Object.keys(row)[i]]+"</td>";
 				 }
 				
 			 }
-			 html += "<tr>";
-			 console.log(html);
-			 $("#memberInfoBody").append(html);
+			 htmlBody += "<tr>";
+			 console.log(htmlBody);
+			 $("#memberInfoBody").append(htmlBody);
 		 }
 	</script>
 </th:block>

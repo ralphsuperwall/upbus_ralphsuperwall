@@ -11,5 +11,5 @@ import thedrivers.upbus.domain.MileageUserList;
 public interface MileageMapper {
 	public List<MileageUserList> getMileageUserList();
 
-	public List<MileageUserList> getListById(String memberId);
+	public List<MileageUserList> getMileageUserList(String memberId);
 }
