@@ -3,25 +3,47 @@
 
 <mapper namespace="thedrivers.upbus.mapper.GoodsMapper">
 
-    <resultMap type="GoodsCategoryMain" id="goodsCategoryMain">
+    <resultMap id="goodsCategoryMain" type="GoodsCategoryMain">
         <result property="goodsCategoryMainCode"		column="goods_category_main_code"></result>
         <result property="goodsCategoryMainName"		column="goods_category_main_name"></result>
+    </resultMap>
+
+    <resultMap id="goodsCategorySub" type="GoodsCategorySub">
+        <result property="goodsCategorySubCode"		column="goods_category_sub_code"></result>
+        <result property="goodsCategorySubName"		column="goods_category_sub_name"></result>
     </resultMap>
 
     <select id="getGoodsCategoryMainList" resultMap="goodsCategoryMain">
         SELECT
             goods_category_main_name
-        from goods_category_main;
+        FROM
+             goods_category_main;
+    </select>
+
+    <select id="getGoodsCategorySubList" resultMap="goodsCategorySub">
+        SELECT
+            goods_category_sub_name
+        FROM
+            goods_category_sub as sub
+        INNER JOIN
+            goods_category_main as main
+        ON
+            sub.goods_category_main_code = main.goods_category_main_code
+        WHERE
+            main.goods_category_main_name=#{goodsMainCategory};
     </select>
 
     <select id="getGoodsRequestAmount" parameterType="String" resultType="int">
         SELECT
             COUNT(req.member_id)
-        from
+        FROM
             goods_inventory as inv
-                inner join goods_request as req
-                           on inv.goods_request_code = req.goods_request_code
-        where req.member_id=#{memberId};
+        INNER JOIN
+            goods_request as req
+        ON
+            inv.goods_request_code = req.goods_request_code
+        WHERE
+              req.member_id=#{memberId};
     </select>
 
     <insert id="goodsRequest" parameterType="GoodsRequest">

@@ -4,15 +4,15 @@
 <!-- th:replace=fragments/head.html (html 확장자를 제외한 경로 :: (해당 html안에 선언된 조각 변수이름) -->
   <head th:replace="fragments/user/head :: userHeadFragment">
    
-  </head> 
+  </head>
   <body>
 	<header th:replace="fragments/user/header :: userHeaderFragment">
-	
+
 	</header>
-	
+
 	<div th:replace="fragments/user/navbar :: userNavbarFragment">
 
-		
+
 	</div>	
 	
 
@@ -21,9 +21,8 @@
 			<div id="leftcolumn" class="col-md-9" >
 				<div layout:fragment="userCustomContents"></div>
 			</div>
-			<div th:replace="fragments/user/rightcolunm :: userRightcolunmFragment">
-				
-			</div>			
+			<div th:replace="fragments/user/rightcolumn :: userRightcolumnFragment">
+			</div>
 		</div>
 	</div>
 	

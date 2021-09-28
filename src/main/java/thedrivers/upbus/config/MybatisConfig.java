@@ -30,7 +30,7 @@ public class MybatisConfig {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.setMapperLocations(ctx.getResources("classpath:mapper/**/*.xml"));
-		sqlSessionFactoryBean.setTypeAliasesPackage("thedrivers.upbus.mapper");
+		sqlSessionFactoryBean.setTypeAliasesPackage("thedrivers.upbus.domain");
 		return sqlSessionFactoryBean.getObject();
 	}
 	

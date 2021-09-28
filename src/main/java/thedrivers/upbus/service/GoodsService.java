@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import thedrivers.upbus.domain.GoodsCategoryMain;
+import thedrivers.upbus.domain.GoodsCategorySub;
 import thedrivers.upbus.domain.GoodsRequest;
 import thedrivers.upbus.mapper.GoodsMapper;
 
@@ -33,7 +34,11 @@ public class GoodsService {
     public List<GoodsCategoryMain> getGoodsCategoryMainList(){
         List<GoodsCategoryMain> goodsCategoryMainList = goodsMapper.getGoodsCategoryMainList();
         return goodsCategoryMainList;
+    }
 
+    public List<GoodsCategorySub> getGoodsCategorySubList(String goodsMainCategory){
+        List<GoodsCategorySub> goodsCategorySubList = goodsMapper.getGoodsCategorySubList(goodsMainCategory);
+        return goodsCategorySubList;
     }
 
 }

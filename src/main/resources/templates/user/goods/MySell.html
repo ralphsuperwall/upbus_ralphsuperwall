@@ -7,14 +7,13 @@
 	<title th:text="${title}"></title>
 </th:block>
 
-<th:block layout:fragment="customUserContents">
+<th:block layout:fragment="userCustomContents">
 
-	<div class="card-header" style = "background-color: cornflowerblue; width: 1000px;">
+	<div class="card-header" style = "background-color: cornflowerblue; width: 1000px; margin-top: 30px; float: left">
 		<h3 th:text="${h1text}" style = "color: white;"></h3>
 	</div>
-	<div class="card-body" style = "background-color: white; width: 1000px;">
+	<div class="card-body" style = "background-color: white; width: 1000px; float: left">
 		<form th:action="@{/goodsSellerRequest}" method="get">
-			<!-- 이 페이지를 단순히 요청받을 때도 post 방식이 불가하고 일치해야하는건가? 폼을 보내는 상황이 아니어도?-->
 			<div class="card text-white bg-success ">
 				<div class="card-body">
 					<h5 class="card-title text-white">위탁 판매 주의 사항을 확인해주세요</h5>
@@ -26,6 +25,7 @@
 			</div>
 			<ol class="breadcrumb">
 				<div>고객님의 아이디는</div>
+				<!--세션에서 받아온 아이디를 readonly로 받아오는 코드 필요-->
 				<input type="text" class="form-control" placeholder="upbus_user" id="goodSellerId" name="goodsSellerId" readonly="readonly">
 			</ol>
 			<ol class="breadcrumb">
@@ -35,24 +35,58 @@
 			<ol class="breadcrumb">
 				<div>상품의 종류가 어떻게 분류되는지 선택해주세요.</div>
 				<div class="form-group">
-					<label for="goodsMainCategoryLabel">먼저 큰 분류를 선택해주세요.</label>
-					<select class="form-control" id="goodsMainCategoryLabel">
-						<option>큰 분류 선택</option>
+					1. 먼저 큰 분류를 선택해주세요.
+					<select class="form-control" id="goodsMainCategory" onchange="chainedSub(this.value)">
+						<option>큰 분류</option>
 						<option th:each="list : ${goodsCategoryMainList}" th:value="${list.goodsCategoryMainName}">[[${list.goodsCategoryMainName}]]</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<label for="goodsSubCategoryLabel">다음 작은 분류를 선택해주세요.</label>
-					<!--메인 카테고리의 값이 선택되기 전에는 온 클릭 이벤트로 얼럿을 걸어야 할 것 같다.-->
-					<select class="form-control" id="goodsSubCategoryLabel">
-						<option>작은 분류 선택</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
+					2. 다음 작은 분류를 선택해주세요.
+					<select class="form-control" id="goodsSubCategory">
+						<option value="">작은 분류</option>
 					</select>
 				</div>
 			</ol>
+			<script>
+				//메인 카테고리가 선택된 후 각각의 메인 카테고리에 맞는 서브 카테고리를 select option에 표시하기
+				var goodsSubCategory = $('#goodsSubCategory');
+				//이 클릭 이벤트는 왜 걸리지 않을까?
+				goodsSubCategory.click(function () {
+					if ($('#goodsMainCategory').val() == '큰 분류') {
+						alert("메인 카테고리를 먼저 선택해주세요.");
+						$('#goodsMainCategory').focus();
+						return;
+					}
+				});
+				function chainedSub(main) {
+					/*goodsSubCategory.empty();*/
+					if(main == ''){
+						goodsSubCategory.append('<option value="">작은 분류</option>');
+					}
+					$.ajax({
+						url: 'user/goods/MySell/GetSubCategory',
+						data: {goodsMainCategory: $('#goodsMainCategory option:selected').val()},
+						dataType: "json",
+						type: 'get',
+						success: function (data) {
+							$('#goodsSubCategory option').remove();
+							if(data.length == 0){
+								goodsSubCategory.append('<option value="">작은 분류</option>');
+							}else {
+								$(data).each(function (i) {
+									goodsSubCategory.append('<option value="' + data[i].goodsCategorySubName + '">'
+											+ data[i].goodsCategorySubName + '</option>');
+								});
+							}
+						},
+						error: function () {
+							alert("Bad Request");
+						}
+					});
+				}
+			</script>
+
 			<ol class="breadcrumb">
 				<div>가격을 정할 때 도움을 드리기 위해서 지정된 카테고리의 상품들이 지금 얼마인지 보여드릴게요.</div>
 				<div class="row">
@@ -89,7 +123,7 @@
 			</ol>
 			<div class="check_font" id="amountCheckText"></div>
 			<ol class="breadcrumb">
-				<div>판매하려는 상품의 개수를 적어주세요.</div>
+				<div style>판매하려는 상품의 개수를 적어주세요.</div>
 				<div style="color : red;"> 판매중인 업사이클링 상품을 10개를 초과하여 판매할 수 없어요.</div>
 				<div class="input-group mb-3">
 					<input type="number" class="form-control" placeholder="상품의 개수" id="goodsRequestAmount" name="goodsRequestAmount" aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -111,7 +145,7 @@
 						}
 
 						$.ajax({
-							url: '/goodsRequest',
+							url: 'user/goods/MySell',
 							data: {goodsRequestAmount: goodsRequestAmount.val(), goodsSellerId: goodsSellerId.val()},
 							dataType: "json",
 							type: 'get',
