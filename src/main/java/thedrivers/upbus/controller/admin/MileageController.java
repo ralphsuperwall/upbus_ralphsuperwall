@@ -7,14 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import thedriver.upbus.service.MileageService;
 import thedrivers.upbus.domain.MileageUserList;
+import thedrivers.upbus.service.MileageService;
 
 @RequestMapping("/admin/mileage")
 @Controller
 public class MileageController {
 	
 	String pageType = "admin/mileage";
+	
 	private final MileageService mileageService;
 	
 	public MileageController(MileageService mileageService) {

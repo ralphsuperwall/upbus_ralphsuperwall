@@ -14,7 +14,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@MapperScan(value="ksmart.mybatis.mapper", sqlSessionFactoryRef = "mybatisSqlSessionFactory")
+@MapperScan(value="thedrivers.upbus.mapper", sqlSessionFactoryRef = "mybatisSqlSessionFactory")
 public class MybatisConfig {
 	
 	/**
@@ -30,7 +30,7 @@ public class MybatisConfig {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.setMapperLocations(ctx.getResources("classpath:mapper/**/*.xml"));
-		sqlSessionFactoryBean.setTypeAliasesPackage("ksmart.mybatis.domain");
+		sqlSessionFactoryBean.setTypeAliasesPackage("thedrivers.upbus.domain");
 		return sqlSessionFactoryBean.getObject();
 	}
 	

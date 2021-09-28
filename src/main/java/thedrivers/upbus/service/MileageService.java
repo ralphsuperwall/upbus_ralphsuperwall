@@ -1,4 +1,4 @@
-package thedriver.upbus.service;
+package thedrivers.upbus.service;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,6 @@ public class MileageService {
 	
 	private final MileageMapper mileageMapper;
 	
-	@Autowired
 	public MileageService(MileageMapper mileageMapper) {
 		this.mileageMapper = mileageMapper;
 	}
