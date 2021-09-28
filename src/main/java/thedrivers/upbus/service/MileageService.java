@@ -25,7 +25,27 @@ public class MileageService {
 	public List<MileageUserList> getMileageUserList(){
 		List<MileageUserList> mileageUserList = mileageMapper.getMileageUserList();
 		
+		for(int i = 0 ; i < mileageUserList.size() ; i++) {
+			if(mileageUserList.get(i).getMileageUserListCancel() == 0) {
+				mileageUserList.get(i).setMileageUserListCancelName("취소 안 됨");
+			}else if(mileageUserList.get(i).getMileageUserListCancel() == 1) {
+				mileageUserList.get(i).setMileageUserListCancelName("취소 됨");
+			}
+		}
 		
+		log.info("memberList : {}", mileageUserList);
+		return mileageUserList;
+	}
+	public List<MileageUserList> getMileageUserList(String memberId){
+		List<MileageUserList> mileageUserList = mileageMapper.getListById(memberId);
+		
+		for(int i = 0 ; i < mileageUserList.size() ; i++) {
+			if(mileageUserList.get(i).getMileageUserListCancel() == 0) {
+				mileageUserList.get(i).setMileageUserListCancelName("취소 안 됨");
+			}else if(mileageUserList.get(i).getMileageUserListCancel() == 1) {
+				mileageUserList.get(i).setMileageUserListCancelName("취소 됨");
+			}
+		}
 		
 		log.info("memberList : {}", mileageUserList);
 		return mileageUserList;

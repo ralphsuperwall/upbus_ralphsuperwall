@@ -20,4 +20,18 @@
 		FROM
 			mileage_user_list
 	</select>
+	
+	<select id="getListById" resultMap="mileageUserListResultMap" parameterType="map" fetchSize="100">
+		SELECT
+			mileage_user_list_code,
+			member_id,
+			mileage_user_list_amount,
+			mileage_user_list_type,
+			mileage_user_list_date,
+			mileage_user_list_cancel
+		FROM
+			mileage_user_list
+		WHERE
+			member_id = #{memberId};
+	</select>
 </mapper>
