@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="thedrivers.upbus.mapper.GoodsMapper">
+
+    <resultMap type="GoodsCategoryMain" id="goodsCategoryMain">
+        <result property="goodsCategoryMainCode"		column="goods_category_main_code"></result>
+        <result property="goodsCategoryMainName"		column="goods_category_main_name"></result>
+    </resultMap>
+
+    <select id="getGoodsCategoryMainList" resultMap="goodsCategoryMain">
+        SELECT
+            goods_category_main_name
+        from goods_category_main;
+    </select>
+
+    <select id="getGoodsRequestAmount" parameterType="String" resultType="int">
+        SELECT
+            COUNT(req.member_id)
+        from
+            goods_inventory as inv
+                inner join goods_request as req
+                           on inv.goods_request_code = req.goods_request_code
+        where req.member_id=#{memberId};
+    </select>
+
+    <insert id="goodsRequest" parameterType="GoodsRequest">
+        INSERT INTO goods_request
+        (member_id,
+         goods_request_name,
+         goods_category_sub_code,
+         goods_request_price,
+         goods_request_amount,
+         goods_request_image,
+         goods_request_desc,
+         goods_request_date,
+         goods_request_approval
+        )VALUES (
+        #{goodsSellerId},
+        #{goodsRequestName},
+        #{goodsCategorySubCode},
+        #{goodsRequestPrice},
+        #{goodsRequestAmount},
+        #{goodsRequestImage},
+        #{goodsRequestDesc},
+        CURDATE(),
+        false
+        );
+    </insert>
+
+</mapper>

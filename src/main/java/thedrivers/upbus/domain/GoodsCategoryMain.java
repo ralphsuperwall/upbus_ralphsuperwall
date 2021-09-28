@@ -20,8 +20,8 @@ public class GoodsCategoryMain {
         return goodsCategoryMainName;
     }
 
-    public void setGoodsCategoryMainName(String goodsCategortMainName) {
-        this.goodsCategoryMainName = goodsCategortMainName;
+    public void setGoodsCategoryMainName(String goodsCategoryMainName) {
+        this.goodsCategoryMainName = goodsCategoryMainName;
     }
 
     @Override
