@@ -12,4 +12,6 @@ public interface MileageMapper {
 	public List<MileageUserList> getMileageUserList();
 
 	public List<MileageUserList> getMileageUserList(String memberId);
+	
+	public List<MileageUserList> getMileageUserList(String memberId , String MType);
 }

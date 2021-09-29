@@ -50,12 +50,24 @@ public class MileageController {
 	
 	@GetMapping("/ajaxUser")
 	@ResponseBody
-	public List<MileageUserList> ajax(@RequestParam(value = "memberId", required = false) String memberId, Model model){
-		System.out.println(memberId);
-		model.addAttribute("aaaa", "dasdasdasd");
-		List<MileageUserList> mileageUserList = mileageService.getMileageUserList(memberId);
+	public List<MileageUserList> ajax(@RequestParam(value = "memberId", required = false) String memberId, 
+									@RequestParam(value = "MType", required = false) String MType, 
+										Model model){
+		List<MileageUserList> mileageUserList;
+		
+		//문자열이 공백이면 ""로 변경
+		if(memberId.equals("")) {
+			memberId = null;
+		}		
+		System.out.println("아이디" + memberId);
+		//check 선택으로 검색하냐 , div클릭으로 검색하냐
+		if(MType == null) {
+			mileageUserList = mileageService.getMileageUserList(memberId);
+		} else {
+			mileageUserList = mileageService.getMileageUserList(memberId ,MType);
+		}
 		System.out.println(mileageUserList);
-		model.addAttribute("mileageUserList",mileageUserList);
+		
 		return mileageUserList;
 		
 	}
