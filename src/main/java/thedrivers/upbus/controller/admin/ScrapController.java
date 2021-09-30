@@ -28,22 +28,22 @@ public class ScrapController {
 	
 	String pageType = "admin/scrap";
 	
-	@GetMapping("/ProcedureManage")
-	public String procedureManage(Model model) {
-		model.addAttribute("title", "UPBUS");
-		model.addAttribute("h1text", "업사이클링 재료 절차 관리");
-		return pageType+"/ProcedureManage";
-	}
-	//업사이클링 재료 판매 신청서 리스트
 	@GetMapping("/ListManage")
 	public String listManage(Model model) {
-		System.out.println("ListManage 컨트롤러 실행 ");
+		model.addAttribute("title", "UPBUS");
+		model.addAttribute("h1text", "업사이클링 재료 절차 관리");
+		return pageType+"/ListManage";
+	}
+	//업사이클링 재료 판매 신청서 리스트
+	@GetMapping("/SaleListManage")
+	public String saleListManage(Model model) {
+		System.out.println("SaleListManage 컨트롤러 실행 ");
 		
 		List<ScrapSaleRequest> scrapSaleRequestList = scrapService.getScrapSale();		
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "업사이클링 재료 목록 관리");
 		model.addAttribute("scrapRequestList", scrapSaleRequestList);
-		return pageType+"/ListManage";
+		return pageType+"/SaleListManage";
 	}
 	
 	@GetMapping("/PaymentManage")
