@@ -5,10 +5,10 @@ package thedrivers.upbus.domain;
  */
 public class GoodsRequest {
 
-    /*private int goodsRequestCode;*/
+    private String goodsRequestCode;
     private String goodsSellerId;
     private String goodsRequestName;
-    private String goodsCategorySubCode;
+    private String goodsCategorySubName;
     private int goodsRequestPrice;
     private int goodsRequestAmount;
     private String goodsRequestImage;
@@ -16,12 +16,12 @@ public class GoodsRequest {
     private String goodsRequestDate;
     private boolean goodsRequestApproval;
 
-    /*public int getGoodsRequestCode() {
+    public String getGoodsRequestCode() {
         return goodsRequestCode;
     }
-    public void setGoodsRequestCode(int goodsRequestCode) {
+    public void setGoodsRequestCode(String goodsRequestCode) {
         this.goodsRequestCode = goodsRequestCode;
-    }*/
+    }
 
     public String getGoodsSellerId() {
         return goodsSellerId;
@@ -39,12 +39,12 @@ public class GoodsRequest {
         this.goodsRequestName = goodsRequestName;
     }
 
-    public String getGoodsCategorySubCode() {
-        return goodsCategorySubCode;
+    public String getGoodsCategorySubName() {
+        return goodsCategorySubName;
     }
 
-    public void setGoodsCategorySubCode(String goodsCategorySubCode) {
-        this.goodsCategorySubCode = goodsCategorySubCode;
+    public void setGoodsCategorySubName(String goodsCategorySubName) {
+        this.goodsCategorySubName = goodsCategorySubName;
     }
 
     public int getGoodsRequestPrice() {
@@ -98,10 +98,10 @@ public class GoodsRequest {
     @Override
     public String toString() {
         return "GoodsRequest{" +
-                /*"goodsRequestCode='" + goodsRequestCode + '\'' +*/
+                "goodsRequestCode='" + goodsRequestCode + '\'' +
                 ", goodsSellerId='" + goodsSellerId + '\'' +
                 ", goodsRequestName='" + goodsRequestName + '\'' +
-                ", goodsCategorySubCode='" + goodsCategorySubCode + '\'' +
+                ", goodsCategorySubCode='" + goodsCategorySubName + '\'' +
                 ", goodsRequestPrice=" + goodsRequestPrice +
                 ", goodsRequestAmount=" + goodsRequestAmount +
                 ", goodsRequestImage='" + goodsRequestImage + '\'' +

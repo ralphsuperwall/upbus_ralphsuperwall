@@ -31,6 +31,10 @@ public class GoodsService {
         return goodsMapper.getGoodsRequestAmount(memberId);
     }
 
+    public String getGoodsRequestCode() {
+        return goodsMapper.getGoodsRequestCode();
+    }
+
     public List<GoodsCategoryMain> getGoodsCategoryMainList(){
         List<GoodsCategoryMain> goodsCategoryMainList = goodsMapper.getGoodsCategoryMainList();
         return goodsCategoryMainList;

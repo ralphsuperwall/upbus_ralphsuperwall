@@ -36,9 +36,16 @@ public class GoodsController {
         String sellerId = (String) session.getAttribute("SID");*/
 
 		/**
+		 * 고객 위탁 판매 MySell에서 자동으로 상품코드를 부여함
+		 */
+		String goodsRequestCode = goodsService.getGoodsRequestCode();
+
+		/**
 		 * 고객 위탁 판매 MySell에서 고객이 상품 카테고리를 선택할 때 데이터베이스의 상품 카테고리를 불러오는 기능
 		 */
 		List<GoodsCategoryMain> goodsCategoryMainList = goodsService.getGoodsCategoryMainList();
+
+		model.addAttribute("goodsRequestCode", goodsRequestCode);
 		model.addAttribute("goodsCategoryMainList", goodsCategoryMainList);
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "내가 만든 업사이클링 상품 판매 위탁하기");
@@ -49,10 +56,11 @@ public class GoodsController {
 	/**
 	 * 고객 위탁 판매 MySell에서 고객이 상품 내용을 기입하고 신청하는 기능
 	 */
-	@GetMapping("/goodsSellerRequest")
+	@GetMapping("/MySell/goodsSellerRequest")
 	public String goodsRequest(GoodsRequest goodsRequest) {
 		goodsService.goodsRequest(goodsRequest);
-		return "redirect:/MySell";
+		System.out.println(goodsRequest);
+		return "redirect:/user/goods/MySell";
 	}
 
 
@@ -63,8 +71,8 @@ public class GoodsController {
 	@ResponseBody
 	public int amountCheck(@RequestParam("goodsRequestAmount") int goodsRequestAmount,
 						   @RequestParam("goodsSellerId") String memberId) {
-		/* int sellingGoodsAmount = goodsRequestService.getGoodsRequestAmount(memberId);*/
-		int sellingGoodsAmount = 4; //테스트를 위한 임의의 값. 뷰에서 받은 아이디로 검색했을 때 판매중인 상품의 개수가 4개라고 가정
+		/*int sellingGoodsAmount = goodsService.getGoodsRequestAmount(memberId);*/
+		int sellingGoodsAmount = 2;
 		int requestedGoodsAmount = goodsRequestAmount;
 		int checkResult = sellingGoodsAmount + requestedGoodsAmount;
 

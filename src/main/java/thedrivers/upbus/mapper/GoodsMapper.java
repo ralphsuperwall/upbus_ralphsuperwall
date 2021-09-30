@@ -13,6 +13,7 @@ public interface GoodsMapper {
 
     List<GoodsCategoryMain> getGoodsCategoryMainList();
     List<GoodsCategorySub> getGoodsCategorySubList(String goodsMainCategory);
+    String getGoodsRequestCode();
     int goodsRequest(GoodsRequest goodsRequest);
     int getGoodsRequestAmount(String memberId);
 }

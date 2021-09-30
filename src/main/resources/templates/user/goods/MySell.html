@@ -13,7 +13,7 @@
 		<h3 th:text="${h1text}" style = "color: white;"></h3>
 	</div>
 	<div class="card-body" style = "background-color: white; width: 1000px; float: left">
-		<form th:action="@{/goodsSellerRequest}" method="get">
+		<form th:action="@{MySell/goodsSellerRequest}" method="get">
 			<div class="card text-white bg-success ">
 				<div class="card-body">
 					<h5 class="card-title text-white">위탁 판매 주의 사항을 확인해주세요</h5>
@@ -23,10 +23,14 @@
 					<p class="card-text">4. 신청 내용과 다른 내용의 상품이 배송된 경우 수취인 부담 반송처리됩니다.</p>
 				</div>
 			</div>
+			<div style="display: none">
+				<input type="text" class="form-control" th:value="${goodsRequestCode}" name="goodsRequestCode" hidden="hidden">
+			</div>
 			<ol class="breadcrumb">
 				<div>고객님의 아이디는</div>
-				<!--세션에서 받아온 아이디를 readonly로 받아오는 코드 필요-->
-				<input type="text" class="form-control" placeholder="upbus_user" id="goodSellerId" name="goodsSellerId" readonly="readonly">
+				<input type="text" class="form-control" value="upbus_user" id="goodSellerId" name="goodsSellerId" readonly="readonly">
+				<!--로그인 기능 완성 후 연동 예정-->
+				<!--<input type="text" class="form-control" th:value="${session.SID}" id="goodSellerId" name="goodsSellerId" readonly="readonly">-->
 			</ol>
 			<ol class="breadcrumb">
 				<div>상품의 이름을 정해주세요. 부적절한 경우 신청이 접수되지 않을 수 있어요.</div>
@@ -37,30 +41,28 @@
 				<div class="form-group">
 					1. 먼저 큰 분류를 선택해주세요.
 					<select class="form-control" id="goodsMainCategory" onchange="chainedSub(this.value)">
-						<option>큰 분류</option>
+						<option value="">큰 분류</option>
 						<option th:each="list : ${goodsCategoryMainList}" th:value="${list.goodsCategoryMainName}">[[${list.goodsCategoryMainName}]]</option>
 					</select>
 				</div>
 				<div class="form-group">
 					2. 다음 작은 분류를 선택해주세요.
-					<select class="form-control" id="goodsSubCategory">
+					<select class="form-control" id="goodsSubCategory" name="goodsCategorySubName">
 						<option value="">작은 분류</option>
 					</select>
 				</div>
 			</ol>
 			<script>
-				//메인 카테고리가 선택된 후 각각의 메인 카테고리에 맞는 서브 카테고리를 select option에 표시하기
 				var goodsSubCategory = $('#goodsSubCategory');
-				//이 클릭 이벤트는 왜 걸리지 않을까?
+				var goodsMainCategory = $('#goodsMainCategory');
 				goodsSubCategory.click(function () {
-					if ($('#goodsMainCategory').val() == '큰 분류') {
+					if (goodsMainCategory.val() == '') {
 						alert("메인 카테고리를 먼저 선택해주세요.");
-						$('#goodsMainCategory').focus();
+						goodsMainCategory.focus();
 						return;
 					}
 				});
 				function chainedSub(main) {
-					/*goodsSubCategory.empty();*/
 					if(main == ''){
 						goodsSubCategory.append('<option value="">작은 분류</option>');
 					}
@@ -87,11 +89,11 @@
 				}
 			</script>
 
-			<ol class="breadcrumb">
+			<ol class="breadcrumb" style="display: none;">
 				<div>가격을 정할 때 도움을 드리기 위해서 지정된 카테고리의 상품들이 지금 얼마인지 보여드릴게요.</div>
 				<div class="row">
 					<div class="card col-sm-4">
-						<img class="img-fluid card-img-top" src="../static/images/test1.jpg" alt="Card image cap">
+						<img class="img-fluid card-img-top" alt="Card image cap">
 						<div class="card-body">
 							<h5 class="card-title">업체 전문 상품 예시</h5>
 							<p class="card-text">가격 표시 영역</p>
@@ -99,7 +101,7 @@
 						</div>
 					</div>
 					<div class="card col-sm-4">
-						<img class="img-fluid card-img-top" src="../static/images/test2.jpg" alt="Card image cap">
+						<img class="img-fluid card-img-top" alt="Card image cap">
 						<div class="card-body">
 							<h5 class="card-title">판매 위탁 상품 예시 1</h5>
 							<p class="card-text">가격 표시 영역</p>
@@ -107,7 +109,7 @@
 						</div>
 					</div>
 					<div class="card col-sm-4">
-						<img class="img-fluid card-img-top" src="../static/images/test3.jpg" alt="Card image cap">
+						<img class="img-fluid card-img-top" alt="Card image cap">
 						<div class="card-body">
 							<h5 class="card-title">판매 위탁 상품 예시 2</h5>
 							<p class="card-text">가격 표시 영역</p>
@@ -126,16 +128,16 @@
 				<div style>판매하려는 상품의 개수를 적어주세요.</div>
 				<div style="color : red;"> 판매중인 업사이클링 상품을 10개를 초과하여 판매할 수 없어요.</div>
 				<div class="input-group mb-3">
-					<input type="number" class="form-control" placeholder="상품의 개수" id="goodsRequestAmount" name="goodsRequestAmount" aria-label="Recipient's username" aria-describedby="basic-addon2">
+					<input type="number" class="form-control" placeholder="상품의 개수" id="goodsRequestAmount" name="goodsRequestAmount">
 				</div>
 			</ol>
 
 			<script>
-				//회원이 판매중인 상품이 10개가 넘는지 확인하고 비동기식으로 표시하기
 				$(function() {
 					var goodsRequestAmount = $('#goodsRequestAmount');
 					var amountCheckText = $('#amountCheckText');
 					var goodsSellerId = $('#goodSellerId');
+					var goodsRequestSubmit = $('#goodsRequestSubmit')
 					goodsRequestAmount.blur(function () {
 
 						if (goodsRequestAmount.val() == 0) {
@@ -154,12 +156,12 @@
 									//현재 판매 중인 상품의 개수와, 입력한 개수의 합이 10이하인 경우
 									amountCheckText.text("판매할 수 있습니다.");
 									amountCheckText.css("color", "blue");
-									$('#goodsRequestSubmit').attr("disabled", false);
+									goodsRequestSubmit.attr("disabled", false);
 
 								} else if (data > 10) {
 									amountCheckText.text("총 판매 상품이 10개가 초과되므로 판매할 수 없습니다.");
 									amountCheckText.css("color", "red");
-									$('#goodsRequestSubmit').attr("disabled", true);
+									goodsRequestSubmit.attr("disabled", true);
 								}
 
 							},
@@ -171,7 +173,6 @@
 						});
 					});
 				});
-
 			</script>
 
 			<ol class="breadcrumb">
@@ -179,17 +180,19 @@
 				<input type="text" class="form-control" placeholder="상품의 상세 설명" name="goodsRequestDesc"/>
 			</ol>
 			<div class="card-body" style="background: #EFF3F6;">
-				<form action="../assets/plugins/fileupload/js/file-upload.php" class="dropzone dz-clickable">
-					<div class="dz-default dz-message"><span>상품이 어떤 모습인지 보여주세요.
-            사진 파일을 여기에 드래그하세요.</span></div></form>
+				<!--사진 모아 놓는 기능 완성 후 결합 예정-->
+				<!--<form action="../assets/plugins/fileupload/js/file-upload.php" class="dropzone dz-clickable">
+					<div class="dz-default dz-message">--><span>상품이 어떤 모습인지 보여주세요.
+            사진 파일을 여기에 드래그하세요.</span><!--</div></form>-->
 				<div class="text-center m-t-20">
-					<button type="submit" class="btn btn-primary" name="goodsRequestImage">파일 업로드 확인</button>
+					<!--<button type="submit" class="btn btn-primary" name="goodsRequestImage">파일 업로드 확인</button>-->
 				</div>
+				<input type="text" class="form-control" placeholder="사진 업로드 기능 추가 후 삭제" value="" name="goodsRequestImage" style="display: none;"/>
 			</div>
 			<div>
 			</div>
 			<ol class ="row">
-				<button type="submit" class="btn btn-success offset-10" id="goodsRequestSubmit" data-toggle="tooltip" data-original-title="btn btn-success">위탁 신청하기</button>
+				<button type="submit" class="btn btn-success offset-10" id="goodsRequestSubmit" disabled data-toggle="tooltip" data-original-title="btn btn-success">위탁 신청하기</button>
 			</ol>
 		</form>
 </th:block>
