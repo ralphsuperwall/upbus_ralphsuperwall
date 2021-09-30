@@ -14,7 +14,7 @@ public class Member {
 	private String gradeCode;
 	private String memberExp;
 	private String memberStatus;
-	private String memberSmage;
+	private String memberImage;
 	private String classJob;
 	private String memberLogin_history_code;
 	private String memberDivision;
@@ -97,11 +97,11 @@ public class Member {
 	public void setMemberStatus(String memberStatus) {
 		this.memberStatus = memberStatus;
 	}
-	public String getMemberSmage() {
-		return memberSmage;
+	public String getMemberImage() {
+		return memberImage;
 	}
-	public void setMemberSmage(String memberSmage) {
-		this.memberSmage = memberSmage;
+	public void setMemberSmage(String memberImage) {
+		this.memberImage = memberImage;
 	}
 	public String getClassJob() {
 		return classJob;
@@ -127,7 +127,7 @@ public class Member {
 				+ ", memberEmail=" + memberEmail + ", memberGender=" + memberGender + ", memberAddr=" + memberAddr
 				+ ", memberPhone_number=" + memberPhone_number + ", memberBirth=" + memberBirth + ", memberMile="
 				+ memberMile + ", memberSign=" + memberSign + ", gradeCode=" + gradeCode + ", memberExp=" + memberExp
-				+ ", memberStatus=" + memberStatus + ", memberSmage=" + memberSmage + ", classJob=" + classJob
+				+ ", memberStatus=" + memberStatus + ", memberSmage=" + memberImage + ", classJob=" + classJob
 				+ ", memberLogin_history_code=" + memberLogin_history_code + ", memberDivision=" + memberDivision + "]";
 	}
 	
