@@ -9,6 +9,7 @@
 		<result property="mileageUserListType" column="mileage_user_list_type"/>
 		<result property="mileageUserListCancel" column="mileage_user_list_cancel"/>
 	</resultMap>
+	
 	<select id="getMileageUserList" resultMap="mileageUserListResultMap" parameterType="map" fetchSize="100">
 		SELECT
 			mileage_user_list_code,
@@ -19,5 +20,39 @@
 			mileage_user_list_cancel
 		FROM
 			mileage_user_list
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test='memberId != null'>	
+				<!-- <if test='!memberId.equals("")'> -->			
+					member_id = #{memberId}	
+				AND
+				<!-- </if> -->
+			</if>
+			
+			<if test="MType != null">
+				<if test='MType.equals("accumulate")'>				
+					mileage_user_list_type = #{MType}	
+				</if>
+				<if test='MType.equals("use")'>				
+						mileage_user_list_type = #{MType}	
+				</if>
+			</if>
+			
+		</trim>
+		ORDER BY
+		 	mileage_user_list_code desc;
 	</select>
+	
+	<update id="cancelMileageUserList" parameterType="list">
+		UPDATE
+			mileage_user_list
+		SET 
+			mileage_user_list_cancel = 1
+		WHERE
+			mileage_user_list_code IN (
+			<foreach collection="checkedCode" item="i" separator="," index="index">
+				#{i}
+			</foreach>
+			);
+	</update>
+	
 </mapper>
