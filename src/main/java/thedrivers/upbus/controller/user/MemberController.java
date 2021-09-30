@@ -11,18 +11,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import thedrivers.upbus.domain.Member;
+import thedrivers.upbus.service.MemberService;
+
 @RequestMapping("/user/member")
 @Controller
 public class MemberController {
 
 	String pageType = "user/member";
 	
+private final MemberService memberService;
+	
+	public MemberController(MemberService memberService) {
+		this.memberService = memberService;
+	}
+	
 	@GetMapping("/Signup")
-	public String signup(Model model) {		
+	public String Signup(Model model) {		
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "회원 가입");
 		return pageType+"/Signup";
 	}
+	
+	@PostMapping("/Signup")
+	public String Signup(Member member) {
+		System.out.println(member);
+		
+		memberService.Signup(member);
+		
+		return "/mainuser";
+		
+	}
+	
+	
+	
+   @GetMapping(value="/idCheck", produces = "application/json")
+   @ResponseBody                              
+   public Map<String, Object> idCheck(
+         @RequestParam(value="userId", required = false) String memberId
+   ) {
+	  String DBgetID = memberService.getCompareMemberId(memberId);
+	   
+      System.out.println(memberId + "<< memberId");
+      Map<String, Object> map = new HashMap<String, Object>();
+      
+      if(memberId == null || (memberId != null && "".equals(memberId.trim()))){ 
+         map.put("result", -9999);
+      }else if(DBgetID != null && DBgetID.equals(memberId)){
+         map.put("result", 1);
+      }else {
+         map.put("result", 0);
+      }
+      System.out.println(map);
+      
+      return map;
+   } 
 	@GetMapping("/Secession")
 	public String secession(Model model) {		
 		model.addAttribute("title", "UPBUS");
