@@ -56,7 +56,7 @@
 				var goodsSubCategory = $('#goodsSubCategory');
 				var goodsMainCategory = $('#goodsMainCategory');
 				goodsSubCategory.click(function () {
-					if (goodsMainCategory.val() == '') {
+					if ($('#goodsMainCategory').val() == '큰 분류') {
 						alert("메인 카테고리를 먼저 선택해주세요.");
 						goodsMainCategory.focus();
 						return;

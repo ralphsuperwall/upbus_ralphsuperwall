@@ -5,7 +5,7 @@ package thedrivers.upbus.domain;
  */
 public class GoodsRequest {
 
-    private String goodsRequestCode;
+    /*private int goodsRequestCode;*/
     private String goodsSellerId;
     private String goodsRequestName;
     private String goodsCategorySubName;
@@ -16,7 +16,7 @@ public class GoodsRequest {
     private String goodsRequestDate;
     private boolean goodsRequestApproval;
 
-    public String getGoodsRequestCode() {
+    /*public int getGoodsRequestCode() {
         return goodsRequestCode;
     }
     public void setGoodsRequestCode(String goodsRequestCode) {
