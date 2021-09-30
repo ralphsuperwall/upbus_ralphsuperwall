@@ -2,11 +2,15 @@ package thedrivers.upbus.controller.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import thedrivers.upbus.domain.GoodsCategorySub;
 import thedrivers.upbus.domain.GoodsCategoryMain;
 import thedrivers.upbus.domain.GoodsRequest;
 import thedrivers.upbus.service.GoodsService;
+
 import java.util.List;
 
 @Controller
@@ -74,12 +78,6 @@ public class GoodsController {
 
 		return checkResult;
 	}
-	/*@GetMapping("user/goods/MySell/{code}")
-	public String getMySell(@PathVariable(value = "service") String service){
-		if(service.equals(""))
-
-		return "";
-	}*/
 
 	@GetMapping(value = "user/goods/MySell/GetSubCategory", produces = "application/json")
 	@ResponseBody
@@ -87,6 +85,7 @@ public class GoodsController {
 																	 String goodsMainCategory){
 
 		List<GoodsCategorySub> goodsCategorySubList = goodsService.getGoodsCategorySubList(goodsMainCategory);
+		System.out.println(goodsCategorySubList);
 		return goodsCategorySubList;
 	}
 
