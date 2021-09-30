@@ -22,6 +22,14 @@ public class MileageService {
 	public MileageService(MileageMapper mileageMapper) {
 		this.mileageMapper = mileageMapper;
 	}
+	public int cancelMileageUserList(List<String> checkedCode){
+		for(int i = 0 ; i < checkedCode.size() ; i++) {
+			System.out.println("받아온 값 :"+checkedCode.get(i)); 		
+		}
+		int cancelResult = mileageMapper.cancelMileageUserList(checkedCode);
+		return cancelResult;		
+	}
+	
 	public List<MileageUserList> getMileageUserList(){
 		List<MileageUserList> mileageUserList = mileageMapper.getMileageUserList();		
 		mileageUserList = changeField(mileageUserList);			

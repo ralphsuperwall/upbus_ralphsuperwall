@@ -42,4 +42,17 @@
 		 	mileage_user_list_code desc;
 	</select>
 	
+	<update id="cancelMileageUserList" parameterType="list">
+		UPDATE
+			mileage_user_list
+		SET 
+			mileage_user_list_cancel = 1
+		WHERE
+			mileage_user_list_code IN (
+			<foreach collection="checkedCode" item="i" separator="," index="index">
+				#{i}
+			</foreach>
+			);
+	</update>
+	
 </mapper>

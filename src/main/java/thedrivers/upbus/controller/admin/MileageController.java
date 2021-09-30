@@ -50,11 +50,11 @@ public class MileageController {
 	
 	@GetMapping("/ajaxUser")
 	@ResponseBody
-	public List<MileageUserList> ajax(@RequestParam(value = "memberId", required = false) String memberId, 
-									@RequestParam(value = "MType", required = false) String MType, 
-										Model model){
+	public List<MileageUserList> ajaxUser(@RequestParam(value = "memberId", required = false) String memberId, 
+									@RequestParam(value = "MType", required = false) String MType){
 		List<MileageUserList> mileageUserList;
-		
+		System.out.println("memberId : "+memberId);
+		System.out.println("MType : "+MType);
 		//문자열이 공백이면 ""로 변경
 		if(memberId.equals("")) {
 			memberId = null;
@@ -70,6 +70,14 @@ public class MileageController {
 		
 		return mileageUserList;
 		
+	}
+	@GetMapping("/ajaxCancel")
+	@ResponseBody
+	public int ajaxCancel(@RequestParam(value = "checkedCode[]", required = false) List<String> checkedCode) {
+		
+		int cancelResult = mileageService.cancelMileageUserList(checkedCode);
+		System.out.println(cancelResult);
+		return 1;
 	}
 	
 

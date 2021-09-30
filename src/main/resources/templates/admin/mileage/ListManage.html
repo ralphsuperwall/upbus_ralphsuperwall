@@ -9,11 +9,12 @@
 	  
 <!-- contents layout:fragment 정의 -->
 <th:block layout:fragment="customContents">
+	<link rel="stylesheet" th:href="@{/admin/css/mileage/ListManage.css}">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-4">	
 				<!--여기에 전체 회원 또는 사용자 aaaa들어가야함-->
-				<span id="ListIdSpan1" ></span><span id="ListIdSpan2"></span>
+				<span id="ListIdSpan1" ></span><span id="ListIdSpan2">전체 회원</span>
 			</div>
 		</div>		
 		<div class="row">		
@@ -49,7 +50,15 @@
 						<td th:text="${l.mileageUserListAmount}"></td>
 						<td th:text="${l.mileageUserListDate}"></td>
 						<td th:text="${l.mileageUserListType}"></td>
-						<td th:text="${l.mileageUserListCancelName}"></td>
+						
+						<th:block th:if="${l.mileageUserListCancelName.toString().equals('취소 안 됨')}" >
+							<td class="notCanceled" th:text="${l.mileageUserListCancelName}"></td>
+						</th:block>
+						<th:block th:if="${l.mileageUserListCancelName.toString().equals('취소 됨')}" >
+							<td class="canceled" th:text="${l.mileageUserListCancelName}"></td>
+						</th:block>
+							
+						
 					</tr>				
 				</th:block>
 			</tbody>
