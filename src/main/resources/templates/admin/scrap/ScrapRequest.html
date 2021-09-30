@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/admin}">
+	  
+<!-- contents layout:fragment 정의-->
+<th:block layout:fragment="customContents">
+		<h2>업사이클링 재료 매입 관리</h2>
+		<div class="row">
+
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h5>재료 매입 신청서</h5>
+					</div>
+					<div class="card-body">
+						<form id="validation-form123" action="#!" novalidate="novalidate">
+							<input type="hidden" id="scrapSaleRequestCode" name="scrapSaleRequestCode" th:value="${scrapSaleRequestDetailList.scrapSaleRequestCode}">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="exampleInputPassword1">신청자 아이디</label>
+										<input type="text" class="form-control" id="userId" readonly="readonly" th:value="${scrapSaleRequestDetailList.memberId}">
+									</div>
+								</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="exampleInputPassword1">주소</label>
+									<input type="text" class="form-control" id="addr" readonly="readonly" th:value="${scrapSaleRequestDetailList.shippingOutAddr}" >
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="exampleInputPassword1">재료 이름</label>
+									<input type="text" class="form-control" id="scrapname" readonly="readonly"  th:value="${scrapSaleRequestDetailList.upcylingMaterialList.materialName}">
+								</div>
+							</div>
+							<!--   <div class="col-md-6">
+								<div class="form-group">
+									<label for="exampleInputPassword1">상세주소</label>
+									<input type="text" class="form-control" id="addr" readonly="readonly" >
+								</div>
+							</div>-->
+							<div class="col-md-6">
+								<div class="form-group">
+										<label for="exampleInputPassword1">개수</label>
+										<input type="text" class="form-control" id="number" readonly="readonly" th:value="${scrapSaleRequestDetailList.scrapRequestAmount}" >
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="exampleInputPassword1">도착주소</label>
+									<input type="text" class="form-control" id="lastaddr" readonly="readonly" th:value="${scrapSaleRequestDetailList.shippingOutAddr}" >
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="exampleInputPassword1">승인여부</label>
+									<input type="text" class="scrapRequestResultText form-control" readonly="readonly"  th:if="${scrapSaleRequestDetailList.scrapRequestResult eq 1}" value="Y">
+									<input type="text" class="scrapRequestResultText form-control" readonly="readonly"  th:unless="${scrapSaleRequestDetailList.scrapRequestResult eq 1}" value="N">
+									
+								</div>
+							</div>
+							
+					<!-- 	<div class="col-md-6">
+								<div class="form-group">
+									<label class="form-label">사진 업로드</label>
+									<div>
+										<input type="file" class="validation-file" name="imgfile" readonly="readonly" >
+									</div>
+								</div>
+							</div> -->
+							
+						<!--  <div class="col-md-6">
+								<div class="form-group">
+									<label for="exampleInputPassword1">운송장번호</label>
+									<input type="text" class="form-control" id="number" readonly="readonly" >
+								</div>
+							</div>-->
+							<div class="col-md-12" style="text-align: center;">								
+							 	<button th:if="${scrapSaleRequestDetailList.scrapRequestResult eq 1}" th:value="${scrapSaleRequestDetailList.scrapRequestResult}" class="btn btn-danger approval-action" type="button">취소</button>
+								<button th:unless="${scrapSaleRequestDetailList.scrapRequestResult eq 1}" th:value="${scrapSaleRequestDetailList.scrapRequestResult}" class="btn btn-primary approval-action" type="button">승인</button>
+					 			<a th:href="@{/admin/scrap/ListManage}" class="btn btn-success" >목록</a>
+							</div>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		<script type="text/javascript">
+		$(function(){
+			$('.approval-action').click(function(){
+				//this = 버튼
+				var bnt = $(this); 
+				// pk 값
+				var scrapSaleRequestCode = $('#scrapSaleRequestCode').val();
+				//승인버튼
+				var scrapRequestResultTextSpan = $('.scrapRequestResultText');
+				// 승인 버튼 밸류 값을 문자열에서 -> 넘버로 바꿈
+				var scrapRequestResult = Number($(this).val());
+				//상태값 반대로 변경
+				var modifyScrapRequestResult = 0;
+				if(scrapRequestResult == 0){
+					modifyScrapRequestResult = 1;
+				}else{
+					modifyScrapRequestResult = 0;						
+				}
+				
+				var request = $.ajax({
+					url: "/admin/scrap/ScrapRequestApprovalAjax", //요청 url
+					method: "POST", //요청방식
+					data: { scrapSaleRequestCode: scrapSaleRequestCode, scrapRequestResult : modifyScrapRequestResult }, //요청하는 곳에 전달될 데이터
+					dataType: "json" //응답되어 받은 데이터를 parsing 시킬방식
+				});
+				 //반환된 객체에는 done 메서드가 있으며 , 요청과 응답이 정상적으로
+				 //이루어 졌을 경우 해당 메서드가 실행
+				request.done(function( data ) {
+					var result = data.result;
+					//result가 0보다 크면
+					if(result > 0){
+						if(scrapRequestResult == 0){	
+							bnt.addClass('btn-danger').removeClass('btn-primary');
+							//버튼 텍스트 '승인 취소'로 바뀜
+							bnt.text('취소');
+							//버튼 클릭시 밸류 값 1로 바꿈
+							bnt.val(1);
+							//승인여부 값이 Y로 바뀜
+							scrapRequestResultTextSpan.val('Y');
+						}else{
+							bnt.addClass('btn-primary').removeClass('btn-danger');
+							bnt.text('승인');				
+							bnt.val(0);
+							scrapRequestResultTextSpan.val('N');
+						}	
+					}else{
+						if(scrapRequestResult == 0){								
+							alert('승인 변경에 실패 하였습니다.');	
+						}else{
+							alert('승인취소 변경에 실패 하였습니다.');									
+						}								
+					}
+					
+				});
+				 //반환된 객체에는 fail메서드가 있으며
+				 //응답 중 에러가 발생하거나, 데이타 parsing 에러시 해당 메서드가 실행
+				request.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus );
+				});
+			});
+		});
+		</script>
+		</div>
+		
+</th:block>
+
+</html>
