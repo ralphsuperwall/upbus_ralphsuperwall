@@ -39,17 +39,17 @@
 								<th>승인/취소</th>
 							</tr>
 						</thead>
-						<tbody style="font-size: 30px;">
+						<tbody style="font-size: 20px;">
 							<tr th:each="scrapRequestList : ${scrapRequestList}">
 								<td>
-									<a  th:href="@{/admin/scrap/ScrapRequest(scrapSaleRequestCode=${scrapRequestList.scrapSaleRequestCode})}" name="memberId"th:text= "${scrapRequestList.memberId}"></a>
+									<a  th:href="@{/admin/scrap/ScrapRequest(scrapSaleRequestCode=${scrapRequestList.scrapSaleRequestCode})}" th:text= "${scrapRequestList.memberId}"></a>
 								</td>
-								<!-- <td><img  src="#!"name="scrapRequestImg" alt="" class=""></td> -->
-								<td th:text="${scrapRequestList.upcylingMaterialList.materialName}"name="materialName"></td>
-								<td th:text="${scrapRequestList.scrapRequestAmount}"name="scrapRequestAmount"></td>
+								<td><img src="#!" alt="" class=""></td>
+								<td th:text="${scrapRequestList.upcylingMaterialList.materialName}"></td>
+								<td th:text="${scrapRequestList.scrapRequestAmount}"></td>
 								<td><!-- 승인버튼 클릭시 Y 승인취소 클릭시 N -->
-									<span class="scrapRequestResultText" name="scrapRequestResult" th:if="${scrapRequestList.scrapRequestResult eq 1}">Y</span>
-									<span class="scrapRequestResultText" name="scrapRequestResult" th:unless="${scrapRequestList.scrapRequestResult eq 1}">N</span>
+									<span class="scrapRequestResultText" th:if="${scrapRequestList.scrapRequestResult eq 1}">Y</span>
+									<span class="scrapRequestResultText" th:unless="${scrapRequestList.scrapRequestResult eq 1}">N</span>
 								</td>
 								<td><!-- 승인 버튼 클릭시 승인취소로 바뀌고 디비의 승인 여부 값이 1로 바뀌면서 위에 scrapRequestResultText 값이 Y로 바뀐다. 
 										승인 취소버튼 클릭시 승인 버튼으로 바뀌고 디비의 승인 여부 값이 0으로 바뀌면서 위에 scrapRequestResultText 값이 N으로 바귄다 -->
@@ -98,7 +98,6 @@
 						if(result > 0){
 							//scrapRequestResult가 0이랑 같으면
 							if(scrapRequestResult == 0){	
-								//버튼 색상 바꾸기
 								bnt.addClass('btn-danger').removeClass('btn-primary');
 								//버튼 텍스트 '승인 취소'로 바뀜
 								bnt.text('승인 취소');
@@ -108,7 +107,6 @@
 								scrapRequestResultTextSpan.text('Y');
 							//result가 0이면
 							}else{
-								//버튼 색상 바꾸기
 								bnt.addClass('btn-primary').removeClass('btn-danger');
 								//버튼 텍스트 '승인'로 바뀜
 								bnt.text('승인');			
@@ -117,7 +115,6 @@
 								//승인여부 값이 N로 바뀜
 								scrapRequestResultTextSpan.text('N');
 							}	
-						//아니면 실행
 						}else{
 							if(scrapRequestResult == 0){								
 								alert('승인 변경에 실패 하였습니다.');	

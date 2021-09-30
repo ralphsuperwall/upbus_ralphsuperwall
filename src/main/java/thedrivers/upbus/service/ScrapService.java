@@ -19,11 +19,11 @@ public class ScrapService {
 
 	
 	private final ScrapMapper scrapMapper;
-	
+	//매퍼 연결
 	public ScrapService(ScrapMapper scrapMapper) {
 		this.scrapMapper = scrapMapper;
 	}
-	
+	//업사이클링 재료 판매 신청 목록
 	public List<ScrapSaleRequest> getScrapSale(){
 		System.out.println("ListManage 서비스 실행 ");
 
@@ -31,12 +31,12 @@ public class ScrapService {
 		log.info("업사이클링 재료신청서 리스트: {}", scrapSaleRequestList);
 		return	scrapSaleRequestList;
 	}
-	
+	// 업사이클링 재료 판매 신청서 상세페이지 이동시 scrapSaleRequestCode로 값 받아오긴
 	public ScrapSaleRequest getScrapSaleDetail(String scrapSaleRequestCode){
 		ScrapSaleRequest scrapSaleRequestDetailList = scrapMapper.getScrapSaleDetail(scrapSaleRequestCode);
 		return scrapSaleRequestDetailList;
 	}
-	
+	//ajax
 	public int scrapSaleApprovalModify(ScrapSaleRequest scrapSaleRequest) {
 		return scrapMapper.scrapSaleApprovalModify(scrapSaleRequest);
 	}

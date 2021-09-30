@@ -34,7 +34,7 @@ public class ScrapController {
 		model.addAttribute("h1text", "업사이클링 재료 절차 관리");
 		return pageType+"/ProcedureManage";
 	}
-	
+	//업사이클링 재료 판매 신청서 리스트
 	@GetMapping("/ListManage")
 	public String listManage(Model model) {
 		System.out.println("ListManage 컨트롤러 실행 ");
@@ -62,6 +62,8 @@ public class ScrapController {
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text","업사이클링 재료  관리"); 
 		model.addAttribute("scrapSaleRequestDetailList", scrapSaleRequestDetailList); 
+		
+		System.out.println(scrapSaleRequestDetailList);
 		
 		return pageType+"/ScrapRequest"; 
 	}
