@@ -78,7 +78,7 @@
 								</div>
 							</div>-->
 							<div class="col-md-12" style="text-align: center;">								
-							 	<button th:if="${scrapSaleRequestDetailList.scrapRequestResult eq 1}" th:value="${scrapSaleRequestDetailList.scrapRequestResult}" class="btn btn-danger approval-action" type="button">승인 취소</button>
+							 	<button th:if="${scrapSaleRequestDetailList.scrapRequestResult eq 1}" th:value="${scrapSaleRequestDetailList.scrapRequestResult}" class="btn btn-danger approval-action" type="button">취소</button>
 								<button th:unless="${scrapSaleRequestDetailList.scrapRequestResult eq 1}" th:value="${scrapSaleRequestDetailList.scrapRequestResult}" class="btn btn-primary approval-action" type="button">승인</button>
 					 			<a th:href="@{/admin/scrap/ListManage}" class="btn btn-success" >목록</a>
 							</div>
@@ -121,7 +121,7 @@
 						if(scrapRequestResult == 0){	
 							bnt.addClass('btn-danger').removeClass('btn-primary');
 							//버튼 텍스트 '승인 취소'로 바뀜
-							bnt.text('승인 취소');
+							bnt.text('취소');
 							//버튼 클릭시 밸류 값 1로 바꿈
 							bnt.val(1);
 							//승인여부 값이 Y로 바뀜

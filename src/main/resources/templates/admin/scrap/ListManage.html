@@ -55,7 +55,7 @@
 										승인 취소버튼 클릭시 승인 버튼으로 바뀌고 디비의 승인 여부 값이 0으로 바뀌면서 위에 scrapRequestResultText 값이 N으로 바귄다 -->
 																
 									<input type="hidden" class="scrapRequestResult" th:value="${scrapRequestList.scrapRequestResult}">
-								 	<button th:if="${scrapRequestList.scrapRequestResult eq 1}" th:value="${scrapRequestList.scrapSaleRequestCode}" class="btn btn-danger approval-action" type="button">승인 취소</button>
+								 	<button th:if="${scrapRequestList.scrapRequestResult eq 1}" th:value="${scrapRequestList.scrapSaleRequestCode}" class="btn btn-danger approval-action" type="button">취소</button>
 									<button th:unless="${scrapRequestList.scrapRequestResult eq 1}" th:value="${scrapRequestList.scrapSaleRequestCode}" class="btn btn-primary approval-action" type="button">승인</button>
 								</td>
 							</tr>		
@@ -100,7 +100,7 @@
 							if(scrapRequestResult == 0){	
 								bnt.addClass('btn-danger').removeClass('btn-primary');
 								//버튼 텍스트 '승인 취소'로 바뀜
-								bnt.text('승인 취소');
+								bnt.text('취소');
 								//버튼 클릭시 밸류 값 1로 바꿈
 								scrapRequestResultInput.val(1);
 								//승인여부 값이 Y로 바뀜
