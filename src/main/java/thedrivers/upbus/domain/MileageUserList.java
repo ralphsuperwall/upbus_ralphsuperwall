@@ -7,8 +7,8 @@ public class MileageUserList {
 	String mileageUserListAmount;
 	String mileageUserListDate;
 	String mileageUserListType;
-	String mileageUserListCancel;
-	
+	int mileageUserListCancel;
+	String mileageUserListCancelName;
 	public String getMileageUserListCode() {
 		return mileageUserListCode;
 	}
@@ -39,19 +39,27 @@ public class MileageUserList {
 	public void setMileageUserListType(String mileageUserListType) {
 		this.mileageUserListType = mileageUserListType;
 	}
-	public String getMileageUserListCancel() {
+	public int getMileageUserListCancel() {
 		return mileageUserListCancel;
 	}
-	public void setMileageUserListCancel(String mileageUserListCancel) {
+	public void setMileageUserListCancel(int mileageUserListCancel) {
 		this.mileageUserListCancel = mileageUserListCancel;
+	}
+	public String getMileageUserListCancelName() {
+		return mileageUserListCancelName;
+	}
+	public void setMileageUserListCancelName(String mileageUserListCancelName) {
+		this.mileageUserListCancelName = mileageUserListCancelName;
 	}
 	@Override
 	public String toString() {
 		return "MileageUserList [mileageUserListCode=" + mileageUserListCode + ", memberId=" + memberId
 				+ ", mileageUserListAmount=" + mileageUserListAmount + ", mileageUserListDate=" + mileageUserListDate
 				+ ", mileageUserListType=" + mileageUserListType + ", mileageUserListCancel=" + mileageUserListCancel
-				+ "]";
+				+ ", mileageUserListCancelName=" + mileageUserListCancelName + "]";
 	}
+	
+
 	
 	
 }

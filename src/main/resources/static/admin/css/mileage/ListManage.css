@@ -1,0 +1,21 @@
+.container-fluid{
+	margin-top: 10px;
+}
+
+.notCanceled{
+	color: blue;
+}
+.canceled{
+	color: red;
+}
+#ListIdSpan1{
+	color: black;
+	font-size: 18px;
+}
+#ListIdSpan2{
+	color: black;
+	font-size: 18px;
+}
+#errorSpan{
+	color: red;
+}
