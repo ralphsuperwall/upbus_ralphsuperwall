@@ -1,11 +1,9 @@
 package thedrivers.upbus.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,9 +21,6 @@ public class MileageService {
 		this.mileageMapper = mileageMapper;
 	}
 	public int cancelMileageUserList(List<String> checkedCode){
-		for(int i = 0 ; i < checkedCode.size() ; i++) {
-			System.out.println("받아온 값 :"+checkedCode.get(i)); 		
-		}
 		int cancelResult = mileageMapper.cancelMileageUserList(checkedCode);
 		return cancelResult;		
 	}
