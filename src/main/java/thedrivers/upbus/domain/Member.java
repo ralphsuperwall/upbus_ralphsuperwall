@@ -2,7 +2,7 @@ package thedrivers.upbus.domain;
 
 public class Member {
 	private String memberId;
-	private String memberIw;
+	private String memberPw;
 	private String memberName;
 	private String memberEmail;
 	private String memberGender;
@@ -25,11 +25,11 @@ public class Member {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public String getMemberIw() {
-		return memberIw;
+	public String getMemberPw() {
+		return memberPw;
 	}
-	public void setMemberIw(String memberIw) {
-		this.memberIw = memberIw;
+	public void setMemberPw(String memberIw) {
+		this.memberPw = memberIw;
 	}
 	public String getMemberName() {
 		return memberName;
@@ -123,7 +123,7 @@ public class Member {
 	}
 	@Override
 	public String toString() {
-		return "Member [memberId=" + memberId + ", memberIw=" + memberIw + ", memberName=" + memberName
+		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName
 				+ ", memberEmail=" + memberEmail + ", memberGender=" + memberGender + ", memberAddr=" + memberAddr
 				+ ", memberPhone_number=" + memberPhone_number + ", memberBirth=" + memberBirth + ", memberMile="
 				+ memberMile + ", memberSign=" + memberSign + ", gradeCode=" + gradeCode + ", memberExp=" + memberExp
