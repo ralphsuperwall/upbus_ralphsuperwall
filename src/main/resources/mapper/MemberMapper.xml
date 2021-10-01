@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thedrivers.upbus.mapper.MemberMapper">
+
+	<resultMap type="Member" id="memberResultMap">
+		<result property="memberId" 			column="member_id"/>
+		<result property="memberPw" 			column="member_pw"/>
+		<result property="memberName" 			column="member_name"/>
+		<result property="memberEmail" 			column="member_email"/>
+		<result property="memberGender" 		column="member_gender"/>
+		<result property="memberAddr" 			column="member_addr"/>
+		<result property="memberPhone_number" 	column="member_phone_number"/>
+		<result property="memberBirth" 			column="member_birth"/>
+		<result property="memberMile" 			column="member_mile"/>
+		<result property="memberSign" 			column="member_sign"/>
+		<result property="gradeCode" 			column="grade_code"/>
+		<result property="memberExp" 			column="member_exp"/>
+		<result property="memberStatus" 		column="member_status"/>
+		<result property="memberImage" 			column="member_image"/>
+		<result property="classStudentDivision" 			column="class_student_division"/>
+		<result property="classTeacherDivision" 			column="class_teacher_division"/>
+		<result property="memberLogin_history_code" 	column="member_login_history_code"/>
+		<result property="memberDivision" 		column="member_division"/>
+		<!-- collection 복잡한 맵핑 has many 관계 -->
+	</resultMap>
+	
+	
+	<insert id="Signup" parameterType="Member">
+		INSERT INTO member
+		(   member_id
+		   ,member_pw
+		   ,member_name
+		   ,member_email
+		   ,member_gender
+		   ,member_addr
+		   ,member_phone_number
+		   ,member_birth
+		   ,member_sign
+		) VALUES (
+		    #{memberId}
+		   ,#{memberPw}
+		   ,#{memberName}
+		   ,#{memberEmail}
+		   ,#{memberGender}
+		   ,#{memberAddr}
+		   ,#{memberPhone_number}
+		   ,#{memberBirth}
+		   , CURDATE()
+		);	
+	</insert>
+	
+	<select id="getMemberList" resultType="Member">
+		SELECT 
+			member_id, 
+			member_name, 
+			member_email, 
+			member_gender, 
+			member_addr, 
+			member_phone_number, 
+			member_birth, 
+			member_mile, 
+			member_sign, 
+			grade_code, 
+			member_exp, 
+			member_status, 
+			class_student_division, 
+			class_teacher_division, 
+			member_division
+		FROM 
+			member order by member_sign ASC;
+	</select>
+	<select id="getCompareMemberId" resultType="String">
+		SELECT 
+			member_id
+		FROM 
+			member
+		WHERE
+			member_id = #{memberId}
+	</select>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thedrivers.upbus.mapper.ScrapMapper">
+	<!-- 업사이클링 재료 판매 신청서 리절트 맵  -->
+	<resultMap type="ScrapSaleRequest" id="scrapSaleRequestList">
+		<result property="memberId" 			column="member_id" />
+     	<result property="scrapSaleRequestCode" column="scrap_sale_request_code" />
+     	<result property="scrapRequestAmount" 	column="scrap_request_amount" />
+        <result property="scrapRequestResult"	column="scrap_request_result" />
+        <result property="shippingOutAddr" 		column="shipping_out_addr" />
+        <result property="shippingInAddr" 		column="shipping_in_addr" />
+        <result property="logisticsName" 		column="logistics_name" />
+        <result property="logisticsNumber" 		column="logistics_number" />
+        <association property="upcylingMaterialList" javaType="UpcylingMaterialList">
+        	<id property="upcylingMaterialListCode" 	column="upcyling_material_list_code"/>
+        	<result property="scrapCategoryNumber" 		column="scrap_category_number" />
+        	<result property="materialName" 			column="material_name" />
+        </association>
+	</resultMap>
+	<!-- 업사이클링 재료 판매 신청서 쿼리문 -->
+	<select id="getScrapSale" resultMap="scrapSaleRequestList">
+		SELECT 
+			 member_id			
+			,scrap_sale_request_code				
+			,scrap_request_amount				
+			,scrap_request_result				
+			,shipping_out_addr					
+			,shipping_in_addr					
+			,logistics_name	
+			,logistics_number
+			,material_name				
+		FROM
+			scrap_sale_request AS s
+			INNER join
+			upcyling_material_list AS u
+			on
+			s.upcyling_material_list_code = u.upcyling_material_list_code
+	</select>
+	
+	<select id="getScrapSaleDetail" resultMap="scrapSaleRequestList" parameterType="String">
+		SELECT  	
+			 member_id
+			,scrap_sale_request_code
+			,scrap_request_amount
+			,scrap_request_result
+			,shipping_out_addr
+			,shipping_in_addr
+			,logistics_name
+			,logistics_number
+			,material_name
+		FROM
+			scrap_sale_request AS s
+			INNER join
+			upcyling_material_list AS u
+			on
+			s.upcyling_material_list_code = u.upcyling_material_list_code
+		WHERE 
+			scrap_sale_request_code = #{scrapSaleRequestCode}
+	</select>
+	
+		
+	<update id="scrapSaleApprovalModify" parameterType="ScrapSaleRequest">
+		UPDATE scrap_sale_request 
+		SET
+			scrap_request_result = #{scrapRequestResult}
+		WHERE
+			scrap_sale_request_code = #{scrapSaleRequestCode}	
+	</update>
+</mapper>
+
+
+
+
+
