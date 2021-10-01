@@ -1,14 +1,9 @@
 package thedrivers.upbus.controller.admin;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import thedrivers.upbus.domain.Member;
-import thedrivers.upbus.service.MemberService;
 
 @RequestMapping("/admin/member")
 @Controller
@@ -16,18 +11,10 @@ public class MemberController {
 	
 	String pageType = "admin/member";
 	
-	private final MemberService memberService;
-	
-	public MemberController(MemberService memberService) {
-		this.memberService = memberService;
-	}
 	@GetMapping("/List")
-	public String List(Model model) {
+	public String list(Model model) {
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "전체 회원 목록");
-		List<Member> memberList = memberService.getMemberList();
-		
-		model.addAttribute("memberList", memberList);
 		return pageType+"/List";
 	}
 	

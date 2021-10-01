@@ -24,6 +24,7 @@ public class CustomBeanNameGenerator implements BeanNameGenerator {
 	@Override
 	public String generateBeanName(final BeanDefinition definition, final BeanDefinitionRegistry registry) {
 		// 파라미터의 definition에는 bean을 만드려는 Class<?> 외 metadata정보를 가지고 옵니다.
+		// registry는 딱히 활용할일이 없어 자세한 정보는 모르겠습니다.
 	
 	
 	
