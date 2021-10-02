@@ -22,7 +22,12 @@ public class MemberService {
 		
 		return memberMapper.Signup(member);
 	}
-	
+	public int modify(Member member) {
+		return memberMapper.modify(member);
+	}
+	public Member getMemberInfobyId(String memberId) {
+		return memberMapper.getMemberInfoById(memberId);
+	}
 	// 2.조건없이 전체회원조회
 	public List<Member> getMemberList(){
 		List<Member> memberList = memberMapper.getMemberList();
@@ -34,6 +39,21 @@ public class MemberService {
 		String mId = memberMapper.getCompareMemberId(memberId);
 		return mId;
 		
+	}
+	// 4. 회원탈퇴 로직
+	public String memberDelete(String memberId, String memberPw) {
+		String result = "회원삭제 실패";
+			
+		//입력받은 값 memberId 비밀번호 일치여부
+		Member member = memberMapper.getMemberInfoById(memberId);
+		if(member != null) {
+			if(memberPw.equals(member.getMemberPw())) {
+				//삭제 프로세스
+				memberMapper.memberDelete(memberId);
+				result = "회원삭제 성공";
+			}
+		}
+		return result;
 	}
 
 }

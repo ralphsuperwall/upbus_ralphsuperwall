@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/user}">
+	  
+<!-- contents layout:fragment 정의 -->
+<th:block layout:fragment="userCustomContents">
+<th:block layout:fragment="customContents">
+	
+	<!--  user 폴더 하위 member 하위 의  login CSS 파일 가져옴 -->
+	<link th:href="@{/user/css/member/Login.css}" type="text/css" rel="stylesheet">
+
+	<!-- container top 여백을 주기위한 용도 start-->
+	<div class="container-fluid row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="login_container_top_blank"></div>
+	</div>
+	<!-- container top 여백을 주기위한 용도 end-->
+	
+	<!-- 그리드 시스템 ( container-fluid row )를 적용한 login_container start -->
+	<div class="container-fluid row" id="login_container" >
+		<!-- container-fluid row 의 왼쪽 여백 start -->
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="blank"></div>
+		<!-- container-fluid row 의 왼쪽 여백 end -->
+		
+		<!-- 가운데 정렬할 section_login_wrap start -->
+		<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" id="section_login_wrap">
+		
+			<!-- upbus_head start -->
+			<div id="upbus_head">
+				<!-- inner_head start -->
+				<div class="inner_head">
+					<!-- UPBUSLOGO image 경로 + 크기 지정 -->
+					<img src="/img/logo/UPBUSLOGO.png" id="UPBUSLOGO">
+				</div>
+				<!-- inner_head end -->
+			</div>
+			<!-- upbus_head end	 -->
+			
+		
+			<!-- session_login start -->
+			<div class="session_login">
+				<!-- 로그인 입력 form start -->
+					<form class="form-horizontal"  th:action = "@{/user/member/login}" method="post" >
+					<!-- 회원 아이디  -->
+					<div class="form-group">
+					  <label for="memberIdLabel" class="col-sm-2 control-label">회원아이디</label>
+					  <div class="col-sm-10">
+					    <input type="text" class="form-control" name="memberId">
+					  </div>
+					</div>
+					
+					<!-- 회원 비밀번호  -->
+					<div class="form-group">
+					  <label for="memberPwLabel" class="col-sm-2 control-label">회원비밀번호</label>
+					  <div class="col-sm-10">
+					    <input type="password" class="form-control" name="memberPw">
+					  </div>
+					</div>
+			
+					<!-- 회원 로그인 버튼 -->
+					<div class="form-group">
+					  <div class="col-sm-12">
+					    <button type="submit" class="btn login-btn"> 로그인 </button>
+					  </div>
+					</div>
+					 
+					<!-- 아이디찾기, 비밀번호찾기, 회원가입 링크 활성화 -->  
+			  		<div class="col-sm-12 login_rel">
+			  			<div id="idSearch">
+			  				<a href="#"> 아이디 찾기 </a>
+			  				<span class="txt_bar"> | </span>
+			  				<a href="#"> 비밀번호 찾기 </a>
+			  				<span class="txt_bar"> | </span>
+			  				<a href="#"> 회원 가입 </a>
+			  			</div>
+					</div>
+					
+					<!-- copyright -->
+					<div class="col-sm-12 copyright">
+						<small>
+							Copyrights © 2021 ksmart.or.kr
+						</small>
+					</div>
+				</form>
+				<!-- 로그인 입력 form end -->
+			</div>
+			<!-- session_login end -->
+		</div>
+		<!-- 가운데 정렬할 section_login_wrap end -->
+		
+		<!-- container-fluid row 의 오른쪽 여백 start -->
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="blank"></div>
+		<!-- container-fluid row 의 왼쪽 여백 end -->
+	</div>
+	<!-- 그리드 시스템 ( container-fluid row )를 적용한 login_container end -->
+	
+	<!-- container bottom 여백을 주기위한 용도 start-->
+	<div class="container-fluid row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="login_container_bottom_blank"></div>
+	</div>
+	<!-- container bottom 여백을 주기위한 용도 end-->
+	
+</th:block>
+
+</html>
