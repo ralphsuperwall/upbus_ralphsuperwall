@@ -27,16 +27,16 @@
 				<th>등급코드</th>
 				<th>회원경험치</th>
 				<th>회원상태</th>
-				<th>클래스직책</th>
-				<th>클래스직책</th>
-				<th>회원권한</th>
+				<th>클래스학생구분</th>
+				<th>클래스선생님구분</th>
+				<th>회원구분</th>
 				<th>수정</th>
 				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
-			<th:block th:if="${#lists.size(memberList) > 0}" >			
-				<tr th:each="l : ${memberList}">
+			<th:block th:if="${#lists.size(memberList) > 0}" th:each="l : ${memberList}">			
+				<tr>
 					<td th:text="${l.memberId}"></td>
 					<td th:text="${l.memberName}"></td>
 					<td th:text="${l.memberEmail}"></td>
@@ -54,11 +54,11 @@
 					<td th:text="${l.memberDivision}"></td>
 					<td>
 						<!-- /medifyMember?memberId=id001 -->
-						<a th:href="@{/modifyMember(memberId=${l.memberId})}">수정</a>
+						<a>수정</a>
 					</td>
 					<td>
 						<!-- /removeMember?memberId=id001 -->
-						<a th:href="@{/removeMember(memberId=${l.memberId})}">삭제</a>
+						<a>삭제</a>
 					</td>
 				</tr>
 			</th:block>
@@ -67,23 +67,24 @@
 			</tr>
 		</tbody>
 	</table>
+	
 	<div class="row" style="text-align: center;">
-                            <div class="col-sm-12 col-md-7">
-                               <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                              <ul class="pagination">
-                                 <li class="paginate_button page-item previous disabled" id="example1_previous">
-                                    <a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
-                                 </li>
-                                     <li class="paginate_button page-item active">
-                                        <a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                                     </li>
-                                     <li class="paginate_button page-item next" id="example1_next">
-                                        <a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">다음</a>
-                                     </li>
-                                  </ul>
-                               </div>
-                            </div>
-                     </div>
+		<div class="col-sm-12 col-md-7">
+			<div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+				<ul class="pagination">
+					<li class="paginate_button page-item previous disabled" id="example1_previous">
+						<a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
+					</li>
+					<li class="paginate_button page-item active">
+						<a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+					</li>
+					<li class="paginate_button page-item next" id="example1_next">
+						<a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">다음</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 	
 </th:block>
 

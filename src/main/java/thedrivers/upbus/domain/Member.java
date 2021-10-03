@@ -15,10 +15,10 @@ public class Member {
 	private String memberExp;
 	private String memberStatus;
 	private String memberImage;
-	private String classJob;
+	private String classStudentDivision;
+	private String classTeacherDivision;
 	private String memberLogin_history_code;
 	private String memberDivision;
-	
 	public String getMemberId() {
 		return memberId;
 	}
@@ -28,8 +28,8 @@ public class Member {
 	public String getMemberPw() {
 		return memberPw;
 	}
-	public void setMemberPw(String memberIw) {
-		this.memberPw = memberIw;
+	public void setMemberPw(String memberPw) {
+		this.memberPw = memberPw;
 	}
 	public String getMemberName() {
 		return memberName;
@@ -100,14 +100,20 @@ public class Member {
 	public String getMemberImage() {
 		return memberImage;
 	}
-	public void setMemberSmage(String memberImage) {
+	public void setMemberImage(String memberImage) {
 		this.memberImage = memberImage;
 	}
-	public String getClassJob() {
-		return classJob;
+	public String getClassStudentDivision() {
+		return classStudentDivision;
 	}
-	public void setClassJob(String classJob) {
-		this.classJob = classJob;
+	public void setClassStudentDivision(String classStudentDivision) {
+		this.classStudentDivision = classStudentDivision;
+	}
+	public String getClassTeacherDivision() {
+		return classTeacherDivision;
+	}
+	public void setClassTeacherDivision(String classTeacherDivision) {
+		this.classTeacherDivision = classTeacherDivision;
 	}
 	public String getMemberLogin_history_code() {
 		return memberLogin_history_code;
@@ -127,9 +133,12 @@ public class Member {
 				+ ", memberEmail=" + memberEmail + ", memberGender=" + memberGender + ", memberAddr=" + memberAddr
 				+ ", memberPhone_number=" + memberPhone_number + ", memberBirth=" + memberBirth + ", memberMile="
 				+ memberMile + ", memberSign=" + memberSign + ", gradeCode=" + gradeCode + ", memberExp=" + memberExp
-				+ ", memberStatus=" + memberStatus + ", memberSmage=" + memberImage + ", classJob=" + classJob
+				+ ", memberStatus=" + memberStatus + ", memberImage=" + memberImage + ", classStudentDivision="
+				+ classStudentDivision + ", classTeacherDivision=" + classTeacherDivision
 				+ ", memberLogin_history_code=" + memberLogin_history_code + ", memberDivision=" + memberDivision + "]";
 	}
+	
+	
 	
 
 	
