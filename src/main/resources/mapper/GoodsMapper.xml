@@ -76,6 +76,44 @@
             goods_request_approval=1;
     </select>
 
+	<!--goods_inventory 개인위탁판매 재고 리절트 맵  -->
+	<resultMap type="GoodsInventory" id="goodsInvnetoryList">
+		<result property="goodsInventoryCode" 				column="goods_inventory_code" />
+     	<!-- <result property="goodsRequestCode"	 				column="goods_request_code" />
+     	<result property="goodsCategoryCode" 				column="goods_category_code" />-->
+        <result property="goodsName"						column="goods_name" /> 
+        <result property="goodsInventoryStatus" 			column="goods_inventory_status" />
+        <result property="goodsInventoryStatusCheck" 		column="goods_inventory_status_check" />
+        <result property="goodsInventoryPrimaryDate" 		column="goods_inventory_primary_date" />
+        <result property="goodsInventoryPrimaryIncharge" 	column="goods_inventory_primary_incharge" />
+        <result property="goodsStatus" 						column="goods_status" />
+        <result property="goodsInventoryLastCheckDate" 		column="goods_inventory_last_check_date" />
+        <result property="goodsInventoryLastCheckIncharge" 	column="goods_inventory_last_check_incharge" />
+        <result property="goodsImage" 						column="goods_image" />
+        <result property="goodsPrice" 						column="goods_price" />
+        <result property="goodsSalesStatus" 				column="goods_sales_status" />
+        
+    
+	</resultMap>
+	<!-- 개인위탁판매 리스트 쿼리문 -->
+	<select id="getGoodsInventory" resultMap="goodsInvnetoryList">
+		SELECT 
+			 goods_inventory_code			
+			,goods_name				
+			,goods_inventory_status				
+			,goods_inventory_status_check				
+			,goods_inventory_primary_date					
+			,goods_inventory_primary_incharge					
+			,goods_status	
+			,goods_inventory_last_check_date
+			,goods_inventory_last_check_incharge				
+			,goods_image				
+			,goods_price				
+			,goods_sales_status				
+		FROM
+			goods_inventory
+	</select>
+
     <select id="getGoodsRequestCode" resultType="String">
         SELECT
             CASE

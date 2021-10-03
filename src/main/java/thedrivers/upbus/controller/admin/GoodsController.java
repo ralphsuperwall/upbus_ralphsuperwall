@@ -1,5 +1,7 @@
 package thedrivers.upbus.controller.admin;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +14,18 @@ import thedrivers.upbus.service.GoodsService;
 import java.util.List;
 import java.util.Map;
 
+import thedrivers.upbus.domain.GoodsInventory;
+import thedrivers.upbus.service.GoodsService;
+
 @RequestMapping("/admin/goods")
 @Controller
 public class GoodsController {
+	
+	private final GoodsService goodsService;
+	
+	public GoodsController(GoodsService goodsService) {
+		this.goodsService = goodsService;
+	}
 	
 	String pageType = "admin/goods";
 
@@ -23,7 +34,6 @@ public class GoodsController {
 	public GoodsController(GoodsService goodsService) {
 		this.goodsService = goodsService;
 	}
-
 
 	/**
 	 * 현재 승인 대기 중인 위탁 판매 상품의 리스트를 확인하고 승인, 재고 등록, 승인 거절 처리를 하는 기능

@@ -5,24 +5,24 @@
 <mapper namespace="thedrivers.upbus.mapper.MemberMapper">
 
 	<resultMap type="Member" id="memberResultMap">
-		<result property="memberId" 			column="member_id"/>
-		<result property="memberPw" 			column="member_pw"/>
-		<result property="memberName" 			column="member_name"/>
-		<result property="memberEmail" 			column="member_email"/>
-		<result property="memberGender" 		column="member_gender"/>
-		<result property="memberAddr" 			column="member_addr"/>
-		<result property="memberPhone_number" 	column="member_phone_number"/>
-		<result property="memberBirth" 			column="member_birth"/>
-		<result property="memberMile" 			column="member_mile"/>
-		<result property="memberSign" 			column="member_sign"/>
-		<result property="gradeCode" 			column="grade_code"/>
-		<result property="memberExp" 			column="member_exp"/>
-		<result property="memberStatus" 		column="member_status"/>
-		<result property="memberImage" 			column="member_image"/>
+		<result property="memberId" 						column="member_id"/>
+		<result property="memberPw" 						column="member_pw"/>
+		<result property="memberName" 						column="member_name"/>
+		<result property="memberEmail" 						column="member_email"/>
+		<result property="memberGender" 					column="member_gender"/>
+		<result property="memberAddr" 						column="member_addr"/>
+		<result property="memberPhone_number" 				column="member_phone_number"/>
+		<result property="memberBirth" 						column="member_birth"/>
+		<result property="memberMile" 						column="member_mile"/>
+		<result property="memberSign" 						column="member_sign"/>
+		<result property="gradeCode" 						column="grade_code"/>
+		<result property="memberExp" 						column="member_exp"/>
+		<result property="memberStatus" 					column="member_status"/>
+		<result property="memberImage" 						column="member_image"/>
 		<result property="classStudentDivision" 			column="class_student_division"/>
 		<result property="classTeacherDivision" 			column="class_teacher_division"/>
-		<result property="memberLogin_history_code" 	column="member_login_history_code"/>
-		<result property="memberDivision" 		column="member_division"/>
+		<result property="memberLogin_history_code" 		column="member_login_history_code"/>
+		<result property="memberDivision" 					column="member_division"/>
 		<!-- collection 복잡한 맵핑 has many 관계 -->
 	</resultMap>
 	
@@ -51,7 +51,7 @@
 		);	
 	</insert>
 	
-	<select id="getMemberList" resultType="Member">
+	<select id="getMemberList" resultMap="memberResultMap">
 		SELECT 
 			member_id, 
 			member_name, 
@@ -71,6 +71,7 @@
 		FROM 
 			member order by member_sign ASC;
 	</select>
+	
 	<select id="getCompareMemberId" resultType="String">
 		SELECT 
 			member_id
