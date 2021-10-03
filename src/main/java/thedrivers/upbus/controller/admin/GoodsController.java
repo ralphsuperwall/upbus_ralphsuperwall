@@ -21,12 +21,7 @@ import thedrivers.upbus.service.GoodsService;
 @Controller
 public class GoodsController {
 	
-	private final GoodsService goodsService;
-	
-	public GoodsController(GoodsService goodsService) {
-		this.goodsService = goodsService;
-	}
-	
+
 	String pageType = "admin/goods";
 
 	private final GoodsService goodsService;
