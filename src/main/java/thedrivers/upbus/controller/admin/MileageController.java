@@ -1,8 +1,6 @@
 package thedrivers.upbus.controller.admin;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,15 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import thedrivers.upbus.domain.MileageUserList;
 import thedrivers.upbus.service.MileageService;
+import thedrivers.upbus.domain.MileageUserList;
 
 @RequestMapping("/admin/mileage")
 @Controller
 public class MileageController {
 	
 	String pageType = "admin/mileage";
-	
 	private final MileageService mileageService;
 	
 	public MileageController(MileageService mileageService) {
@@ -33,13 +30,7 @@ public class MileageController {
 		return pageType+"/Statistics";
 	}
 	@GetMapping("/ListManage")
-	public String list(@RequestParam(name="searchKey", required = false) String searchKey
-			   ,@RequestParam(name="searchValue", required = false) String searchValue
-			   ,Model model) {
-		
-		Map<String, Object> paramMap= new HashMap<String, Object>();
-		paramMap.put("searchKey", searchKey);
-		paramMap.put("searchValue", searchValue);
+	public String list(Model model) {
 		
 		List<MileageUserList> mileageUserList = mileageService.getMileageUserList();
 		model.addAttribute("title", "UPBUS");
@@ -56,7 +47,7 @@ public class MileageController {
 		System.out.println("memberId : "+memberId);
 		System.out.println("MType : "+MType);
 		//문자열이 공백이면 ""로 변경
-		if(memberId.equals("")) {
+		if(memberId.trim().equals("")) {
 			memberId = null;
 		}		
 		System.out.println("아이디" + memberId);
@@ -66,17 +57,16 @@ public class MileageController {
 		} else {
 			mileageUserList = mileageService.getMileageUserList(memberId ,MType);
 		}
-		System.out.println(mileageUserList);
 		
 		return mileageUserList;
 		
 	}
+	
 	@GetMapping("/ajaxCancel")
 	@ResponseBody
 	public int ajaxCancel(@RequestParam(value = "checkedCode[]", required = false) List<String> checkedCode) {
 		
-		int cancelResult = mileageService.cancelMileageUserList(checkedCode);
-		System.out.println(cancelResult);
+		mileageService.cancelMileageUserList(checkedCode);
 		return 1;
 	}
 	

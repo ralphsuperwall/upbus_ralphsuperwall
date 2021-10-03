@@ -2,15 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="@{layout/admin}">
-	  	  
-<!-- 커스텀 타이틀 지정 -->
-<th:block layout:fragment="customTitle">
-	<title th:text="${title}"></title>
-</th:block>
 	  
 <!-- contents layout:fragment 정의 -->
 <th:block layout:fragment="customContents">
-	
+	<h2>업사이클링 재료 재고 관리</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>재료 재고 코드</th>
+				<th>재료 재고 코드</th>
+				<th>재료 재고 코드</th>
+				<th>재고여부</th>
+				<th>실재고</th>
+				<th>최초 재고 등록일자</th>
+				<th>최초등록자</th>
+				<th>상태</th>
+				<th>최종 재고 확인일자</th>
+				<th>최종 재고 확인자</th>
+				<th>사진</th>
+				<th>판매가</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
 	
 </th:block>
 

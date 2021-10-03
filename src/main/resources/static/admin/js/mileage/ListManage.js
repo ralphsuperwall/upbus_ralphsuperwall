@@ -67,35 +67,27 @@
 				$(".modal-footer").prepend('<span id="cancelSpan" style="color: red " id="alertSpan">취소 체크를 해야 합니다</span>');
 				
 			} else{
-				$("#alertSpan").remove();
-				$.ajax({
-					type : 'get',
-					url : 'ajaxCancel',
-					data : param,
-					dataType : "json",
-					success : function(data) {
-							console.log("통신 성공");	
-							alert("변경 완료");
-							location.href = location.href;
-					},
-					error : function(error) {
-						alert("통신 오류");				          
-					}
-				});
+				ajaxCancelRequest();
+				function ajaxCancelRequest(){
+					$("#alertSpan").remove();
+					$.ajax({
+						type : 'get',
+						url : 'ajaxCancel',
+						data : param,
+						dataType : "json",
+						success : function(data) {
+								console.log("통신 성공");	
+								alert("변경 완료");
+								location.href = location.href;
+						},
+						error : function(error) {
+							alert("통신 오류");				          
+						}
+					});
+				}
+				
 			}
 			
-			/*
-			for(var i=0; i<$('.memberInfoTr').length; i++){
-				console.log($('.memberInfoTr').length);
-				console.log($('.memberInfoTr').children().eq(0).text());
-				console.log($('.memberInfoTr td').last().children("input"));
-			}
-			*/
-			/*
-			for(var i = 0 ; i < $(".memberInfoTr").length ; i++){
-				console.log($(".memberInfoTr"));
-			}
-			*/
 		});
 		//엔터 눌렀을때 검색
 		$("#requestIdInfoInput").on("keyup",function(key){
@@ -120,19 +112,24 @@
 		//검색버튼을 누를시
 		$("#requestIdInfoBtn").click(function(){
 			var inputText = $("#requestIdInfoInput").val();
+			//검색 유효성 검사
+			if(inputText == "" || inputText == null){
+				$("#errorDiv").prepend('<span id="errorSpan">아이디를 입력해주세요<span>');
+			} else{
+				$("#errorSpan").remove();
+				$("#ListIdSpan1").text(inputText);
+				$("#ListIdSpan2").text("");
+				$("#ListIdSpan2").text("님의 검색 정보");
+				//체크하기
+				$('#allType').prop('checked',true);
+				//console.log(requestIdInfoInput.text);
+				ajaxCheckRequest();
+			}
 			
-			console.log(inputText);
-			$("#ListIdSpan1").text(inputText);
-			$("#ListIdSpan2").text("");
-			$("#ListIdSpan2").text("님의 검색 정보");
-			//체크하기
-			$('#allType').prop('checked',true);
-			//console.log(requestIdInfoInput.text);
-			ajaxCheckRequest();
 		});
 		//아이디 초기화 버튼을 누를시
 		$("#requestResetIdBtn").click(function(){
-			
+			$("#errorSpan").remove();
 			$("#ListIdSpan1").text("");
 			$("#ListIdSpan2").text("");
 			$("#ListIdSpan2").text("전체 회원");

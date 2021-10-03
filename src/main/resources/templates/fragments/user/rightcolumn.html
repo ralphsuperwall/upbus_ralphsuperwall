@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 			<div id="rightcolumn" class="col-md-3" th:fragment="userRightcolunmFragment">
 				<div id="profile" class="row">
 					<div id="profile-container" class="container-fluid">
@@ -21,6 +22,7 @@
    	                  <div class="row">
 	                     <a th:unless="${session.SID == null }" th:href="@{/user/member/MemberDeleteWarning}">회원 탈퇴</a>
                		   </div>   		
+
 					</div>
 				</div>
 				<div class="row">

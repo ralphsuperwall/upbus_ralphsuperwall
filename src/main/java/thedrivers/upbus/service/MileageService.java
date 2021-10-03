@@ -1,7 +1,6 @@
 package thedrivers.upbus.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +18,11 @@ public class MileageService {
 	
 	private final MileageMapper mileageMapper;
 	
+	@Autowired
 	public MileageService(MileageMapper mileageMapper) {
 		this.mileageMapper = mileageMapper;
 	}
 	public int cancelMileageUserList(List<String> checkedCode){
-		for(int i = 0 ; i < checkedCode.size() ; i++) {
-			System.out.println("받아온 값 :"+checkedCode.get(i)); 		
-		}
 		int cancelResult = mileageMapper.cancelMileageUserList(checkedCode);
 		return cancelResult;		
 	}

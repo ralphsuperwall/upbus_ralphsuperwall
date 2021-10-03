@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="thedrivers.upbus.mapper.GoodsMapper">
+
+    <resultMap id="goodsCategoryMain" type="GoodsCategoryMain">
+        <result property="goodsCategoryMainCode" column="goods_category_main_code"></result>
+        <result property="goodsCategoryMainName" column="goods_category_main_name"></result>
+    </resultMap>
+
+    <resultMap id="goodsCategorySub" type="GoodsCategorySub">
+        <result property="goodsCategorySubCode"	column="goods_category_sub_code"></result>
+        <result property="goodsCategorySubName"	column="goods_category_sub_name"></result>
+    </resultMap>
+
+    <resultMap id="goodsRequest" type="GoodsRequest">
+        <result property="goodsRequestCode" column="goods_request_code"></result>
+        <result property="goodsSellerId" column="member_id"></result>
+        <result property="goodsRequestName" column="goods_request_name"></result>
+        <result property="goodsCategorySubName" column="goods_category_sub_name"></result>
+        <result property="goodsRequestPrice" column="goods_request_price"></result>
+        <result property="goodsRequestAmount" column="goods_request_amount"></result>
+        <result property="goodsRequestImage" column="goods_request_image"></result>
+        <result property="goodsRequestDesc" column="goods_request_desc"></result>
+        <result property="goodsRequestDate" column="goods_request_date"></result>
+    </resultMap>
+
+    <update id="firstApproval" parameterType="String">
+        UPDATE
+            goods_request
+        SET
+            goods_request_approval=1
+        where
+            goods_request_code=#{goodsRequestCode};
+    </update>
+
+    <delete id="firstDisapproval" parameterType="String">
+        DELETE
+        FROM
+            goods_request
+        WHERE
+            goods_request_code=#{goodsRequestCode};
+    </delete>
+
+    <select id="getGoodsRequest0" resultMap="goodsRequest">
+        SELECT
+            goods_request_code,
+            member_id,
+            goods_request_name,
+            goods_category_sub_name,
+            goods_request_price,
+            goods_request_amount,
+            goods_request_image,
+            goods_request_desc,
+            goods_request_date
+        FROM
+            goods_request
+        WHERE
+            goods_request_approval=0;
+    </select>
+
+    <select id="getGoodsRequest1" resultMap="goodsRequest">
+        SELECT
+            goods_request_code,
+            member_id,
+            goods_request_name,
+            goods_category_sub_name,
+            goods_request_price,
+            goods_request_amount,
+            goods_request_image,
+            goods_request_desc,
+            goods_request_date
+        FROM
+            goods_request
+        WHERE
+            goods_request_approval=1;
+    </select>
+
+	<!--goods_inventory 개인위탁판매 재고 리절트 맵  -->
+	<resultMap type="GoodsInventory" id="goodsInvnetoryList">
+		<result property="goodsInventoryCode" 				column="goods_inventory_code" />
+     	<!-- <result property="goodsRequestCode"	 				column="goods_request_code" />
+     	<result property="goodsCategoryCode" 				column="goods_category_code" />-->
+        <result property="goodsName"						column="goods_name" /> 
+        <result property="goodsInventoryStatus" 			column="goods_inventory_status" />
+        <result property="goodsInventoryStatusCheck" 		column="goods_inventory_status_check" />
+        <result property="goodsInventoryPrimaryDate" 		column="goods_inventory_primary_date" />
+        <result property="goodsInventoryPrimaryIncharge" 	column="goods_inventory_primary_incharge" />
+        <result property="goodsStatus" 						column="goods_status" />
+        <result property="goodsInventoryLastCheckDate" 		column="goods_inventory_last_check_date" />
+        <result property="goodsInventoryLastCheckIncharge" 	column="goods_inventory_last_check_incharge" />
+        <result property="goodsImage" 						column="goods_image" />
+        <result property="goodsPrice" 						column="goods_price" />
+        <result property="goodsSalesStatus" 				column="goods_sales_status" />
+        
+    
+	</resultMap>
+	<!-- 개인위탁판매 리스트 쿼리문 -->
+	<select id="getGoodsInventory" resultMap="goodsInvnetoryList">
+		SELECT 
+			 goods_inventory_code			
+			,goods_name				
+			,goods_inventory_status				
+			,goods_inventory_status_check				
+			,goods_inventory_primary_date					
+			,goods_inventory_primary_incharge					
+			,goods_status	
+			,goods_inventory_last_check_date
+			,goods_inventory_last_check_incharge				
+			,goods_image				
+			,goods_price				
+			,goods_sales_status				
+		FROM
+			goods_inventory
+	</select>
+
+    <select id="getGoodsRequestCode" resultType="String">
+        SELECT
+            CASE
+                WHEN COUNT(1) = 0 THEN 'g001'
+            ELSE
+                CONCAT('g', LPAD(MAX(CAST(SUBSTRING(goods_request_code,2,3)AS DECIMAL)+1),3,0))
+            END AS goods_request_code
+            FROM
+                goods_request;
+    </select>
+
+    <select id="getGoodsCategoryMainList" resultMap="goodsCategoryMain">
+        SELECT
+            goods_category_main_name
+        FROM
+             goods_category_main;
+    </select>
+
+    <select id="getGoodsCategorySubList" resultMap="goodsCategorySub">
+        SELECT
+            goods_category_sub_name
+        FROM
+            goods_category_sub as sub
+        INNER JOIN
+            goods_category_main as main
+        ON
+            sub.goods_category_main_code = main.goods_category_main_code
+        WHERE
+            main.goods_category_main_name=#{goodsMainCategory};
+    </select>
+
+    <select id="getGoodsRequestAmount" parameterType="String" resultType="int">
+        SELECT
+            COUNT(req.member_id)
+        FROM
+            goods_inventory as inv
+        INNER JOIN
+            goods_request as req
+        ON
+            inv.goods_request_code = req.goods_request_code
+        WHERE
+              req.member_id=#{memberId};
+    </select>
+
+    <insert id="goodsRequest" parameterType="GoodsRequest">
+        INSERT INTO goods_request
+        (goods_request_code,
+         member_id,
+         goods_request_name,
+         goods_category_sub_name,
+         goods_request_price,
+         goods_request_amount,
+         goods_request_image,
+         goods_request_desc,
+         goods_request_date,
+         goods_request_approval
+        )VALUES (
+        #{goodsRequestCode},
+        #{goodsSellerId},
+        #{goodsRequestName},
+        #{goodsCategorySubName},
+        #{goodsRequestPrice},
+        #{goodsRequestAmount},
+        #{goodsRequestImage},
+        #{goodsRequestDesc},
+        CURDATE(),
+        0
+        );
+    </insert>
+
+</mapper>
