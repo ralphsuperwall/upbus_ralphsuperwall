@@ -51,6 +51,51 @@
 		);	
 	</insert>
 	
+	<update id="modify" parameterType="Member">
+		UPDATE member
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="memberPw != null and memberPw != ''.toString()">
+				member_pw = #{memberPw},
+			</if>
+			<if test="memberName != null and memberName != ''.toString()">
+				member_name = #{memberName},
+			</if>
+			<if test="memberEmail != null and memberEmail != ''.toString()">
+				member_email = #{memberEmail},
+			</if>
+			<if test="memberAddr != null and memberAddr != ''.toString()">
+				member_addr = #{memberAddr},
+			</if>
+			<if test="memberPhone_number != null and memberPhone_number != ''.toString()">
+				member_phone_number = #{memberPhone_number},
+			</if>
+			<if test="memberBirth != null and memberBirth != ''.toString()">
+				member_birth = #{memberBirth},
+			</if>
+			<if test="memberImage != null and memberImage != ''.toString()">
+				member_image = #{memberImage},
+			</if>
+		</trim>
+		WHERE
+			member_id=#{memberId}
+	</update>
+	
+	<select id="getMemberInfoById" parameterType="String" resultType="Member">
+		SELECT 
+			  member_id					AS memberId
+			, member_pw					AS memberPw
+			, member_name				AS memberName
+			, member_email				AS memberEmail
+			, member_addr				AS memberAddr
+			, member_phone_number		AS memberPhone_number
+			, member_birth				AS memberBirth
+			, member_image				AS memberImage
+		FROM 
+			member
+		WHERE
+			member_id = #{memberId};
+	</select>
+	
 	<select id="getMemberList" resultMap="memberResultMap">
 		SELECT 
 			member_id, 
@@ -80,4 +125,12 @@
 		WHERE
 			member_id = #{memberId}
 	</select>
+	
+	<delete id="memberDelete" parameterType="String">
+		DELETE
+		FROM 
+			member
+		WHERE
+			member_id = #{memberId};
+	</delete>
 </mapper>

@@ -18,4 +18,13 @@ public interface MemberMapper {
 	
 	//ajax
 	public String getCompareMemberId(String memberId);
+	
+	//회원 정보 수정
+	public int modify(Member member);
+	
+	//회원 정보 조회
+	public Member getMemberInfoById(String memberId);
+	
+	//회원삭제
+	public int memberDelete(String memberId);
 }
