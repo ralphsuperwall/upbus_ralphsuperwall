@@ -9,10 +9,15 @@
 
 <th:block layout:fragment="userCustomContents">
 
-	<div class="card-header" style = "background-color: cornflowerblue; width: 1000px; margin-top: 30px; float: left">
-		<h3 th:text="${h1text}" style = "color: white;"></h3>
+	<div class="card prod-p-card bg-c-blue card-body" style="margin-bottom: 10px;">
+		<div class="row align-items-center">
+			<div class="col">
+				<h3 th:text="${h1text}" class="m-b-0 text-white"></h3>
+				<p class="m-b-0 text-white">내가 만든 업사이클링 상품을 편리하게 판매하기<p>
+			</div>
+		</div>
 	</div>
-	<div class="card-body" style = "background-color: white; width: 1000px; float: left">
+	<div class="card-body" style = "background-color: white;">
 		<form th:action="@{MySell/goodsSellerRequest}" method="get">
 			<div class="card text-white bg-success ">
 				<div class="card-body">

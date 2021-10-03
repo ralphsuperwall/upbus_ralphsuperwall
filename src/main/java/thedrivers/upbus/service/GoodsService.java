@@ -10,6 +10,7 @@ import thedrivers.upbus.domain.GoodsRequest;
 import thedrivers.upbus.mapper.GoodsMapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -33,6 +34,26 @@ public class GoodsService {
 
     public String getGoodsRequestCode() {
         return goodsMapper.getGoodsRequestCode();
+    }
+
+    public int firstApproval(String goodsRequestCode){
+        //승인 처리와 관련된 고객 안내 로직 필요
+        return goodsMapper.firstApproval(goodsRequestCode);
+    }
+
+    public int firstDisapproval(String goodsRequestCode){
+        //거절 처리와 관련된 고객 안내 로직 필요
+        return goodsMapper.firstDisapproval(goodsRequestCode);
+    }
+
+
+    public List<GoodsRequest> getGoodsRequest0() {
+        List<GoodsRequest> totalGoodRequests = goodsMapper.getGoodsRequest0();
+        return totalGoodRequests;
+    }
+    public List<GoodsRequest> getGoodsRequest1() {
+        List<GoodsRequest> totalGoodRequests = goodsMapper.getGoodsRequest1();
+        return totalGoodRequests;
     }
 
     public List<GoodsCategoryMain> getGoodsCategoryMainList(){
