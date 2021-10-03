@@ -13,7 +13,12 @@ public class MainController {
 	@GetMapping("/")
 	public String main(Model model) {
 		model.addAttribute("title", "UPBUS :: 새활용버스");
-		model.addAttribute("h1text", "업사이클링 이커머스 플랫폼");
 		return "main";
+	}
+
+	@GetMapping("/user")
+	public String mainuser(Model model) {
+		model.addAttribute("title", "UPBUS :: 새활용버스");
+		return "mainuser";
 	}
 }

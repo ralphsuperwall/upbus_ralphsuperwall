@@ -4,14 +4,78 @@
 <mapper namespace="thedrivers.upbus.mapper.GoodsMapper">
 
     <resultMap id="goodsCategoryMain" type="GoodsCategoryMain">
-        <result property="goodsCategoryMainCode"		column="goods_category_main_code"></result>
-        <result property="goodsCategoryMainName"		column="goods_category_main_name"></result>
+        <result property="goodsCategoryMainCode" column="goods_category_main_code"></result>
+        <result property="goodsCategoryMainName" column="goods_category_main_name"></result>
     </resultMap>
 
     <resultMap id="goodsCategorySub" type="GoodsCategorySub">
-        <result property="goodsCategorySubCode"		column="goods_category_sub_code"></result>
-        <result property="goodsCategorySubName"		column="goods_category_sub_name"></result>
+        <result property="goodsCategorySubCode"	column="goods_category_sub_code"></result>
+        <result property="goodsCategorySubName"	column="goods_category_sub_name"></result>
     </resultMap>
+
+    <resultMap id="goodsRequest" type="GoodsRequest">
+        <result property="goodsRequestCode" column="goods_request_code"></result>
+        <result property="goodsSellerId" column="member_id"></result>
+        <result property="goodsRequestName" column="goods_request_name"></result>
+        <result property="goodsCategorySubName" column="goods_category_sub_name"></result>
+        <result property="goodsRequestPrice" column="goods_request_price"></result>
+        <result property="goodsRequestAmount" column="goods_request_amount"></result>
+        <result property="goodsRequestImage" column="goods_request_image"></result>
+        <result property="goodsRequestDesc" column="goods_request_desc"></result>
+        <result property="goodsRequestDate" column="goods_request_date"></result>
+    </resultMap>
+
+    <update id="firstApproval" parameterType="String">
+        UPDATE
+            goods_request
+        SET
+            goods_request_approval=1
+        where
+            goods_request_code=#{goodsRequestCode};
+    </update>
+
+    <delete id="firstDisapproval" parameterType="String">
+        DELETE
+        FROM
+            goods_request
+        WHERE
+            goods_request_code=#{goodsRequestCode};
+    </delete>
+
+    <select id="getGoodsRequest0" resultMap="goodsRequest">
+        SELECT
+            goods_request_code,
+            member_id,
+            goods_request_name,
+            goods_category_sub_name,
+            goods_request_price,
+            goods_request_amount,
+            goods_request_image,
+            goods_request_desc,
+            goods_request_date
+        FROM
+            goods_request
+        WHERE
+            goods_request_approval=0;
+    </select>
+
+    <select id="getGoodsRequest1" resultMap="goodsRequest">
+        SELECT
+            goods_request_code,
+            member_id,
+            goods_request_name,
+            goods_category_sub_name,
+            goods_request_price,
+            goods_request_amount,
+            goods_request_image,
+            goods_request_desc,
+            goods_request_date
+        FROM
+            goods_request
+        WHERE
+            goods_request_approval=1;
+    </select>
+
 	<!--goods_inventory 개인위탁판매 재고 리절트 맵  -->
 	<resultMap type="GoodsInventory" id="goodsInvnetoryList">
 		<result property="goodsInventoryCode" 				column="goods_inventory_code" />
@@ -49,6 +113,7 @@
 		FROM
 			goods_inventory
 	</select>
+
     <select id="getGoodsRequestCode" resultType="String">
         SELECT
             CASE
@@ -115,7 +180,7 @@
         #{goodsRequestImage},
         #{goodsRequestDesc},
         CURDATE(),
-        false
+        0
         );
     </insert>
 

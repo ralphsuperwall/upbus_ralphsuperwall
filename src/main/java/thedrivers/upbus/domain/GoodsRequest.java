@@ -14,7 +14,7 @@ public class GoodsRequest {
     private String goodsRequestImage;
     private String goodsRequestDesc;
     private String goodsRequestDate;
-    private boolean goodsRequestApproval;
+    private int goodsRequestApproval;
 
     public String getGoodsRequestCode() {
         return goodsRequestCode;
@@ -87,11 +87,11 @@ public class GoodsRequest {
         this.goodsRequestDate = goodsRequestDate;
     }
 
-    public boolean getGoodsRequestApproval() {
+    public int getGoodsRequestApproval() {
         return goodsRequestApproval;
     }
 
-    public void setGoodsRequestApproval(boolean goodsRequestApproval) {
+    public void setGoodsRequestApproval(int goodsRequestApproval) {
         this.goodsRequestApproval = goodsRequestApproval;
     }
 
