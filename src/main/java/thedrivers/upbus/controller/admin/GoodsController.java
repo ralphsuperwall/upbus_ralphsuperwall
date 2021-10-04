@@ -34,7 +34,7 @@ public class GoodsController {
 	 * 현재 승인 대기 중인 위탁 판매 상품의 리스트를 확인하고 승인, 재고 등록, 승인 거절 처리를 하는 기능
 	 */
 	@GetMapping("/MemberSellManage")
-	public String getMemberList(Model model){
+	public String getGoodsRequestList(Model model){
 
 		//비즈니스 계층 호출
 		List<GoodsRequest> goodsRequestList0 = goodsService.getGoodsRequest0();
