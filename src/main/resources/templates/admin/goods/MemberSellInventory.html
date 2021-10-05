@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="@{layout/admin}">
+
+<th:block layout:fragment="customTitle">
+    <title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customContents">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>개인 위탁 판매 재고 리스트</h5>
+            </div>
+            <div class="card-body table-border-style">
+                <div class="table-responsive">
+                    <table class="table table-striped" style="font-size: 10px;">
+                        <thead>
+                        <tr>
+                            <th>개인위탁판매코드</th>
+                            <th>개인위탁판매신청코드</th>
+                            <th>상품소분류코드</th>
+                            <th>상품명</th>
+                            <th>재고상황</th>
+                            <th>실재고확인</th>
+                            <th>최초재고등록일자</th>
+                            <th>최초재고등록자</th>
+                            <th>정상파손상태</th>
+                            <th>최종재고확인일자</th>
+                            <th>최종재고확인자</th>
+                            <th>상품이미지경로</th>
+                            <th>판매가</th>
+                            <th>판매상태</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="goodsInventoryList : ${goodsInventoryList}">
+                            <td th:text="${goodsInventoryList.goodsInventoryCode}"></td>
+                            <td>개인위탁판매신청코드</td>
+                            <td>상품소분류코드</td>
+                            <td th:text="${goodsInventoryList.goodsName}"></td>
+                            <td th:text="${goodsInventoryList.goodsInventoryStatus}"></td>
+                            <td th:text="${goodsInventoryList.goodsInventoryStatusCheck}"></td>
+                            <td th:text="${goodsInventoryList.goodsInventoryPrimaryDate}"></td>
+                            <td th:text="${goodsInventoryList.goodsInventoryPrimaryIncharge}"></td>
+                            <td th:text="${goodsInventoryList.goodsStatus}"></td>
+                            <td th:text="${goodsInventoryList.goodsInventoryLastCheckDate}"></td>
+                            <td th:text="${goodsInventoryList.goodsInventoryLastCheckIncharge}"></td>
+                            <td th:text="${goodsInventoryList.goodsImage}"></td>
+                            <td th:text="${goodsInventoryList.goodsPrice}"></td>
+                            <td th:text="${goodsInventoryList.goodsSalesStatus}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</th:block>
