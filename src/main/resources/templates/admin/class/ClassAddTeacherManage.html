@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/admin}">
+	  
+
+	  
+<!-- 커스텀 타이틀 지정 -->
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+	</th:block>
+	
+<!-- contents layout:fragment 정의 -->
+
+
+<th:block layout:fragment="customContents">
+	<!-- style 속성 지정 start -->
+	<style>
+		.table td {
+		    text-align: center;
+		    vertical-align: middle;
+		}
+	</style>
+	<!-- style 속성 지정 end -->
+
+		<div class="card prod-p-card bg-c-green card-body">
+		<div class="row align-items-center">
+			<div class="col">
+				<h3 class="m-b-0 text-white">클래스 강사 신청 관리 시스템</h3>
+				<h5 class="m-b-0 text-white">UPCYCLING BUS : CLASS TEACHER SIGNUP MANAGEMENT </h5>
+			</div>
+		</div>
+	</div>
+	
+		<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<h4>주의사항</h4>
+				<span class="d-block m-t-5"> (1) 관리자는 신청한 클래스 강사의 서류를 열어 확인을 하고 문제 없는 지 확인하는 단계를 거칩니다. </span>
+				<span class="d-block m-t-5"> (2) 관리자는 신청한 클래스 강사의 전화번호와 이메일을 확인하여 맞는 지 확인하는 단계를 거칩니다. </span>
+				<span class="d-block m-t-5"> (3) 관리자는 클래스 기간에 대하여 겹치는 일정이 있는 지 확인하고 없으면 승인하는 단게를 거칩니다.  </span>
+				<span class="d-block m-t-5"> (4) 관리자는 모든 서류 확인 과정과 승인 과정을 거치면 최종적으로 클래스 강사 신청을 승인하도록 합니다  </span>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+						<tr>
+							<th>클래스강사신청코드</th>
+							<th>클래스강사신청자아이디</th>
+							<th>클래스강사이름</th>
+							<th>클래스강사이메일</th>
+							<th>클래스강사소속</th>
+							<th>클래스강사전화번호</th>
+							<th>클래스강사신청서파일</th>
+							<th>클래스강사이력서파일</th>
+							<th>클래스강사일정표파일</th>
+							<th>클래스강사신청일자</th>
+							<th>클래스기간승인유무</th>
+							<th>클래스기간승인일자</th>
+							<th>클래스강사신청승인유무</th>
+							<th>클래스강사신청승인일자</th>
+						</tr>
+						</thead>
+							<tbody>
+								<th:block th:if="${#lists.size(classAddTeacherList) > 0}" th:each="l : ${classAddTeacherList}">			
+									<tr>
+										<td th:text="${l.classTeacherSignupCode}" class="classTeacherSignupCode"></td>
+										<td th:text="${l.memberId}"></td>
+										<td th:text="${l.classTeacherName}"></td>
+										<td th:text="${l.classTeacherEmail}"></td>
+										<td th:text="${l.classTeacherTeam}"></td>
+										<td th:text="${l.classTeacherPhoneMumber}"></td>
+										<td th:text="${l.classTeacherSignupFile}"></td>
+										<td th:text="${l.classTeacherResumFile}"></td>
+										<td th:text="${l.classTeacherScheduleFile}"></td>
+										<td th:text="${l.classTeacherSignupDatetime}"></td>
+										<!-- 승인 유무가 0일 경우에는 승인 버튼을 누르면 1로 바꾸도록 해야한다. -->
+										<td>
+											<button th:if="${l.classTermApproveCheck eq 0}" th:value="${l.classTermApproveCheck}" class="btn btn-info Term-approval-action" type="button">승인</button>
+											<button th:if="${l.classTermApproveCheck eq 1}" th:value="${l.classTermApproveCheck}" class="btn btn-danger Term-approval-action" type="button">취소</button>
+										</td>
+										<!-- 승인 버튼이 눌러주면 승인 버튼을 눌렀을 때 갑을 변경하도록 한다. -->
+										<td th:if="${l.classTermApproveDatetime eq null}"> X </td>
+										<td th:unless="${l.classTermApproveDatetime eq null}" th:text="${l.classTermApproveDatetime}">O</td>
+										<!-- 승인 유무가 0일 경우에는 승인 버튼을 누르면 1로 바꾸도록 해야한다 -->
+										<td>
+											<button th:if="${l.classTeacherSignupApproveCheck eq 0}" th:value="${l.classTeacherSignupApproveCheck}" class="btn btn-info Final-approval-action" type="button">승인</button>
+											<button th:if="${l.classTeacherSignupApproveCheck eq 1}" th:value="${l.classTeacherSignupApproveCheck}" class="btn btn-danger Final-approval-action" type="button">취소</button>
+										</td>
+										<!-- 승인 버튼이 눌러주면 승인 버튼을 눌렀을 때 갑을 변경하도록 한다. -->
+										<td th:if="${l.classTermApproveDatetime eq null}"> X </td>
+										<td th:unless="${l.classTermApproveDatetime eq null}" th:text="${l.classTermApproveDatetime}">O</td>
+									</tr>
+								</th:block>
+								<tr	th:unless="${#lists.size(classAddTeacherList) > 0}">
+									<td colspan="13">조회된 데이터가 없습니다</td>
+								</tr>
+							</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- javascript start -->
+	<script type="text/javascript">
+		$('.Term-approval-action').click(function(){
+			var bnt = $(this);
+			var TermApproveCheckValue = Number($(this).val());
+			
+			// 상태값을 반대로 설정한다.
+			var ModifyTermApproveCheck = 0;
+			if( TermApproveCheckValue == 0 ){
+				ModifyTermApproveCheck = 1;
+			}else{
+				ModifyTermApproveCheck = 0;
+			}
+			
+			//＊＊＊＊＊＊＊＊＊＊＊ 버튼을 누를 때 해당 행의 코드의 텍스트를 가져오도록 해야 한다. ＊＊＊＊＊＊＊＊＊＊ //
+			var codeList = document.getElementsByClassName('classTeacherSignupCode');
+			for(var i=0; i < codeList.length; i++){
+				var codeListText = codeList[i].textContent;
+				alert(codeListText + "나오는 지 안 나오는 지 테스트 하기");
+			}
+			
+			
+			/* // AJAX 를 사용한다.
+			var request = $.ajax({
+				url: "/admin/class/TermApproveCheckAjax", //요청 url
+				method: "POST", //요청방식
+				data: { classTeacherSignupCode: classTeacherSignupCode, scrapRequestResult : ModifyTermApproveCheck }, //요청하는 곳에 전달될 데이터
+				dataType: "json" //응답되어 받은 데이터를 parsing 시킬방식
+			}); */
+		})
+	
+	</script>
+	
+	
+	<!-- javascript end -->
+</th:block>
+
+</html>
