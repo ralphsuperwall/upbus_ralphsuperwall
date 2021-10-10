@@ -5,19 +5,11 @@
 					<div id="profile-container" class="container-fluid">
 						<div class="row" style="display: flex; align-items: center">
 							<div id="profile-icon" style="font-size:50px;"  class="col-md-2 glyphicon glyphicon-user"></div>
-							<div class="col-md-10">
-								<!-- begin member session login state -->
-		                        <div th:unless="${session.SID ==    null}" style="text-align:right;">
-		                           <label> ID : [[${session.SID}]] | [[${session.SNAME}]] 님이 로그인 중. </label>
-		                        </div>
-		                        <!-- end member session login state -->
-							</div>
+							<div class="col-md-10">업버스 님 안녕하세요</div>
 						</div>
 						<div class="row">
 						<button class="btn btn-default col-md-9">내 프로필</button>
-	                     <a th:if="${session.SID == null }" th:href="@{/user/member/login}">로그인</a>
-	                     <a th:unless="${session.SID == null }" th:href="@{/user/member/logout}">로그아웃</a>
-						</div>
+						</div>			
 					</div>
 				</div>
 				<div class="row">

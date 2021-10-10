@@ -4,8 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="thedrivers.upbus.mapper.ClassMapper">
-	<!-- 1. 클래스 강사 신청 데이터 추가 SQL (USER) -->
-	<insert id="classAddTeacher" parameterType="String">
+	<!-- 1. 클래스 강사 신청 데이터 추가 SQL -->
+	<insert id="ClassAddTeacher" parameterType="String">
 		INSERT INTO class_teacher_signup
 		( class_teacher_signup_code 			
 		, class_teacher_email				
@@ -19,38 +19,16 @@
 		, class_teacher_signup_datetime	
 		) 
 		VALUES
-		(	(SELECT common_sf_nextval('class_teacher_signup_') FROM DUAL )
-		,	#{classTechaerEmail}
-		,	#{classTeacherName} 
-		,	#{classTeacherPhoneNumber} 
+		(	(SELECT sf_nextval('class_teacher_signup_') FROM DUAL )
+		,	#{class_techaer_email}
+		,	#{class_teacher_name} 
+		,	#{class_teacher_phone_number} 
 		,	#{sessionID}
-		,	#{classTeacherTeam} 
-		,	#{classTeacherSignupFile} 
-		,	#{classTeacherScheduleFile} 
-		,	#{classTeacherResumFile} 
+		,	#{class_teacher_team} 
+		,	#{class_teacher_signup_file} 
+		,	#{class_teacher_schedule_file} 
+		,	#{class_teacher_resum_file} 
 		,	CURDATE()
 		);
 	</insert>
-	
-	<!-- 2. 클래스 강사 데이터 조회하여 리스트로 반환하는 SQL 문 (ADMIN) -->
-	<select id="getClassAddTeacherList" resultType="ClassAddTeacherList">
-		SELECT 
-			class_teacher_signup_code					AS  classTeacherSignupCode
-		,	class_teacher_name							AS	classTeacherName
-		,	class_teacher_email							AS	classTeacherEmail
-		,	class_teacher_team							AS	classTeacherTeam
-		,	class_teacher_phone_number					AS	classTeacherPhoneMumber
-		,	class_teacher_signup_file					AS	classTeacherSignupFile
-		,	class_teacher_resum_file					AS	classTeacherResumFile
-		,	class_teacher_schedule_file					AS	classTeacherScheduleFile
-		,	class_teacher_signup_datetime				AS	classTeacherSignupDatetime
-		,	class_term_approve_check					AS  classTermApproveCheck
-		,	class_term_approve_datetime					AS	classTermApproveDatetime
-		,	class_teacher_signup_approve_check			AS	classTeacherSignupApproveCheck
-		,	class_teacher_signup_approve_datetime		AS	classTeacherSignupApproveDatetime
-		,	member_id									AS	memberId
-		FROM 
-			class_teacher_signup;
-	</select>
-	
 </mapper>

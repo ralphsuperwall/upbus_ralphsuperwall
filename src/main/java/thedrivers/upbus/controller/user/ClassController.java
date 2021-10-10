@@ -41,27 +41,27 @@ public class ClassController {
 	 * 2.클래스 강사 신청 페이지에서 버튼을 클릭할 시에 데이터가 들어오고 이를 처리해주는 서비스를 호출하는 메소드*
 	 **************************************************************************/
 	@PostMapping("/ClassAddTeacher")
-	public String classAddTeacher( HttpSession session
-								 , @RequestParam(name = "class_techaer_email", required = false) 			String classTechaerEmail
-								 , @RequestParam(name = "class_teacher_name", required = false) 			String classTeacherName
-								 , @RequestParam(name = "class_teacher_team", required = false) 			String classTeacherTeam
-								 , @RequestParam(name = "class_teacher_phone_number", required = false)		String classTeacherPhoneNumber
-								 , @RequestParam(name = "class_teacher_signup_file", required = false) 		String classTeacherSignupFile
-								 , @RequestParam(name = "class_teacher_schedule_file", required = false) 	String classTeacherScheduleFile
-								 , @RequestParam(name = "class_teacher_resum_file", required = false) 		String classTeacherResumFile) throws Exception {
+	public String ClassAddTeacher( HttpSession session
+								 , @RequestParam(name = "class_techaer_email", required = false) 			String class_techaer_email
+								 , @RequestParam(name = "class_teacher_name", required = false) 			String class_teacher_name
+								 , @RequestParam(name = "class_teacher_team", required = false) 			String class_teacher_team
+								 , @RequestParam(name = "class_teacher_phone_number", required = false)		String class_teacher_phone_number
+								 , @RequestParam(name = "class_teacher_signup_file", required = false) 		String class_teacher_signup_file
+								 , @RequestParam(name = "class_teacher_schedule_file", required = false) 	String class_teacher_schedule_file
+								 , @RequestParam(name = "class_teacher_resum_file", required = false) 		String class_teacher_resum_file) throws Exception {
 		
 		// HttpSession 객체의 메소드의 getAttribute 메소드를 이용해 가져온다.
 		String sessionID = (String) session.getAttribute("SID");
 
 		// 데이터를 입력받은 그대로 서비스를 호출할 떄 매개변수 값으로 넣어주도록 한다.
-		classService.classAddTeacher( sessionID
-									, classTechaerEmail
-									, classTeacherName
-									, classTeacherTeam
-									, classTeacherPhoneNumber
-									, classTeacherSignupFile
-									, classTeacherScheduleFile
-									, classTeacherResumFile);
+		classService.ClassAddTeacher( sessionID
+									, class_techaer_email
+									, class_teacher_name
+									, class_teacher_team
+									, class_teacher_phone_number
+									, class_teacher_signup_file
+									, class_teacher_schedule_file
+									, class_teacher_resum_file);
 
 		return "user/class/ClassAddTeacherList";
 	}
