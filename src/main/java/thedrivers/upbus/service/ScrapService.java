@@ -51,10 +51,28 @@ public class ScrapService {
 	}
 	// 업사이클링 재료 판매 신청서 승인 버튼 ajax
 	public int scrapSaleApprovalModify(ScrapSaleRequest scrapSaleRequest) {
-		return scrapMapper.scrapSaleApprovalModify(scrapSaleRequest);
+		int result = 0;
+		int scrapSaleRequestResult = 0;
+		
+		//신청서 승인 업데이트
+		result += scrapMapper.scrapSaleApprovalModify(scrapSaleRequest);
+		scrapSaleRequestResult = scrapSaleRequest.getScrapRequestResult();
+		
+		//신청서 승인 시 매입관리 입고
+		if(result > 0 && scrapSaleRequestResult > 0) {
+			ScrapSale scrapSale = new ScrapSale();
+			scrapSale.setScrapRequestCode(scrapSaleRequest.getScrapRequestCode());
+			scrapSale.setScrapStatusAmount(scrapSaleRequest.getScrapRequestAmount());
+			result += scrapMapper.scrapSaleInsert(scrapSale);
+		}
+		return result;
 	}
 	// 업사이클링 매입 확정 버튼 ajax
 	public int scrapSaleAmountApprovalModify(ScrapSale scrapSale) {
 		return scrapMapper.scrapSaleAmountApprovalModify(scrapSale);
 	}
-	}
+	
+
+	
+	
+}

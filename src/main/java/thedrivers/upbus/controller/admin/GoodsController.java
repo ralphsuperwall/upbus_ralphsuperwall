@@ -82,4 +82,12 @@ public class GoodsController {
 		model.addAttribute("h1text", "위탁 판매 상품 결제 관리");
 		return pageType+"/MemberPaymentManage";
 	}
+	@GetMapping("/MemberSellInventory")
+	public String MemberSellInventory(Model model) {
+		List<GoodsInventory> goodsInventoryList = goodsService.getGoodsInventory();
+		model.addAttribute("goodsInventoryList", goodsInventoryList);
+		model.addAttribute("title", "UPBUS");
+		model.addAttribute("h1text", "위탁 판매 상품 결제 관리");
+		return pageType+"/MemberSellInventory";
+	}
 }

@@ -23,4 +23,8 @@ public interface ScrapMapper {
 	public List<ScrapSale> getSaleList();
 	// 5.업사이클링 매입 확정 버튼 승인
 	public int scrapSaleAmountApprovalModify(ScrapSale scrapSale);
+	//6.scrap_sale 자동증가
+	public int scrapSaleInsert(ScrapSale scrapSaleCode);
+	//6.1 scrap_sale_code 삭제
+	public int scrapSaleDelete(String scrapSaleCode);
 }
