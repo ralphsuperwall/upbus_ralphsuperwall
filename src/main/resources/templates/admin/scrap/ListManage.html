@@ -6,30 +6,50 @@
 <!-- contents layout:fragment 정의 -->
 <th:block layout:fragment="customContents">
 	<h2>업사이클링 재료 재고 관리</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>재료 재고 코드</th>
-				<th>재료 재고 코드</th>
-				<th>재료 재고 코드</th>
-				<th>재고여부</th>
-				<th>실재고</th>
-				<th>최초 재고 등록일자</th>
-				<th>최초등록자</th>
-				<th>상태</th>
-				<th>최종 재고 확인일자</th>
-				<th>최종 재고 확인자</th>
-				<th>사진</th>
-				<th>판매가</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td></td>
-			</tr>
-		</tbody>
+
 	</table>
-	
+		<div class="col-xl-12">
+		<div class="card">
+		<div class="card-header">
+		<h5>업사이클링 재료 재고 리스트</h5>
+		</div>
+			<div class="card-body table-border-style">
+				<div class="table-responsive">
+					<table class="table table-striped" style="font-size: 15px;">
+						<thead>
+							<tr>
+								<th>재료 재고 코드</th>
+								<th>재고여부</th>
+								<th>실재고</th>
+								<th>최초 재고 등록일자</th>
+								<th>최초등록자</th>
+								<th>상태</th>
+								<th>최종 재고 확인일자</th>
+								<th>최종 재고 확인자</th>
+								<th>사진</th>
+								<th>판매가</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each=" scrapList: ${scrapList}">
+								<td th:text="${scrapList.scrapInventoryCode}">재료 재고 코드</td>
+ 								<td th:text="${scrapList.scrapInventoryStatus}">재고여부</td>
+								<td th:text="${scrapList.scrapInventoryStatusCheck}">실재고</td>
+								<td th:text="${scrapList.scrapInventoryPrimaryDate}">최초 재고 등록일자</td>
+								<td th:text="${scrapList.scrapInventoryPrimaryIncharge}">최초등록자</td>
+								<td th:text="${scrapList.scrapStatus}">상태</td>
+								<td th:text="${scrapList.scrapInventoryLastDate}">최종 재고 확인일자</td>
+								<td th:text="${scrapList.scrapInventoryLastIncharge}">최종 재고 확인자</td>
+								<td th:text="${scrapList.scrapImage}">사진</td>
+								<td th:text="${scrapList.scrapPrice}">판매가</td>
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </th:block>
 
 </html>
