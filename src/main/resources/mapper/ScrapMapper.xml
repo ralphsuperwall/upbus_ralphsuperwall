@@ -3,71 +3,141 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="thedrivers.upbus.mapper.ScrapMapper">
+	<!-- 업사이클링 재고 리스트 리절트맵  -->
+	<resultMap type="ScrapListInventory" id="scrapList">
+		<result property="scrapInventoryCode" 				column="scrap_inventory_code"/>
+		<result property="scrapRequestCode" 				column="scrap_request_code"/>
+		<result property="scrapInventoryStatus" 			column="scrap_inventory_status"/>
+		<result property="scrapInventoryStatusCheck" 		column="scrap_inventory_status_check"/>
+		<result property="scrapInventoryPrimaryDate" 		column="scrap_inventory_primary_date"/>
+		<result property="scrapInventoryPrimaryIncharge" 	column="scrap_inventory_primary_incharge"/>
+		<result property="scrapStatus" 						column="scrapt_status"/>
+		<result property="scrapInventoryLastDate" 			column="scrap_inventory_last_date"/>
+		<result property="scrapInventoryLastIncharge" 		column="scrap_inventory_last_incharge"/>
+		<result property="scrapImage" 						column="scrap_image"/>
+		<result property="scrapPrice" 						column="scrap_price"/>
+	</resultMap>
 	<!-- 업사이클링 재료 판매 신청서 리절트 맵  -->
 	<resultMap type="ScrapSaleRequest" id="scrapSaleRequestList">
-		<result property="memberId" 			column="member_id" />
-     	<result property="scrapSaleRequestCode" column="scrap_sale_request_code" />
-     	<result property="scrapRequestAmount" 	column="scrap_request_amount" />
-        <result property="scrapRequestResult"	column="scrap_request_result" />
-        <result property="shippingOutAddr" 		column="shipping_out_addr" />
-        <result property="shippingInAddr" 		column="shipping_in_addr" />
-        <result property="logisticsName" 		column="logistics_name" />
-        <result property="logisticsNumber" 		column="logistics_number" />
-        <association property="upcylingMaterialList" javaType="UpcylingMaterialList">
-        	<id property="upcylingMaterialListCode" 	column="upcyling_material_list_code"/>
-        	<result property="scrapCategoryNumber" 		column="scrap_category_number" />
-        	<result property="materialName" 			column="material_name" />
+     	<result property="scrapRequestCode" 		column="scrap_request_code" />
+     	<result property="scrapMaterialListCode" 	column="scrap_material_list_code" />
+		<result property="scrapMemberId" 			column="scrap_member_id" />
+        <result property="scrapRequestAmount"		column="scrap_request_amount" />
+        <result property="scrapRequestImage" 		column="scrap_request_image" />
+        <result property="scrapRequestDate" 		column="scrap_request_date" />
+        <result property="scrapRequestResult" 		column="scrap_request_result" />
+        <result property="scrapShippingOutAddr" 	column="scrap_shipping_out_addr" />
+        <result property="scrapShippingInAddr" 		column="scrap_shipping_in_addr" />
+        <result property="scrapLogisticsName" 		column="scrap_logistics_name" />
+        <result property="scrapLogisticsNumber" 	column="scrap_logistics_number" />
+        <association property="scrapUpcylingList" javaType="ScrapUpcylingList">
+        	<id property="scrapMaterialListCode" 	column="scrap_material_list_code"/>
+        	<result property="scrapCategoryNumber" 	column="scrap_category_number" />
+        	<result property="scrapName" 			column="scrap_name" />
         </association>
 	</resultMap>
+	<resultMap type="ScrapSale" id="saleList">
+		<result property="scrapSaleCode" 				column="scrap_sale_code"/>
+		<result property="scrapRequestCode" 			column="scrap_request_code"/>
+		<result property="scrapMileageUserListCode" 	column="scrap_mileage_user_list_code"/>
+		<result property="scrapReceivingDate" 			column="scrap_receiving_date"/>
+		<result property="scrapInspectionDate" 			column="scrap_inspection_date"/>
+		<result property="scrapStatusAmount" 			column="scrap_status_amount"/>
+		<result property="scrapWeight" 					column="scrap_weight"/>
+	
+	</resultMap>
+	
 	<!-- 업사이클링 재료 판매 신청서 쿼리문 -->
 	<select id="getScrapSale" resultMap="scrapSaleRequestList">
 		SELECT 
-			 member_id			
-			,scrap_sale_request_code				
+			 scrap_member_id	
+			,scrap_request_code						
 			,scrap_request_amount				
-			,scrap_request_result				
-			,shipping_out_addr					
-			,shipping_in_addr					
-			,logistics_name	
-			,logistics_number
-			,material_name				
+			,scrap_request_result	
+			,scrap_request_image
+			,scrap_request_date			
+			,scrap_shipping_out_addr					
+			,scrap_shipping_in_addr					
+			,scrap_logistics_name	
+			,scrap_logistics_number
+			,scrap_name				
 		FROM
 			scrap_sale_request AS s
 			INNER join
-			upcyling_material_list AS u
+			scrap_upcyling_list AS u
 			on
-			s.upcyling_material_list_code = u.upcyling_material_list_code
+			s.scrap_material_list_code = u.scrap_material_list_code
 	</select>
-	
+	<!-- 업사이클링 신청서 상세페이지 이동 -->
 	<select id="getScrapSaleDetail" resultMap="scrapSaleRequestList" parameterType="String">
-		SELECT  	
-			 member_id
-			,scrap_sale_request_code
-			,scrap_request_amount
-			,scrap_request_result
-			,shipping_out_addr
-			,shipping_in_addr
-			,logistics_name
-			,logistics_number
-			,material_name
+		SELECT 
+			 scrap_member_id	
+			,scrap_request_code						
+			,scrap_request_amount				
+			,scrap_request_result	
+			,scrap_request_image
+			,scrap_request_date			
+			,scrap_shipping_out_addr					
+			,scrap_shipping_in_addr					
+			,scrap_logistics_name	
+			,scrap_logistics_number
+			,scrap_name				
 		FROM
 			scrap_sale_request AS s
 			INNER join
-			upcyling_material_list AS u
+			scrap_upcyling_list AS u
 			on
-			s.upcyling_material_list_code = u.upcyling_material_list_code
+			s.scrap_material_list_code = u.scrap_material_list_code
 		WHERE 
-			scrap_sale_request_code = #{scrapSaleRequestCode}
+			scrap_request_code = #{scrapRequestCode}
 	</select>
 	
-		
+	<!-- 버튼 클릭시 승인코드 바뀜 -->
 	<update id="scrapSaleApprovalModify" parameterType="ScrapSaleRequest">
 		UPDATE scrap_sale_request 
 		SET
 			scrap_request_result = #{scrapRequestResult}
 		WHERE
-			scrap_sale_request_code = #{scrapSaleRequestCode}	
+			scrap_request_code = #{scrapRequestCode}	
 	</update>
+		<update id="scrapSaleAmountApprovalModify" parameterType="ScrapSale">
+		UPDATE scrap_sale
+		SET
+			scrap_status_amount = #{scrapStatusAmount}
+		WHERE
+			scrap_sale_code = #{scrapSaleCode}	
+	</update>
+	<!--  업사이클링 재고 리스트 -->
+	<select id="getScrapList" resultMap="scrapList">
+		SELECT 
+			scrap_inventory_code
+			,scrap_request_code
+			,scrap_inventory_status
+			,scrap_inventory_status_check
+			,scrap_inventory_primary_date
+			,scrap_inventory_primary_incharge
+			,scrapt_status
+			,scrap_inventory_last_date
+			,scrap_inventory_last_incharge
+			,scrap_image
+			,scrap_price
+		from
+			scrap_list_inventory;
+	</select>
+	<!-- 업사이클링 매입 리스트 -->
+	<select id="getSaleList" resultMap="saleList">
+	SELECT
+		scrap_sale_code
+		,scrap_request_code
+		,scrap_mileage_user_list_code
+		,scrap_receiving_date
+		,scrap_inspection_date
+		,scrap_status_amount
+		,scrap_weight
+	FROM
+		scrap_sale
+	</select>
+
 </mapper>
 
 

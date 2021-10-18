@@ -1,41 +1,47 @@
 package thedrivers.upbus.domain;
 
 public class ScrapSaleRequest {
-	private String scrapSaleRequestCode;
-	private String upcylingMaterialListCode;
-	private String memberId;
+	private String scrapRequestCode;
+	private String scrapMaterialListCode;
+	private String scrapMemberId;
 	private int scrapRequestAmount;
+	private String scrapRequestImage;
 	private String scrapRequestDate;
 	private int scrapRequestResult;
-	private String shippingOutAddr;
-	private String shippingInAddr;
-	private String logisticsName;
-	private String logisticsNumber;
-	private UpcylingMaterialList upcylingMaterialList;
-	
-	public String getScrapSaleRequestCode() {
-		return scrapSaleRequestCode;
+	private String scrapShippingOutAddr;
+	private String scrapShippingInAddr;
+	private String scrapLogisticsName;
+	private String scrapLogisticsNumber;
+	private ScrapUpcylingList scrapUpcylingList;
+	public String getScrapRequestCode() {
+		return scrapRequestCode;
 	}
-	public void setScrapSaleRequestCode(String scrapSaleRequestCode) {
-		this.scrapSaleRequestCode = scrapSaleRequestCode;
+	public void setScrapRequestCode(String scrapRequestCode) {
+		this.scrapRequestCode = scrapRequestCode;
 	}
-	public String getUpcylingMaterialListCode() {
-		return upcylingMaterialListCode;
+	public String getScrapMaterialListCode() {
+		return scrapMaterialListCode;
 	}
-	public void setUpcylingMaterialListCode(String upcylingMaterialListCode) {
-		this.upcylingMaterialListCode = upcylingMaterialListCode;
+	public void setScrapMaterialListCode(String scrapMaterialListCode) {
+		this.scrapMaterialListCode = scrapMaterialListCode;
 	}
-	public String getMemberId() {
-		return memberId;
+	public String getScrapMemberId() {
+		return scrapMemberId;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setScrapMemberId(String scrapMemberId) {
+		this.scrapMemberId = scrapMemberId;
 	}
 	public int getScrapRequestAmount() {
 		return scrapRequestAmount;
 	}
 	public void setScrapRequestAmount(int scrapRequestAmount) {
 		this.scrapRequestAmount = scrapRequestAmount;
+	}
+	public String getScrapRequestImage() {
+		return scrapRequestImage;
+	}
+	public void setScrapRequestImage(String scrapRequestImage) {
+		this.scrapRequestImage = scrapRequestImage;
 	}
 	public String getScrapRequestDate() {
 		return scrapRequestDate;
@@ -49,65 +55,67 @@ public class ScrapSaleRequest {
 	public void setScrapRequestResult(int scrapRequestResult) {
 		this.scrapRequestResult = scrapRequestResult;
 	}
-	public String getShippingOutAddr() {
-		return shippingOutAddr;
+	public String getScrapShippingOutAddr() {
+		return scrapShippingOutAddr;
 	}
-	public void setShippingOutAddr(String shippingOutAddr) {
-		this.shippingOutAddr = shippingOutAddr;
+	public void setScrapShippingOutAddr(String scrapShippingOutAddr) {
+		this.scrapShippingOutAddr = scrapShippingOutAddr;
 	}
-	public String getShippingInAddr() {
-		return shippingInAddr;
+	public String getScrapShippingInAddr() {
+		return scrapShippingInAddr;
 	}
-	public void setShippingInAddr(String shippingInAddr) {
-		this.shippingInAddr = shippingInAddr;
+	public void setScrapShippingInAddr(String scrapShippingInAddr) {
+		this.scrapShippingInAddr = scrapShippingInAddr;
 	}
-	public String getLogisticsName() {
-		return logisticsName;
+	public String getScrapLogisticsName() {
+		return scrapLogisticsName;
 	}
-	public void setLogisticsName(String logisticsName) {
-		this.logisticsName = logisticsName;
+	public void setScrapLogisticsName(String scrapLogisticsName) {
+		this.scrapLogisticsName = scrapLogisticsName;
 	}
-	public String getLogisticsNumber() {
-		return logisticsNumber;
+	public String getScrapLogisticsNumber() {
+		return scrapLogisticsNumber;
 	}
-	public void setLogisticsNumber(String logisticsNumber) {
-		this.logisticsNumber = logisticsNumber;
+	public void setScrapLogisticsNumber(String scrapLogisticsNumber) {
+		this.scrapLogisticsNumber = scrapLogisticsNumber;
 	}
-	
-	public UpcylingMaterialList getUpcylingMaterialList() {
-		return upcylingMaterialList;
+	public ScrapUpcylingList getScrapUpcylingList() {
+		return scrapUpcylingList;
 	}
-	public void setUpcylingMaterialList(UpcylingMaterialList upcylingMaterialList) {
-		this.upcylingMaterialList = upcylingMaterialList;
+	public void setScrapUpcylingList(ScrapUpcylingList scrapUpcylingList) {
+		this.scrapUpcylingList = scrapUpcylingList;
 	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ScrapSaleRequest [scrapSaleRequestCode=");
-		builder.append(scrapSaleRequestCode);
-		builder.append(", upcylingMaterialListCode=");
-		builder.append(upcylingMaterialListCode);
-		builder.append(", memberId=");
-		builder.append(memberId);
+		builder.append("ScrapSaleRequest [scrapRequestCode=");
+		builder.append(scrapRequestCode);
+		builder.append(", scrapMaterialListCode=");
+		builder.append(scrapMaterialListCode);
+		builder.append(", scrapMemberId=");
+		builder.append(scrapMemberId);
 		builder.append(", scrapRequestAmount=");
 		builder.append(scrapRequestAmount);
+		builder.append(", scrapRequestImage=");
+		builder.append(scrapRequestImage);
 		builder.append(", scrapRequestDate=");
 		builder.append(scrapRequestDate);
 		builder.append(", scrapRequestResult=");
 		builder.append(scrapRequestResult);
-		builder.append(", shippingOutAddr=");
-		builder.append(shippingOutAddr);
-		builder.append(", shippingInAddr=");
-		builder.append(shippingInAddr);
-		builder.append(", logisticsName=");
-		builder.append(logisticsName);
-		builder.append(", logisticsNumber=");
-		builder.append(logisticsNumber);
-		builder.append(", upcylingMaterialList=");
-		builder.append(upcylingMaterialList);
+		builder.append(", scrapShippingOutAddr=");
+		builder.append(scrapShippingOutAddr);
+		builder.append(", scrapShippingInAddr=");
+		builder.append(scrapShippingInAddr);
+		builder.append(", scrapLogisticsName=");
+		builder.append(scrapLogisticsName);
+		builder.append(", scrapLogisticsNumber=");
+		builder.append(scrapLogisticsNumber);
+		builder.append(", scrapUpcylingList=");
+		builder.append(scrapUpcylingList);
 		builder.append("]");
 		return builder.toString();
 	}
+	
 	
 	
 }

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/admin}">
+	  
+<!-- contents layout:fragment 정의 -->
+<th:block layout:fragment="customContents">
+	<h1>업사이클링 재료 매입 목록</h1>
+	<div class="card table-card">
+		<div class="card-header">
+			<h5>업사이클링 재료 매입 목록</h5>
+			<div class="card-header-right">
+				<div class="btn-group card-option">
+					<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="feather icon-more-horizontal"></i>
+					</button>
+					<ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+						<li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+						<li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+						<li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+						<li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	<div class="pro-scroll ps ps--active-y" style="height:415px;position:relative;">
+		<div class="card-body p-0">
+			<div class="table-responsive">
+				
+				<table class="table table-hover m-b-0">
+					
+						<thead>
+							<tr>
+								<th>재료 매입 코드</th>
+								<th>재료판매신청코드</th>
+								<th>마일리지내역코드</th>
+								<th>입고일자</th>
+								<th>검수일자</th>
+								<th>무게</th>
+								<th>입고여부</th>
+								<th>입고확정버튼</th>
+							</tr>
+						</thead>
+						<tbody style="font-size: 20px;">
+							<tr th:each="saleList: ${saleList}">
+								<td th:text="${saleList.scrapSaleCode}"></td>
+								<td th:text="${saleList.scrapRequestCode}"></td>
+								<td th:text="${saleList.scrapMileageUserListCode}"></td>
+								<td th:text="${saleList.scrapReceivingDate}"></td>
+								<td th:text="${saleList.scrapInspectionDate}"></td>
+								<td th:text="${saleList.scrapWeight}"></td>
+								<td>
+									<span class="scrapStatusAmountText" th:if="${saleList.scrapStatusAmount eq 1}">Y</span>
+									<span class="scrapStatusAmountText" th:unless="${saleList.scrapStatusAmount eq 1}">N</span>
+								</td>
+								<td>
+									<input type="hidden" class="scrapStatusAmount" th:value="${saleList.scrapStatusAmount}">
+								 	<button th:if="${saleList.scrapStatusAmount eq 1}" th:value="${saleList.scrapSaleCode}" class="btn btn-danger sale-approval-action" type="button">취소</button>
+									<button th:unless="${saleList.scrapStatusAmount eq 1}" th:value="${saleList.scrapSaleCode}" class="btn btn-primary sale-approval-action" type="button">승인</button>
+								</td>
+							</tr>		
+						</tbody>
+					</table>
+				</div>
+			</div>
+		<div class="ps__rail-x" style="left: 0px; bottom: -50px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 50px; height: 415px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 36px; height: 299px;"></div></div></div>
+		</div>
+		
+		<script>
+			$(function(){
+				$('.sale-approval-action').click(function(){
+				var btn = $(this);
+				var scrapStatusAmountTextSpan =$(this).parents('tr').find('.scrapStatusAmountText');
+				var scrapStatusAmountInput = $(this).parents().children('.scrapStatusAmount');
+				
+				var scrapStatusAmount = Number(scrapStatusAmountInput.val());
+				
+				var modifyScrapStatusAmount = 0;
+				if(scrapStatusAmount == 0){
+					modifyScrapStatusAmount = 1;
+				}else{
+					modifyScrapStatusAmount = 0;
+				}
+				
+				var scrapSaleCode = $(this).val();
+				var request = $.ajax({
+					url: "/admin/scrap/scrapSaleApprovalAjax",
+					method: "POST",
+					data: { scrapSaleCode: scrapSaleCode, scrapStatusAmount : modifyScrapStatusAmount },
+					dataType: "json"
+				});
+				
+					request.done(function( data ) {
+						var result = data.result;
+						if(result > 0){
+							if(scrapStatusAmount == 0){	
+								btn.addClass('btn-danger').removeClass('btn-primary');
+								//버튼 텍스트 '승인 취소'로 바뀜
+								btn.text('취소');
+								//버튼 클릭시 밸류 값 1로 바꿈
+								scrapStatusAmountInput.val(1);
+								//승인여부 값이 Y로 바뀜
+								scrapStatusAmountTextSpan.text('Y');
+							}else{
+								btn.addClass('btn-primary').removeClass('btn-danger');
+								//버튼 텍스트 '승인'로 바뀜
+								btn.text('승인');			
+								//버튼 클릭시 밸류 값 0로 바꿈
+								scrapStatusAmountInput.val(0);
+								//승인여부 값이 N로 바뀜
+								scrapStatusAmountTextSpan.text('N');
+							}	
+						}else{
+							if(scrapStatusAmount == 0){								
+								alert('승인 변경에 실패 하였습니다.');	
+							}else{
+								alert('승인취소 변경에 실패 하였습니다.');									
+							}								
+						}
+						
+					});
+					 
+					request.fail(function( jqXHR, textStatus ) {
+						alert( "Request failed: " + textStatus );
+					});
+				});
+			});
+		
+		</script>
+		
+	
+</th:block>
+
+</html>
+

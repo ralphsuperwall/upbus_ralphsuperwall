@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import thedrivers.upbus.domain.ScrapListInventory;
+import thedrivers.upbus.domain.ScrapSale;
 import thedrivers.upbus.domain.ScrapSaleRequest;
 import thedrivers.upbus.mapper.ScrapMapper;
 
@@ -23,6 +25,12 @@ public class ScrapService {
 	public ScrapService(ScrapMapper scrapMapper) {
 		this.scrapMapper = scrapMapper;
 	}
+	//업사이클링 재고 리스트
+	public List<ScrapListInventory> getScrapList(){
+		List<ScrapListInventory> scrapList = scrapMapper.getScrapList();
+		log.info("업사이클링 재고 리스트: {}", scrapList);
+		return scrapList;
+	}
 	//업사이클링 재료 판매 신청 목록
 	public List<ScrapSaleRequest> getScrapSale(){
 		System.out.println("ListManage 서비스 실행 ");
@@ -31,13 +39,22 @@ public class ScrapService {
 		log.info("업사이클링 재료신청서 리스트: {}", scrapSaleRequestList);
 		return	scrapSaleRequestList;
 	}
+	// 업사이클링 재료 매입 확정 리스트
+	public List<ScrapSale> getSaleList(){
+		List<ScrapSale> saleList = scrapMapper.getSaleList();
+		return saleList;
+	}
 	// 업사이클링 재료 판매 신청서 상세페이지 이동시 scrapSaleRequestCode로 값 받아오긴
-	public ScrapSaleRequest getScrapSaleDetail(String scrapSaleRequestCode){
-		ScrapSaleRequest scrapSaleRequestDetailList = scrapMapper.getScrapSaleDetail(scrapSaleRequestCode);
+	public ScrapSaleRequest getScrapSaleDetail(String scrapRequestCode){
+		ScrapSaleRequest scrapSaleRequestDetailList = scrapMapper.getScrapSaleDetail(scrapRequestCode);
 		return scrapSaleRequestDetailList;
 	}
-	//ajax
+	// 업사이클링 재료 판매 신청서 승인 버튼 ajax
 	public int scrapSaleApprovalModify(ScrapSaleRequest scrapSaleRequest) {
 		return scrapMapper.scrapSaleApprovalModify(scrapSaleRequest);
 	}
-}
+	// 업사이클링 매입 확정 버튼 ajax
+	public int scrapSaleAmountApprovalModify(ScrapSale scrapSale) {
+		return scrapMapper.scrapSaleAmountApprovalModify(scrapSale);
+	}
+	}
