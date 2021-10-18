@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import thedrivers.upbus.domain.ClassAddTeacherList;
+import thedrivers.upbus.domain.ClassNotice;
 import thedrivers.upbus.service.ClassService;
 
 @RequestMapping("/admin/class")
@@ -46,7 +47,7 @@ public class ClassController {
 	}
 	
 	
-	// (2) classAddTeacherManage : 클래스 강사 신청 화면에서 클래스 기간 승인에 대한 버튼에 대한 AJAX 를 사용한다.
+	// (2-1) classAddTeacherManage : 클래스 강사 신청 화면에서 클래스 기간 승인에 대한 버튼에 대한 AJAX 를 사용한다.
 	@PostMapping(value ="/TermApproveCheckAjax")
 	@ResponseBody
 	public Map<String, Object> termApproveCheckAjax( Model model
@@ -64,7 +65,7 @@ public class ClassController {
 		return map;
 	}
 	
-	// (3) classAddTeacherManage : 클래스 강사 신청 화면에서 클래스 최종 승인에 대한 버튼에 대한 AJAX 를 사용한다.
+	// (2-2) classAddTeacherManage : 클래스 강사 신청 화면에서 클래스 최종 승인에 대한 버튼에 대한 AJAX 를 사용한다.
 	@PostMapping(value ="/FinalApproveCheckAjax")
 	@ResponseBody
 	public Map<String, Object> finalApproveCheckAjax( Model model
@@ -72,25 +73,39 @@ public class ClassController {
 												   , @RequestParam( value = "FinalApproveRequestResult" ) String FinalApproveRequestResult ){
 		
 		System.out.println(signupCode + "signupCode" );
-		System.out.println(FinalApproveRequestResult + "signupCode");
+		System.out.println(FinalApproveRequestResult + "FinalApproveRequestResult");
 		
 		// 형변환이 문제가 되기 때문에 홈페이지에서 받은 String을 Int 형으로 바꾸어주도록 합니다.
 		int finalApproveRequestResult = Integer.parseInt(FinalApproveRequestResult);
 		
 		// AJAX 호출 시 데이터 결과를 다시 반환하여 보내줄 객체를 선언한다.
 		Map<String, Object> map = new HashMap <String, Object>();
-		// 비즈니스 로직 : 화면에서 입력받은 값(컨트롤러 : 코드, 버튼결과 )을 DB 내 AddTeacherSignupCode 에 해당하는 속성(기간체크, 체크일자 )UPDATE 수정처리
+		// 비즈니스 로직 (2-2) : 화면에서 입력받은 값(컨트롤러 : 코드, 버튼결과 )을 DB 내 AddTeacherSignupCode 에 해당하는 속성(기간체크, 체크일자 )UPDATE 수정처리
+		// 비즈니스 로직 (2-3) : 화면에서 입력받은 값(컨트롤러 : 코드 )을 DB 내 member 의 선생구분을 수정하도록 함.
 		map.put("result", classService.modifyClassAddTeacherFinalCheck(signupCode, finalApproveRequestResult));
 		
 		return map;
 	}
 	
+	// (2-2) 클래스 등록 관리 시스템 화면 (관리자) 으로 이동하는 페이지
 	@GetMapping("/EnrollmentManage")
 	public String enrollmentManage(Model model) {
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "클래스 등록 관리");
 		return pageType+"/EnrollmentManage";
 	}
+	
+	// (3) 클래스 등록 관리 시스템
+	@PostMapping(value = "/addClassNoticeAjax", produces = "application/json")
+	@ResponseBody
+	public String addClassNoticeAjax(ClassNotice classNotice) {
+		
+		System.out.println(classNotice);
+		classService.addClassNotice(classNotice);
+		return "redirect:admin/class/EnrollmentManage";
+	}
+	
+	
 	@GetMapping("/StatusManage")
 	public String statusManage(Model model) {
 		model.addAttribute("title", "UPBUS");

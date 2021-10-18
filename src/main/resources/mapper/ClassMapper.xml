@@ -53,7 +53,7 @@
 			class_teacher_signup;
 	</select>
 	
-	<!-- 3. 클래스 강사 테이블에서  클래스 기간에 대하여 승인(1), 승인날짜(현재날짜) 으로 바꾸어주는 수정 SQL 문 -->
+	<!-- 2-1. 클래스 강사 테이블에서  클래스 기간에 대하여 승인(1), 승인날짜(현재날짜) 으로 바꾸어주는 수정 SQL 문 -->
 	<update id="modifyClassAddTeacherCheck">
 		UPDATE class_teacher_signup
 		<if test="termApproveRequestResult == 1">
@@ -71,7 +71,7 @@
 			class_teacher_signup_code = #{signupCode};
 	</update>
 	
-	<!-- 4. 클래스 강사 테이블에서  클래스 최종 승인에 대하여 강승인(1), 승인날짜(현재날짜) 으로 바꾸어주는 수정 SQL 문 -->
+	<!-- 2-2. 클래스 강사 테이블에서  클래스 최종 승인에 대하여 강승인(1), 승인날짜(현재날짜) 으로 바꾸어주는 수정 SQL 문 -->
 	<update id="modifyClassAddTeacherFinalCheck">
 		UPDATE class_teacher_signup
 		<if test="finalApproveRequestResult == 1">
@@ -89,5 +89,57 @@
 			class_teacher_signup_code = #{signupCode};
 	</update>
 	
+	<!-- 2-3 클래스 강사 테이블에서 클래스 최종 승인이 된 경우에는 member 의 class_teacher_diviison(클래스선생구분)의 속성을 1로 변경한다.-->
+	<update id="modifyMemberTeacherDivision" >
+		UPDATE	
+			class_teacher_signup AS cts
+			INNER JOIN
+			member AS m
+			ON
+			cts.member_id = m.member_id
+		<if test="finalApproveRequestResult == 1">
+		SET 
+			m.class_teacher_division = 1
+		WHERE
+			class_teacher_signup_approve_check = 1
+			AND
+			class_teacher_signup_code = #{signupCode};
+		</if>
+		<if test="finalApproveRequestResult == 0">
+		SET 
+			m.class_teacher_division = 0
+		WHERE
+			class_teacher_signup_approve_check = 0
+			AND
+			class_teacher_signup_code = #{signupCode};
+		</if>
+
+	</update>
+	
+	<!-- 3. 클래스 강사 신청 데이터 추가 SQL (USER) -->
+	<insert id="addClassNotice" parameterType="ClassNotice">
+		INSERT INTO class_notice
+		(	class_notice_code
+		,	class_name
+		,	class_teacher_name
+		,	class_content
+		,	class_registration_cost
+		,	class_goal_count
+		,	class_least_count
+		,	class_notice_register_date
+		,	class_notice_start_date
+		,	class_notice_end_date	)
+		VALUES 
+		(	(SELECT common_sf_nextval('class_notice_') FROM DUAL )
+		, 	#{className} 
+		,	#{classTeacherName} 
+		,	#{classContent} 
+		,	#{classRegistrationCost} 
+		,	#{classGoalCount} 
+		,	#{classLeastCount} 
+		,	CURDATE()
+		,	#{classNoticeStartDate} 
+		,	#{classNoticeEndDate} )
+	</insert>	
 	
 </mapper>
