@@ -25,6 +25,17 @@
         <result property="goodsRequestDate" column="goods_request_date"></result>
     </resultMap>
 
+	<resultMap type="Egoods" id="egoodsResultMap">
+		<result property="egoodsCode" 						column="egoods_code"/>
+		<result property="memberId" 						column="member_id"/>
+		<result property="egoodsName" 						column="egoods_name"/>
+		<result property="egoodsPrice" 						column="egoods_price"/>
+		<result property="egoodsAmount" 					column="egoods_amount"/>
+		<result property="egoodsImage" 						column="egoods_image"/>
+		<result property="egoodsDate" 						column="egoods_date"/>
+		<!-- collection 복잡한 맵핑 has many 관계 -->
+	</resultMap>
+	
     <update id="firstApproval" parameterType="String">
         UPDATE
             goods_request
@@ -184,4 +195,16 @@
         );
     </insert>
 
+	<select id="getEgoodsList" resultMap="egoodsResultMap">
+		SELECT 
+			egoods_code, 
+			member_id, 
+			egoods_name, 
+			egoods_price, 
+			egoods_amount, 
+			egoods_image, 
+			egoods_date
+		FROM 
+			egoods;
+	</select>
 </mapper>
