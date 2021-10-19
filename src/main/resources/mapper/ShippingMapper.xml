@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="thedrivers.upbus.mapper.ShippingMapper">
+
+    <resultMap id="logistics" type="Shipping">
+        <result property="logisticsCode" column="logistics_code"></result>
+        <result property="logisticsName" column="logistics_name"></result>
+        <result property="logisticsUpDate" column="logistics_up_date"></result>
+    </resultMap>
+
+    <resultMap id="logisticsContract" type="Shipping">
+        <result property="logisticsContractCode" column="logistics_contract_code"></result>
+        <result property="logisticsCode" column="logistics_code"></result>
+        <result property="logisticsRenewDate" column="logistics_renew_date"></result>
+        <result property="logisticsPer" column="logistics_per"></result>
+        <result property="logisticsStandard" column="logistics_standard"></result>
+        <result property="logisticsBranch" column="logistics_branch"></result>
+        <result property="logisticsPhone" column="logistics_phone"></result>
+        <result property="logisticsCharge" column="logistics_charge"></result>
+        <result property="logisticsIncharge" column="logistics_incharge"></result>
+        <result property="logisticsUpDate" column="logistics_up_date"></result>
+        <result property="logisticsPaper" column="logistics_paper"></result>
+    </resultMap>
+
+    <select id="getLogistics" resultMap="logistics">
+        SELECT
+            logistics_code,
+            logistics_name,
+            logistics_up_date
+        FROM
+            logistics;
+    </select>
+
+    <select id="getLogisticsContract" resultMap="logisticsContract">
+        SELECT
+            logistics_contract_code,
+            logistics_code,
+            logistics_renew_date,
+            logistics_per,
+            logistics_standard,
+            logistics_branch,
+            logistics_phone,
+            logistics_charge,
+            logistics_incharge,
+            logistics_up_date,
+            logistics_paper
+        FROM
+            logistics_contract
+        WHERE
+            logistics_code=#{logisticsCode};
+    </select>
+
+</mapper>

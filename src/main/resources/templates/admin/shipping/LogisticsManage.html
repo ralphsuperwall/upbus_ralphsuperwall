@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/admin}">
+	  	  
+<!-- 커스텀 타이틀 지정 -->
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+	  
+<!-- contents layout:fragment 정의 -->
+<th:block layout:fragment="customContents">
+	<div class="card prod-p-card bg-c-green card-body">
+		<div class="row align-items-center">
+			<div class="col">
+				<h3 class="m-b-0 text-white">배송 정보 입력 시스템</h3>
+				<h5 class="m-b-0 text-white">UPCYCLING BUS : UPBUS LOGISTICS CONTRACT MANAGEMENT</h5>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<h4>계약 배송 업체 등록</h4>
+				<span class="d-block m-t-5">현재 계약 상태인 배송 업체의 정보를 확인할 수 있습니다.</span>
+				<span class="d-block m-t-5">신규 계약 업체를 등록할 수 있습니다.</span>
+			</div>
+			<div class="card-body table-border-style">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+						<tr>
+							<th>배송업체코드</th>
+							<th>배송업체명</th>
+							<th>최초등록일자</th>
+							<th>배송업체상세정보</th>
+						</tr>
+						</thead>
+						<tbody>
+						<th:block th:each="l : ${logistics}">
+							<tr class="table-active">
+								<td th:text="${l.logisticsCode}"></td>
+								<td th:text="${l.logisticsName}"></td>
+								<td th:text="${l.logisticsUpDate}"></td>
+								<td>
+									<button class="detailBtn" type="button" th:data-logisticsCode="${l.logisticsCode}">상세정보</button>
+								</td>
+
+							</tr>
+						</th:block>
+						</tbody>
+					</table>
+
+					<table class="table">
+						<thead>
+						<tr>
+							<th>배송계약코드</th>
+							<th>배송업체코드</th>
+							<th>계약갱신일자</th>
+							<th>건당단가</th>
+							<th>계약최소건수</th>
+							<th>계약지점</th>
+							<th>계약지점전화번호</th>
+							<th>계약지점담당자</th>
+							<th>업체연락담당자</th>
+							<th>최초등록일자</th>
+							<th>계약서원본경로</th>
+						</tr>
+						</thead>
+						<tbody id="logisticsContractDetail">
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function (){
+			$('.detailBtn').on('click',function(){
+
+				//var logisticsContractCode = $(this).parent().parent().children().eq(0).text();
+				var logisticsContractCode = $(this).attr('data-logisticsCode');
+				var logisticsContractDetail = $('#logisticsContractDetail');
+
+				$.ajax({
+					url: "admin/LogisticsManage/Contract",
+					data: {"logisticsContractCode" : logisticsContractCode.trim()},
+					type: "post",
+					success : function(data){
+						alert("선택한 배송 업체의 상세 정보를 불러옵니다.")
+						console.log(data);
+						logisticsContractDetail.remove();
+						logisticsContractDetail.append('<td>' + data.logisticsContractCode + '</td>');
+						logisticsContractDetail.append('<td>' + data.logisticsCode + '</td>');
+						logisticsContractDetail.append('<td>' + data.logisticsUpDate + '</td>');
+						logisticsContractDetail.append('<td>' + data.logisticsPer + '</td>');
+						logisticsContractDetail.append('<td>' + data.logisticsStandard + '</td>');
+						logisticsContractDetail.append('<td>' + data.logisticsBranch + '</td>');
+						logisticsContractDetail.append('<td>' + data.logisticsPhone + '</td>');
+						logisticsContractDetail.append('<td>' + data.logisticsCharge + '</td>');
+						logisticsContractDetail.append('<td>' + data.logisticsIncharge + '</td>');
+						logisticsContractDetail.append('<td>' + data.logisticsUpDate + '</td>');
+						logisticsContractDetail.append('<td>' + data.logisticsPaper + '</td>');
+					},
+					error : function(){
+						alert("선택한 배송 업체의 상세 정보를 불러올 수 없습니다.")
+					}
+				});
+			})
+		});
+
+	</script>
+</th:block>
+
+</html>
