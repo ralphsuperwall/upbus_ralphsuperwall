@@ -15,24 +15,24 @@
 					</div>
 					<div class="card-body">
 						<form id="validation-form123" action="#!" novalidate="novalidate">
-							<input type="hidden" id="scrapSaleRequestCode" name="scrapSaleRequestCode" th:value="${scrapSaleRequestDetailList.scrapSaleRequestCode}">
+							<input type="hidden" id="scrapRequestCode" name="scrapSaleRequestCode" th:value="${scrapSaleRequestDetailList.scrapRequestCode}">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="exampleInputPassword1">신청자 아이디</label>
-										<input type="text" class="form-control" id="userId" readonly="readonly" th:value="${scrapSaleRequestDetailList.memberId}">
+										<input type="text" class="form-control" id="userId" readonly="readonly" th:value="${scrapSaleRequestDetailList.scrapMemberId}">
 									</div>
 								</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="exampleInputPassword1">주소</label>
-									<input type="text" class="form-control" id="addr" readonly="readonly" th:value="${scrapSaleRequestDetailList.shippingOutAddr}" >
+									<input type="text" class="form-control" id="addr" readonly="readonly" th:value="${scrapSaleRequestDetailList.scrapShippingOutAddr}" >
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="exampleInputPassword1">재료 이름</label>
-									<input type="text" class="form-control" id="scrapname" readonly="readonly"  th:value="${scrapSaleRequestDetailList.upcylingMaterialList.materialName}">
+									<input type="text" class="form-control" id="scrapname" readonly="readonly"  th:value="${scrapSaleRequestDetailList.scrapUpcylingList.scrapName}">
 								</div>
 							</div>
 							<!--   <div class="col-md-6">
@@ -50,7 +50,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="exampleInputPassword1">도착주소</label>
-									<input type="text" class="form-control" id="lastaddr" readonly="readonly" th:value="${scrapSaleRequestDetailList.shippingOutAddr}" >
+									<input type="text" class="form-control" id="lastaddr" readonly="readonly" th:value="${scrapSaleRequestDetailList.scrapShippingInAddr}" >
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -93,7 +93,7 @@
 				//this = 버튼
 				var bnt = $(this); 
 				// pk 값
-				var scrapSaleRequestCode = $('#scrapSaleRequestCode').val();
+				var scrapRequestCode = $('#scrapRequestCode').val();
 				//승인버튼
 				var scrapRequestResultTextSpan = $('.scrapRequestResultText');
 				// 승인 버튼 밸류 값을 문자열에서 -> 넘버로 바꿈
@@ -109,7 +109,7 @@
 				var request = $.ajax({
 					url: "/admin/scrap/ScrapRequestApprovalAjax", //요청 url
 					method: "POST", //요청방식
-					data: { scrapSaleRequestCode: scrapSaleRequestCode, scrapRequestResult : modifyScrapRequestResult }, //요청하는 곳에 전달될 데이터
+					data: { scrapRequestCode: scrapRequestCode, scrapRequestResult : modifyScrapRequestResult }, //요청하는 곳에 전달될 데이터
 					dataType: "json" //응답되어 받은 데이터를 parsing 시킬방식
 				});
 				 //반환된 객체에는 done 메서드가 있으며 , 요청과 응답이 정상적으로

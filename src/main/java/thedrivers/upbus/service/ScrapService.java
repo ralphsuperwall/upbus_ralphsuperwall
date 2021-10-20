@@ -50,26 +50,54 @@ public class ScrapService {
 		return scrapSaleRequestDetailList;
 	}
 	// 업사이클링 재료 판매 신청서 승인 버튼 ajax
-	public int scrapSaleApprovalModify(ScrapSaleRequest scrapSaleRequest) {
+	
+	public Object scrapSaleApprovalModify(ScrapSaleRequest scrapSaleRequest) {
 		int result = 0;
 		int scrapSaleRequestResult = 0;
-		
+		int scrapRequestAmount = scrapSaleRequest.getScrapRequestAmount();
 		//신청서 승인 업데이트
 		result += scrapMapper.scrapSaleApprovalModify(scrapSaleRequest);
 		scrapSaleRequestResult = scrapSaleRequest.getScrapRequestResult();
 		
+		
 		//신청서 승인 시 매입관리 입고
-		if(result > 0 && scrapSaleRequestResult > 0) {
-			ScrapSale scrapSale = new ScrapSale();
-			scrapSale.setScrapRequestCode(scrapSaleRequest.getScrapRequestCode());
-			scrapSale.setScrapStatusAmount(scrapSaleRequest.getScrapRequestAmount());
-			result += scrapMapper.scrapSaleInsert(scrapSale);
+		System.out.println(scrapRequestAmount+"---------------------------------------------------");
+		for(int i = 1; i <= 3; ++i) {
+			if(result > 0 && scrapSaleRequestResult > 0) {
+				ScrapSale scrapSale = new ScrapSale();
+				scrapSale.setScrapRequestCode(scrapSaleRequest.getScrapRequestCode());
+				
+			 result += scrapMapper.scrapSaleInsert(scrapSale);	
+			}
 		}
 		return result;
+		
+		
+		
+		
+		
 	}
 	// 업사이클링 매입 확정 버튼 ajax
 	public int scrapSaleAmountApprovalModify(ScrapSale scrapSale) {
-		return scrapMapper.scrapSaleAmountApprovalModify(scrapSale);
+		int result = 0;
+		int scrapSaleAmount = 0;
+		
+		//신청서 승인 업데이트
+		result += scrapMapper.scrapSaleAmountApprovalModify(scrapSale);
+		scrapSaleAmount = scrapSale.getScrapStatusAmount();
+		//신청서 승인 시 업사이클링 재고 등록
+			if(result > 0 && scrapSaleAmount > 0) {
+				ScrapListInventory scrapListInventory = new ScrapListInventory();
+				scrapListInventory.setScrapInventoryCode(scrapListInventory.getScrapInventoryCode());
+				scrapListInventory.setScrapInventoryStatus(scrapListInventory.getScrapInventoryStatus());
+				scrapListInventory.setScrapInventoryStatusCheck(scrapListInventory.getScrapInventoryStatusCheck());
+				scrapListInventory.setScrapInventoryPrimaryDate(scrapListInventory.getScrapInventoryPrimaryDate());
+				scrapListInventory.setScrapStatus(scrapListInventory.getScrapStatus());
+				
+				result += scrapMapper.scrapInventoryInsert(scrapListInventory);
+			}
+		
+		return result;
 	}
 	
 
