@@ -29,4 +29,23 @@ public class ShippingService {
         return shippingMapper.getLogisticsContract(logisticsContractCode);
     }
 
+    public int renewContract(Shipping shipping){
+        return shippingMapper.renewContract(shipping);
+    }
+
+    public int newLogistics(Shipping shipping){
+        return shippingMapper.newLogistics(shipping);
+    }
+
+    public String getLogisticsContractCode() {
+        return shippingMapper.getLogisticsContractCode();
+    }
+
+    public int getExistingCode(String newLogisCode){
+        return shippingMapper.getExistingCode(newLogisCode);
+    }
+
+    public int deleteLogistics(String logisticsCode){
+        return shippingMapper.deleteLogistics(logisticsCode);
+    }
 }

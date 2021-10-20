@@ -8,6 +8,11 @@ import java.util.List;
 @Mapper
 public interface ShippingMapper {
 
-    public List<Shipping> getLogistics();
-    public List<Shipping> getLogisticsContract(String logisticsContractCode);
+    List<Shipping> getLogistics();
+    List<Shipping> getLogisticsContract(String logisticsContractCode);
+    int renewContract(Shipping shipping);
+    int newLogistics(Shipping shipping);
+    String getLogisticsContractCode();
+    int getExistingCode(String newLogisCode);
+    int deleteLogistics(String logisticsCode);
 }

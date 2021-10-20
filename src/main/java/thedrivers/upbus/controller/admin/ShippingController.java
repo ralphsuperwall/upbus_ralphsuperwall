@@ -9,7 +9,9 @@ import thedrivers.upbus.domain.Shipping;
 import thedrivers.upbus.service.GoodsService;
 import thedrivers.upbus.service.ShippingService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/admin/shipping")
 @Controller
@@ -29,14 +31,53 @@ public class ShippingController {
 		return pageType+"/LogisticsManage";
 	}
 
-	@PostMapping (value = "/admin/LogisticsManage/Contract", produces = "application/json")
+	@PostMapping (value = "/LogisticsManage/Contract", produces = "application/json")
 	@ResponseBody
-	public List<Shipping> getLogisticsContract(@RequestParam(value = "logisticsContractCode") String logisticsContractCode){
+	public List<Shipping> getLogisticsContract(@RequestParam(value = "logisticsCode") String logisticsCode){
 
-		List<Shipping> logisticsContract = shippingService.getLogisticsContract(logisticsContractCode);
-		System.out.println(logisticsContract);
+		List<Shipping> logisticsContract = shippingService.getLogisticsContract(logisticsCode);
 		return logisticsContract;
 	}
+
+	@PostMapping (value = "/LogisticsManage/Renew", produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getRenewCode(@RequestParam(value = "logisticsCode") String logisticsCode){
+
+		String renewTargetCode = logisticsCode;
+		String logisticsContractCode = shippingService.getLogisticsContractCode();
+		Map<String, Object> renewTarget = new HashMap<String, Object>();
+
+		renewTarget.put("logisticsContractCode", logisticsContractCode);
+		renewTarget.put("renewTargetCode", logisticsCode);
+		return renewTarget;
+	}
+
+	@PostMapping (value = "/LogisticsManage/NewLogistics", produces = "application/json")
+	@ResponseBody
+	public int getGoodsCategorySubList(@RequestParam("newLogisCode") String newLogisCode){
+		int checkLogisCode = shippingService.getExistingCode(newLogisCode);
+		return checkLogisCode;
+	}
+
+	@PostMapping (value = "/LogisticsManage/LogisticsDelete", produces = "application/json")
+	@ResponseBody
+	public int deleteLogistics(@RequestParam("logisticsCode") String logisticsCode){
+		int deleteResult = shippingService.deleteLogistics(logisticsCode);
+		return deleteResult;
+	}
+
+	@PostMapping("LogisticsManage/renewContract")
+	public String renewContract(Shipping shipping){
+		shippingService.renewContract(shipping);
+		return "redirect:/admin/shipping/LogisticsManage";
+	}
+
+	@PostMapping("LogisticsManage/newLogistics")
+	public String newLogistics(Shipping shipping){
+		shippingService.newLogistics(shipping);
+		return "redirect:/admin/shipping/LogisticsManage";
+	}
+
 
 	@GetMapping("/StatisticsManage")
 	public String statisticsManage(Model model) {

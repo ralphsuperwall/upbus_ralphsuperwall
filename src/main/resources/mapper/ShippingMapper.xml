@@ -23,13 +23,80 @@
         <result property="logisticsPaper" column="logistics_paper"></result>
     </resultMap>
 
+    <update id="deleteLogistics" parameterType="String">
+        UPDATE
+        logistics
+        SET
+        logistics_status=0
+        WHERE
+        logistics_code=#{logisticsCode};
+    </update>
+
+    <select id="getExistingCode" parameterType="String" resultType="int">
+        SELECT
+            EXISTS
+                (SELECT * FROM logistics
+                WHERE logistics_code = #{newLogisCode});
+    </select>
+
+    <select id="getLogisticsContractCode" resultType="String">
+        SELECT
+            CASE
+                WHEN COUNT(1) = 0 THEN 'l001'
+                ELSE
+                    CONCAT('l', LPAD(MAX(CAST(SUBSTRING(logistics_contract_code,2,3)AS DECIMAL)+1),3,0))
+                END AS logistics_contract_code
+        FROM
+            logistics_contracts;
+    </select>
+
+    <insert id="newLogistics" parameterType="Shipping">
+        INSERT INTO logistics
+        (logistics_code,
+         logistics_name,
+         logistics_up_date,
+         logistics_status)
+         VALUES
+        (#{logisticsCode},
+         #{logisticsName},
+         CURDATE(),
+         1);
+    </insert>
+
+    <insert id="renewContract" parameterType="Shipping">
+       INSERT INTO logistics_contracts
+        (logistics_contract_code,
+         logistics_code,
+         logistics_renew_date,
+         logistics_per,
+         logistics_standard,
+         logistics_branch,
+         logistics_phone,
+         logistics_charge,
+         logistics_incharge,
+         logistics_paper)
+         VALUES
+        (#{logisticsContractCode},
+         #{logisticsCode},
+         CURDATE(),
+         #{logisticsPer},
+         #{logisticsStandard},
+         #{logisticsBranch},
+         #{logisticsPhone},
+         #{logisticsCharge},
+         #{logisticsIncharge},
+         #{logisticsPaper});
+    </insert>
+
     <select id="getLogistics" resultMap="logistics">
         SELECT
             logistics_code,
             logistics_name,
             logistics_up_date
         FROM
-            logistics;
+            logistics
+        WHERE
+            logistics_status=1;
     </select>
 
     <select id="getLogisticsContract" resultMap="logisticsContract">
@@ -43,10 +110,9 @@
             logistics_phone,
             logistics_charge,
             logistics_incharge,
-            logistics_up_date,
             logistics_paper
         FROM
-            logistics_contract
+            logistics_contracts
         WHERE
             logistics_code=#{logisticsCode};
     </select>

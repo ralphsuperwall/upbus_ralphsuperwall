@@ -14,6 +14,7 @@ public class Shipping {
     private String logisticsCharge;
     private String logisticsIncharge;
     private String logisticsPaper;
+    private int logisticsStatus;
 
     public String getLogisticsCode() {
         return logisticsCode;
@@ -111,6 +112,14 @@ public class Shipping {
         this.logisticsPaper = logisticsPaper;
     }
 
+    public int getLogisticsStatus() {
+        return logisticsStatus;
+    }
+
+    public void setLogisticsStatus(int logisticsStatus) {
+        this.logisticsStatus = logisticsStatus;
+    }
+
     @Override
     public String toString() {
         return "Shipping{" +
@@ -126,6 +135,7 @@ public class Shipping {
                 ", logisticsCharge='" + logisticsCharge + '\'' +
                 ", logisticsIncharge='" + logisticsIncharge + '\'' +
                 ", logisticsPaper='" + logisticsPaper + '\'' +
+                ", logisticsStatus=" + logisticsStatus +
                 '}';
     }
 }
