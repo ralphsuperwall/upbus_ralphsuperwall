@@ -28,7 +28,10 @@
 					</div>
 				</li>
 			</ul>
+			
 			<ul class="navbar-nav ml-auto">
+						<a th:if="${session.SID == null }" th:href="@{/admin/member/login}">로그인</a>
+	                    <a th:unless="${session.SID == null }" th:href="@{/admin/member/logout}">로그아웃</a>
 				<li>
 					<div class="dropdown">
 						<a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i></a>
@@ -132,6 +135,7 @@
 				</li>
 			</ul>
 		</div>
+		
 	</header>
 <!-- END HEADER -->
 </html>

@@ -17,6 +17,12 @@ public class OpeningController {
 		model.addAttribute("h1text", "입점 신청");
 		return pageType+"/Application";
 	}
+	@GetMapping("/Application2")
+	public String application2(Model model) {		
+		model.addAttribute("title", "UPBUS");
+		model.addAttribute("h1text", "입점 신청");
+		return pageType+"/Application2";
+	}
 	@GetMapping("/List")
 	public String list(Model model) {		
 		model.addAttribute("title", "UPBUS");
