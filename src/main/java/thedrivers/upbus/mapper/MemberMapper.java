@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import thedrivers.upbus.domain.Launching;
 import thedrivers.upbus.domain.Member;
 
 @Mapper
@@ -27,4 +28,7 @@ public interface MemberMapper {
 	
 	//회원삭제
 	public int memberDelete(String memberId);
+	
+	//입점 신청
+	public int Application2(Launching launching);
 }

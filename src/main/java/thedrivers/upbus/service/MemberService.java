@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import thedrivers.upbus.domain.Launching;
 import thedrivers.upbus.domain.Member;
 import thedrivers.upbus.mapper.MemberMapper;
 
@@ -19,12 +20,13 @@ public class MemberService {
 	
 	// 1.회원추가
 	public int Signup(Member member) {
-		
 		return memberMapper.Signup(member);
 	}
+	// 회원 정보 수정
 	public int modify(Member member) {
 		return memberMapper.modify(member);
 	}
+	// 회원정보 가져오기
 	public Member getMemberInfobyId(String memberId) {
 		return memberMapper.getMemberInfoById(memberId);
 	}
@@ -33,7 +35,9 @@ public class MemberService {
 		List<Member> memberList = memberMapper.getMemberList();
 		return memberList;
 	}
-	
+	public int Application2(Launching launching) {
+		return memberMapper.Application2(launching);
+	}
 	// 3.아이디를 조회해서 있는 지 확인하고 있으면 String 반환 없으면 X
 	public String getCompareMemberId(String memberId) { 
 		String mId = memberMapper.getCompareMemberId(memberId);

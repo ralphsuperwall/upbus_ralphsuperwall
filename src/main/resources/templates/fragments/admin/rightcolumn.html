@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+			<div id="rightcolumn" class="col-md-3" th:fragment="userRightcolumnFragment">
+				<div id="profile" class="row">
+					<div id="profile-container" class="container-fluid">
+						<div class="row" style="display: flex; align-items: center">
+							<div id="profile-icon" style="font-size:50px;"  class="col-md-2 glyphicon glyphicon-user"></div>
+							<div class="col-md-10">
+								<!-- begin member session login state -->
+		                        <div th:unless="${session.SID ==    null}" style="text-align:right;">
+		                           <label> ID : [[${session.SID}]] | [[${session.SNAME}]] 님이 로그인 중. </label>
+		                        </div>
+		                        <!-- end member session login state -->
+							</div>
+						</div>
+						<div class="row">
+	                     <a th:if="${session.SID == null }" th:href="@{/admin/member/login}">로그인</a>
+	                     <a th:unless="${session.SID == null }" th:href="@{/admin/member/logout}">로그아웃</a>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div id="cart-container" class="container-fluid">
+						<div class="row" style="display: flex; align-items: center">
+							<div id="cart-icon" style="font-size:50px;"  class="col-md-2 glyphicon glyphicon-shopping-cart"></div>
+						</div>
+						<div class="row">
+						
+						</div>			
+					</div>
+				</div>
+			</div>
+</html>
