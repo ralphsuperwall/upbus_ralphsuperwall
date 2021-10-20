@@ -100,7 +100,7 @@
 		WHERE
 			scrap_request_code = #{scrapRequestCode}	
 	</update>
-		<update id="scrapSaleAmountApprovalModify" parameterType="ScrapSale">
+	<update id="scrapSaleAmountApprovalModify" parameterType="ScrapSale">
 		UPDATE scrap_sale
 		SET
 			scrap_status_amount = #{scrapStatusAmount}
@@ -137,7 +137,34 @@
 	FROM
 		scrap_sale
 	</select>
+	
 
+	<insert id="scrapSaleInsert" parameterType="ScrapSale">
+    	<selectKey resultType="String" keyProperty="scrapSaleCode" order="BEFORE">
+        	SELECT
+	            CASE
+	            WHEN COUNT(1) = 0 THEN 'scrap_sale_1'
+	            ELSE
+	            	CONCAT('scrap_sale_', MAX(CAST(SUBSTRING_INDEX(scrap_sale_code, 'scrap_sale_', -1)AS DECIMAL)+1))
+	            END AS scrapSaleCode
+            FROM
+                scrap_sale;      
+    	</selectKey>    
+    	INSERT INTO scrap_sale
+    	(  scrap_sale_code
+    	  ,scrap_request_code
+    	  ,scrap_receiving_date
+    	  ,scrap_status_amount
+    	)VALUES(
+    	   #{scrapSaleCode}
+    	  ,#{scrapRequestCode}
+    	  ,CURDATE()
+    	  ,#{scrapStatusAmount});
+	</insert>
+	<delete id="scrapSaleDelete" parameterType="String">
+		DELETE FROM scrap_sale
+		WHERE scrap_sale_code = #{scrapSaleCode};
+	</delete>
 </mapper>
 
 

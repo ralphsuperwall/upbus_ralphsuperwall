@@ -83,7 +83,8 @@ public class ScrapController {
 	@ResponseBody
 	public Map<String,Object> ScrapRequestApprovalAjax(Model model, ScrapSaleRequest scrapSaleRequest) {		
 		Map<String,Object> map = new HashMap<String,Object>();		
-		map.put("result", scrapService.scrapSaleApprovalModify(scrapSaleRequest));	
+		map.put("result", scrapService.scrapSaleApprovalModify(scrapSaleRequest));
+
 		return map; 
 	}
 	@PostMapping(value ="/scrapSaleApprovalAjax", produces="application/json")
