@@ -4,10 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import thedrivers.upbus.domain.Egoods;
 import thedrivers.upbus.domain.GoodsCategoryMain;
 import thedrivers.upbus.domain.GoodsCategorySub;
 import thedrivers.upbus.domain.GoodsInventory;
 import thedrivers.upbus.domain.GoodsRequest;
+import thedrivers.upbus.domain.Member;
 import thedrivers.upbus.mapper.GoodsMapper;
 
 import java.util.List;
@@ -74,4 +77,9 @@ public class GoodsService {
   		return goodsInventoryList;
   	}
 
+  	// 조건없이 전체상품조회
+  	public List<Egoods> getEgoodsList(){
+		List<Egoods> egoodsList = goodsMapper.getEgoodsList();
+		return egoodsList;
+	}
 }

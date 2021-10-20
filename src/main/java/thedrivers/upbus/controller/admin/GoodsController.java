@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import thedrivers.upbus.domain.GoodsRequest;
+import thedrivers.upbus.domain.Member;
 import thedrivers.upbus.service.GoodsService;
 
 import java.util.List;
 import java.util.Map;
 
+import thedrivers.upbus.domain.Egoods;
 import thedrivers.upbus.domain.GoodsInventory;
 import thedrivers.upbus.service.GoodsService;
 
@@ -67,6 +69,9 @@ public class GoodsController {
 	public String EnterpriseSellManage(Model model) {
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "기업 판매 상품 판매 관리");
+		List<Egoods> egoodsList = goodsService.getEgoodsList();
+		
+		model.addAttribute("egoodsList", egoodsList);
 		return pageType+"/EnterpriseSellManage";
 	}
 	
@@ -81,5 +86,13 @@ public class GoodsController {
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "위탁 판매 상품 결제 관리");
 		return pageType+"/MemberPaymentManage";
+	}
+	@GetMapping("/MemberSellInventory")
+	public String MemberSellInventory(Model model) {
+		List<GoodsInventory> goodsInventoryList = goodsService.getGoodsInventory();
+		model.addAttribute("goodsInventoryList", goodsInventoryList);
+		model.addAttribute("title", "UPBUS");
+		model.addAttribute("h1text", "위탁 판매 상품 결제 관리");
+		return pageType+"/MemberSellInventory";
 	}
 }

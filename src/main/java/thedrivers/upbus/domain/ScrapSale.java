@@ -71,4 +71,5 @@ public class ScrapSale {
 		return builder.toString();
 	}
 	
+	
 }
