@@ -27,4 +27,6 @@ public interface ScrapMapper {
 	public int scrapSaleInsert(ScrapSale scrapSaleCode);
 	//6.1 scrap_sale_code 삭제
 	public int scrapSaleDelete(String scrapSaleCode);
+	//7 scrap_inventory 자동증가
+	public int scrapInventoryInsert(ScrapListInventory scrapInventoryCode);
 }

@@ -6,7 +6,7 @@
 	<!-- 업사이클링 재고 리스트 리절트맵  -->
 	<resultMap type="ScrapListInventory" id="scrapList">
 		<result property="scrapInventoryCode" 				column="scrap_inventory_code"/>
-		<result property="scrapRequestCode" 				column="scrap_request_code"/>
+		<result property="scrapSaleCode" 					column="scrap_sale_code"/>
 		<result property="scrapInventoryStatus" 			column="scrap_inventory_status"/>
 		<result property="scrapInventoryStatusCheck" 		column="scrap_inventory_status_check"/>
 		<result property="scrapInventoryPrimaryDate" 		column="scrap_inventory_primary_date"/>
@@ -111,7 +111,7 @@
 	<select id="getScrapList" resultMap="scrapList">
 		SELECT 
 			scrap_inventory_code
-			,scrap_request_code
+			,scrap_sale_code
 			,scrap_inventory_status
 			,scrap_inventory_status_check
 			,scrap_inventory_primary_date
@@ -138,7 +138,7 @@
 		scrap_sale
 	</select>
 	
-
+	<!-- 업사이클링 매입 관리 자동증가 쿼리 -->
 	<insert id="scrapSaleInsert" parameterType="ScrapSale">
     	<selectKey resultType="String" keyProperty="scrapSaleCode" order="BEFORE">
         	SELECT
@@ -165,6 +165,37 @@
 		DELETE FROM scrap_sale
 		WHERE scrap_sale_code = #{scrapSaleCode};
 	</delete>
+	<!--  업사이클링 재료 재고 자동증가 -->
+	<insert id="scrapInventoryInsert" parameterType="ScrapListInventory">
+    	<selectKey resultType="String" keyProperty="scrapInventoryCode" order="BEFORE">
+        	SELECT
+	            CASE
+	            WHEN COUNT(1) = 0 THEN 'scrap_inventory_1'
+	            ELSE
+	            	CONCAT('scrap_inventory_', MAX(CAST(SUBSTRING_INDEX(scrap_inventory_code, 'scrap_inventory_', -1)AS DECIMAL)+1))
+	            END AS scrapInventoryCode
+            FROM
+                scrap_list_inventory;      
+    	</selectKey>    
+    	INSERT INTO  scrap_list_inventory
+    	(  scrap_inventory_code
+    	  ,scrap_inventory_status
+    	  ,scrap_inventory_status_check
+    	  ,scrap_inventory_primary_date
+    	  ,scrapt_status
+    	)VALUES(
+    	   #{scrapInventoryCode}
+    	  ,#{scrapInventoryStatus}
+    	  ,#{scrapInventoryStatusCheck}
+    	  ,CURDATE()
+    	  ,#{scrapStatus});
+	</insert>
+	
+	
+	<!-- user 업사이클링 재료 판매 신청 -->
+	<insert id="">
+	
+	</insert>
 </mapper>
 
 
