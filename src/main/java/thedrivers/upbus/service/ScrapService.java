@@ -7,9 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import thedrivers.upbus.domain.ScrapCategory;
 import thedrivers.upbus.domain.ScrapListInventory;
 import thedrivers.upbus.domain.ScrapSale;
 import thedrivers.upbus.domain.ScrapSaleRequest;
+import thedrivers.upbus.domain.ScrapUpcylingList;
 import thedrivers.upbus.mapper.ScrapMapper;
 
 @Service
@@ -58,24 +60,16 @@ public class ScrapService {
 		//신청서 승인 업데이트
 		result += scrapMapper.scrapSaleApprovalModify(scrapSaleRequest);
 		scrapSaleRequestResult = scrapSaleRequest.getScrapRequestResult();
-		
-		
 		//신청서 승인 시 매입관리 입고
 		System.out.println(scrapRequestAmount+"---------------------------------------------------");
-		for(int i = 1; i <= 3; ++i) {
+		for(int i = 1; i <= scrapRequestAmount; ++i) {
 			if(result > 0 && scrapSaleRequestResult > 0) {
 				ScrapSale scrapSale = new ScrapSale();
 				scrapSale.setScrapRequestCode(scrapSaleRequest.getScrapRequestCode());
-				
 			 result += scrapMapper.scrapSaleInsert(scrapSale);	
 			}
 		}
 		return result;
-		
-		
-		
-		
-		
 	}
 	// 업사이클링 매입 확정 버튼 ajax
 	public int scrapSaleAmountApprovalModify(ScrapSale scrapSale) {
@@ -101,6 +95,25 @@ public class ScrapService {
 	}
 	
 
+	//user
+	//업사이클링 재료 판매 신청서 유저에서 신청해서 관ㄹ리자로 파라미터값 보내기 자동증가
+	public String getscrapRequestCode() {
+		return scrapMapper.getscrapRequestCode();
+	}
 	
+	// 업사이클링 재료 판매 신청서 유저에서 신청해서 관ㄹ리자로 파라미터값 보내기 
+	public int scrapSaleRequest(ScrapSaleRequest scrapSaleRequest) {
+		return scrapMapper.scrapSaleRequest(scrapSaleRequest);
+	}
+	//스크랩 메인 카테고리
+	public List<ScrapCategory> getScrapCategoryList(){
+		List<ScrapCategory> scrapCategoryMainList = scrapMapper.getScrapCategoryList();
+		return scrapCategoryMainList;
+	}
+	//스크랩 서브 카테고리
+	public List<ScrapUpcylingList> getScrapCategorySubList(String scrapCategory){
+		List<ScrapUpcylingList> scrapCategorySubList = scrapMapper.getScrapCategorySubList(scrapCategory);
+		return scrapCategorySubList;
+	}
 	
 }

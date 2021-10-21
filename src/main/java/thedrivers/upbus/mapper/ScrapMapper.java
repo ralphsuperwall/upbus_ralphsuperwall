@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import thedrivers.upbus.domain.ScrapCategory;
 import thedrivers.upbus.domain.ScrapListInventory;
 import thedrivers.upbus.domain.ScrapSale;
 import thedrivers.upbus.domain.ScrapSaleRequest;
+import thedrivers.upbus.domain.ScrapUpcylingList;
 
 @Mapper
 public interface ScrapMapper {
@@ -29,4 +31,14 @@ public interface ScrapMapper {
 	public int scrapSaleDelete(String scrapSaleCode);
 	//7 scrap_inventory 자동증가
 	public int scrapInventoryInsert(ScrapListInventory scrapInventoryCode);
-}
+	
+	//user
+	//1.재료판매 신청서 자동증가
+	public String getscrapRequestCode();
+	//2.업사이클링 재료 판매 신청서 관리자로 insert
+	public int scrapSaleRequest(ScrapSaleRequest scrapSaleRequest);
+	//3.카테고리 메인
+	public List<ScrapCategory> getScrapCategoryList();
+	//3.1 서브 카테고리
+	public List<ScrapUpcylingList> getScrapCategorySubList(String scrapCategory);
+ }

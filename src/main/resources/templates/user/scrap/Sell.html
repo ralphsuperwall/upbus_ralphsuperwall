@@ -31,7 +31,7 @@
 			<div class="card-body" style = "background-color: white;">
 				<form th:action="@{Sell/goodsSellerRequest}" method="get">
 					<div style="display: none">
-						<input type="text" class="form-control" th:value="${goodsRequestCode}" name="goodsRequestCode" hidden="hidden">
+						<input type="text" class="form-control" th:value="${scrapRequestCode}" name="scrapRequestCode" hidden="hidden">
 					</div>
 					<div style="font-size: large;">아이디</div>
 					<input style="margin-bottom: 20px;" type="text" class="form-control" value="upbus_user" id="scrapSellerId" name="scrapSellerId" readonly="readonly">
@@ -40,19 +40,64 @@
 					
 					<div style="font-size: large;">재료 종류를 선택해주세요.</div>
 					<div class="form-group">
-						대분류를 선택해주세요.
-						<select class="form-control" id="goodsMainCategory" onchange="chainedSub(this.value)">
-							<option value="">대분류</option>
-							<option th:each="list : ${goodsCategoryMainList}" th:value="${list.goodsCategoryMainName}">[[${list.goodsCategoryMainName}]]</option>
+						1. 먼저 큰 분류를 선택해주세요.
+						<select class="form-control" id="scrapCategory" onchange="chainedSub(this.value)">
+							<option value="">큰 분류</option>
+							<option th:each="list : ${scrapCategory}" th:value="${list.scrapCategoryName}">[[${list.scrapCategoryName}]]</option>
 						</select>
 					</div>
 					<div class="form-group">
-						다음 소분류를 선택해주세요.
-						<select style="margin-bottom: 20px;" class="form-control" id="goodsSubCategory" name="goodsCategorySubName">
-							<option value="">소분류</option>
+						2. 다음 작은 분류를 선택해주세요.
+						<select style="margin-bottom: 20px;" class="form-control" id="scrapUpcylingList" name="scrapName">
+							<option value="">작은 분류</option>
 						</select>
 					</div>
-				
+					<script>
+						var scrapSubCategory = $('#scrapUpcylingList');
+						var scrapCategory = $('#scrapCategory');
+						scrapSubCategory.click(function () {
+							if ($('#scrapCategory').val() == '') {
+								alert("대분류를 먼저 선택해주세요.");
+								scrapCategory.focus();
+								return;
+							}
+						});
+						function chainedSub(main) {
+							if(main == ''){
+								scrapSubCategory.append('<option value="">소 분류</option>');
+							}
+							$.ajax({
+								url: 'user/scrap/Sell/GetScrapSubCategory',
+								data: {scrapCategory: $('#scrapCategory option:selected').val()},
+								dataType: "json",
+								type: 'get',
+								success: function (data) {
+									$('#scrapSubCategory option').remove();
+									if(data.length == 0){
+										scrapSubCategory.append('<option value="">소 분류</option>');
+									}else {
+										$(data).each(function (i) {
+											scrapSubCategory.append('<option value="' + data[i].scrapName + '">'
+													+ data[i].scrapName + '</option>');
+										});
+									}
+								},
+								error: function () {
+									alert("Bad Request");
+								}
+							});
+						}
+					</script>
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="form-group">
+								<label style = "font-size: large;"><!--for="goodsImageLabel"-->상품이 어떤 모습인지도 보여주세요!</label>
+								<!--<input type="file" id="goodsImageLabel" name="goodsRequestImage">-->
+								<p class="help-block">상품의 사진을 여기에 업로드 해주세요.</p>
+								<input type="text" class="form-control" placeholder="사진 업로드 기능 추가 후 삭제" value="" name="goodsRequestImage" style="display: none;"/>
+							</div>
+						</div>
+					</div>
 
 					<div class="container-fluid">
 					<button type="submit" class="btn btn-success" >재료 판매 신청하기</button>

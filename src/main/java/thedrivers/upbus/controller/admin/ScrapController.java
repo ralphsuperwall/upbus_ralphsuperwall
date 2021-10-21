@@ -81,7 +81,8 @@ public class ScrapController {
 	//업사이클링 재료 신청서 승인 버튼 ajax
 	@PostMapping(value = "/ScrapRequestApprovalAjax", produces = "application/json") 
 	@ResponseBody
-	public Map<String,Object> ScrapRequestApprovalAjax(Model model, ScrapSaleRequest scrapSaleRequest) {		
+	public Map<String,Object> ScrapRequestApprovalAjax(Model model, ScrapSaleRequest scrapSaleRequest) {	
+		System.out.println(scrapSaleRequest + "-----------------------------------------------scrapSaleRequest");
 		Map<String,Object> map = new HashMap<String,Object>();		
 		map.put("result", scrapService.scrapSaleApprovalModify(scrapSaleRequest));
 
