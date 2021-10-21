@@ -26,6 +26,24 @@
 		<!-- collection 복잡한 맵핑 has many 관계 -->
 	</resultMap>
 	
+	<resultMap type="Launching" id="launchingResultMap">
+		<result property="launchingCode" 					column="launching_code"/>
+		<result property="memberId1" 						column="member_id"/>
+		<result property="launchingBrand" 					column="launching_brand"/>
+		<result property="launchingCompany" 				column="launching_company"/>
+		<result property="launchingBusiness_reg_num" 		column="launching_business_reg_num"/>
+		<result property="launchingManager" 				column="launching_manager"/>
+		<result property="launchingPhone" 					column="launching_phone"/>
+		<result property="launchingAddr" 					column="launching_addr"/>
+		<result property="launchingContent" 				column="launching_content"/>
+		<result property="launchingHwp" 					column="launching_hwp"/>
+		<result property="launchingUrl" 					column="launching_url"/>
+		<result property="launchingFile" 					column="launching_file"/>
+		<result property="lauchingStauts" 					column="lauching_stauts"/>
+		<result property="lauchingFee" 						column="lauching_fee"/>
+		<!-- collection 복잡한 맵핑 has many 관계 -->
+	</resultMap>
+	
 	
 	<insert id="Signup" parameterType="Member">
 		INSERT INTO member
@@ -48,6 +66,37 @@
 		   ,#{memberPhone_number}
 		   ,#{memberBirth}
 		   , CURDATE()
+		);	
+	</insert>
+	
+	<insert id="Application2" parameterType="Launching">
+		INSERT INTO launching
+		(    
+			 launching_code
+			,member_id
+			,launching_brand
+			,launching_company
+			,launching_business_reg_num
+			,launching_manager
+			,launching_phone
+			,launching_addr
+			,launching_content
+			,launching_hwp
+			,launching_url
+			,launching_file
+			) VALUES (
+		      (SELECT common_sf_nextval('lch_') FROM DUAL )
+		   ,#{memberId1}
+		   ,#{launchingBrand}
+		   ,#{launchingCompany}
+		   ,#{launchingBusiness_reg_num}
+		   ,#{launchingManager}
+		   ,#{launchingPhone}
+		   ,#{launchingAddr}
+		   ,#{launchingContent}
+		   ,#{launchingHwp}
+		   ,#{launchingUrl}
+		   ,#{launchingFile}
 		);	
 	</insert>
 	

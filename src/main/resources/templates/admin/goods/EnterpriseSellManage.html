@@ -10,7 +10,113 @@
 	  
 <!-- contents layout:fragment 정의 -->
 <th:block layout:fragment="customContents">
+	<div class="page-header">
+	</div>
 	
+		<form name="join" method="post" class="navbar-form navbar-left" role="search" style = "margin: 20px;">
+  			<button type="submit" class="btn btn-primary">기업 ID</button>
+  				<div class="form-group">
+    				<input type="text" class="form-control" placeholder="Search" name="search">
+  				</div>
+  			<button type="submit" class="btn btn-primary" onclick="mySubmit()">검색</button>
+		</form>
+		
+		<script type="text/javascript">
+			function mySubmit() {
+				
+				if(join.search.value == ''){
+					alert('검색어를 입력해주세요.');
+					//커서
+					join.search.focus();
+					return;
+				}
+
+				join.action = 'join.jsp';
+				join.submit();
+			}
+		</script>
+		
+		  
+		  <h1>기업 판매 상품 판매 관리</h1>
+	
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>입점 기업 상품코드</th>
+				<th>기업 ID</th>
+				<th>상품명</th>
+				<th>단위판매가</th>
+				<th>수량</th>
+				<th>상품 사진</th>
+				<th>등록일자</th>
+				<th>수정</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<th:block th:if="${#lists.size(egoodsList) > 0}" th:each="l : ${egoodsList}">			
+				<tr>
+					<td th:text="${l.egoodsCode}"></td>
+					<td th:text="${l.memberId}"></td>
+					<td th:text="${l.egoodsName}"></td>
+					<td th:text="${l.egoodsPrice}"></td>
+					<td th:text="${l.egoodsAmount}"></td>
+					<td><img th:src="${l.egoodsImage}" style= "height: 30px; width:30px;"></td>
+					<td th:text="${l.egoodsDate}"></td>
+					<td>
+						<a>수정</a>
+					</td>
+					<td>
+						<a>삭제</a>
+					</td>
+				</tr>
+			</th:block>
+			<tr	th:unless="${#lists.size(egoodsList) > 0}">
+				<td colspan="9">조회된 데이터가 없습니다</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div class="row" style="text-align: center;">
+		<div class="col-sm-12 col-md-7">
+			<div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+				<ul class="pagination">
+					<li class="paginate_button page-item previous disabled" id="example1_previous">
+						<a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
+					</li>
+					<li class="paginate_button page-item active">
+						<a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+					</li>
+					<li class="paginate_button page-item next" id="example1_next">
+						<a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">다음</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+		
+		
+		<nav class="text-center">
+		  <ul class="pagination">
+		    <li>
+		      <a href="#" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <li><a href="#">1</a></li>
+		    <li><a href="#">2</a></li>
+		    <li><a href="#">3</a></li>
+		    <li><a href="#">4</a></li>
+		    <li><a href="#">5</a></li>
+		    <li>
+		      <a href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
 	
 </th:block>
 

@@ -1,3 +1,4 @@
+
 package thedrivers.upbus.domain;
 
 public class ScrapListInventory {

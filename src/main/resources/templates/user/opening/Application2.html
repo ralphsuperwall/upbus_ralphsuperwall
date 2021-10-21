@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/user}">
+	  	  
+<!-- 커스텀 타이틀 지정 -->
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+	 
+<!-- contents layout:fragment 정의 -->
+<th:block layout:fragment="userCustomContents">
+<form th:action="@{/user/opening/Application2}" method="post">
+		<h1>입점 신청 하기</h1>
+		
+		<table class="table table-striped table-bordered">
+			<tr>
+				<td>아이디</td>
+				<td>
+					<input type="text" name="memberId1" />
+				</td>
+			</tr>
+			<tr>
+				<td>입점 신청 브랜드명</td>
+				<td>
+					<input type="text" name="launchingBrand" />
+				</td>
+			</tr>
+			<tr>
+				<td>입점 신청 기업명</td>
+				<td>
+					<input type="text" name="launchingCompany" />
+				</td>
+			</tr>
+			<tr>
+				<td>입점 신청 사업자 등록번호</td>
+				<td>
+					<input type="text" name="launchingBusiness_reg_num" />
+				</td>
+			</tr>
+			<tr>
+				<td>입점 신청자 담당자명</td>
+				<td>
+					<input type="text" name="launchingManager" />
+				</td>
+			</tr>
+			<tr>
+				<td>입점 신청자 전화번호</td>
+				<td>
+					<input type="text" name="launchingPhone" />
+				</td>
+			</tr>
+			<tr>
+				<td>기업 주소</td>
+				<td>
+					<input type="text" name="launchingAddr" />
+				</td>
+			</tr>
+			<tr>
+				<td>입점 신청 내용</td>
+				<td>
+					<input type="text" name="launchingContent" />
+				</td>
+			</tr>
+			<tr>
+				<td>입점 신청 회사&상품 파일</td>
+				<td>
+					<input type="text" name="launchingHwp" />
+				</td>
+			</tr>
+			<tr>
+				<td>기업 URL</td>
+				<td>
+					<input type="text" name="launchingUrl" />
+				</td>
+			</tr>
+			<tr>
+				<td>첨부서류</td>
+				<td>
+					<input type="text" name="launchingFile" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<button type="submit" class="btn btn-success">입점 신청</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</th:block>
+
+</html>
