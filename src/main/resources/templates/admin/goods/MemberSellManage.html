@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="col-md-12">
-		<div class="card">
+		<div class="card" style="background: ghostwhite">
 			<div class="card-header">
 				<h4>1단계</h4>
 				<h5>신청 승인 단계</h5>
@@ -83,7 +83,7 @@
 	</div>
 
 	<div class="col-md-12">
-		<div class="card">
+		<div class="card" style="background: floralwhite">
 			<div class="card-header">
 				<h4>2단계</h4>
 				<h5>재고화 승인 단계</h5>
@@ -104,7 +104,6 @@
 							<th>판매수량</th>
 							<th>상품설명</th>
 							<th>신청일자</th>
-							<th></th>
 							<th colspan="2" style="color: red; font-weight: bold">처리 단계를 한번 더 확인하세요</th>
 						</tr>
 						</thead>
@@ -120,9 +119,8 @@
 									<td th:text="${l.goodsRequestAmount}"></td>
 									<td th:text="${l.goodsRequestDesc}"></td>
 									<td th:text="${l.goodsRequestDate}"></td>
-									<td><button type="button" class="btn btn-light btn-sm">수정</button></td>
-									<td><button type="button" class="btn btn-info btn-sm">2단계 승인</button></td>
-									<td><button type="button" class="btn btn-warning btn-sm">거절</button></td>
+									<td><button th:onclick="'location.href=\''+ @{MemberSellManage/secondApproval/{goodsRequestCode}(goodsRequestCode = ${l.goodsRequestCode})} + '\''" type="button" class="btn btn-info btn-sm">2단계 승인</button></td>
+									<td><button th:onclick="'location.href=\''+ @{MemberSellManage/secondDisapproval/{goodsRequestCode}(goodsRequestCode = ${l.goodsRequestCode})} + '\''" type="button" class="btn btn-danger btn-sm">재고화 불가</button></td>
 								</tr>
 							</th:block>
 							<th:block th:unless="${lStat.index % 2 == 1}">
@@ -135,9 +133,8 @@
 									<td th:text="${l.goodsRequestAmount}"></td>
 									<td th:text="${l.goodsRequestDesc}"></td>
 									<td th:text="${l.goodsRequestDate}"></td>
-									<td><button type="button" class="btn btn-secondary btn-sm">수정</button></td>
-									<td><button type="button" class="btn btn-info btn-sm">2단계 승인</button></td>
-									<td><button type="button" class="btn btn-warning btn-sm">거절</button></td>
+									<td><button th:onclick="'location.href=\''+ @{MemberSellManage/secondApproval/{goodsRequestCode}(goodsRequestCode = ${l.goodsRequestCode})} + '\''" type="button" class="btn btn-info btn-sm">2단계 승인</button></td>
+									<td><button th:onclick="'location.href=\''+ @{MemberSellManage/secondDisapproval/{goodsRequestCode}(goodsRequestCode = ${l.goodsRequestCode})} + '\''" type="button" class="btn btn-danger btn-sm">재고화 불가</button></td>
 								</tr>
 							</th:block>
 						</th:block>
@@ -148,5 +145,115 @@
 		</div>
 	</div>
 
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<h4>3단계</h4>
+				<h5>재고 등록 단계</h5>
+				<span class="d-block m-t-5">검수 완료 후 재고를 등록합니다.</span>
+				<span class="d-block m-t-5">2단계에서 승인 버튼을 클릭하여 재고화할 상품의 신청 정보를 연동하세요.</span>
+			</div>
+			<div class="card-body table-border-style">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+						<tr>
+							<th>판매신청코드</th>
+							<th>ID</th>
+							<th>상품명</th>
+							<th>카테고리</th>
+							<th>판매신청가</th>
+							<th>판매수량</th>
+							<th>상품설명</th>
+							<th>신청일자</th>
+							<th colspan="2" style="color: red; font-weight: bold">3단계 처리를 완료하면 재고로 등록됩니다.</th>
+						</tr>
+						</thead>
+						<tbody>
+						<th:block th:each="l : ${goodsRequestList2}">
+							<th:block th:if="${lStat.index % 2 == 1}">
+								<tr class="table-active">
+									<td>
+										<input th:value="${l.goodsRequestCode}" readonly>
+									</td>
+									<td>
+										<input th:value="${l.goodsSellerId}" readonly>
+									</td>
+									<td>
+										<input th:value="${l.goodsRequestName}">
+									</td>
+									<td>
+										<input th:value="${l.goodsCategorySubName}">
+									</td>
+									<td>
+										<input th:value="${l.goodsRequestPrice}">
+									</td>
+									<td>
+										<input th:value="${l.goodsRequestAmount}">
+									</td>
+									<td>
+										<input th:value="${l.goodsRequestDesc}">
+									</td>
+									<td>
+										<input th:value="${l.goodsRequestDate}">
+									</td>
+									<td><button type="button" class="btn btn-outline-info btn-sm">등록 완료</button></td>
+								</tr>
+							</th:block>
+							<th:block th:unless="${lStat.index % 2 == 1}">
+								<tr>
+									<td>
+										<input th:value="${l.goodsRequestCode}" readonly>
+									</td>
+									<td>
+										<input th:value="${l.goodsSellerId}" readonly>
+									</td>
+									<td>
+										<input th:value="${l.goodsRequestName}">
+									</td>
+									<td>
+										<input th:value="${l.goodsCategorySubName}">
+									</td>
+									<td>
+										<input th:value="${l.goodsRequestPrice}">
+									</td>
+									<td>
+										<input th:value="${l.goodsRequestAmount}">
+									</td>
+									<td>
+										<input th:value="${l.goodsRequestDesc}">
+									</td>
+									<td>
+										<input th:value="${l.goodsRequestDate}">
+									</td>
+									<td><button type="button" class="btn btn-outline-info btn-sm">등록 완료</button></td>
+								</tr>
+							</th:block>
+						</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="card-header" style="background: #ff8582">
+				<h5>재고화 불가 상품 관리</h5>
+				<span class="d-block m-t-5">재고화 불가 프로세스를 진행하세요.</span>
+				<span class="d-block m-t-5">상품을 재고화 할 수 없는 경우, 고객 정보를 확인하고 배송 업체와 연계하여 반송 처리를 진행하세요.</span>
+			</div>
+			<div class="card-body table-border-style">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+						<tr>
+
+						</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </th:block>
 </html>

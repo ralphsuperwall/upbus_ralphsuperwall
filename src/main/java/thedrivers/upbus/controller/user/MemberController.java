@@ -80,7 +80,7 @@ private final MemberService memberService;
 					session.setAttribute("SNAME", member.getMemberName());
 
 					// return "redirect:/user/member/Login";
-					return "/mainuser";
+					return "mainuser";
 				}
 
 			}

@@ -158,9 +158,23 @@ public class GoodsController {
 		List<GoodsCategorySub> goodsCategorySubList = goodsService.getGoodsCategorySubList(goodsMainCategory);
 		return goodsCategorySubList;
 	}
-	
-	
 
+	/**
+	 * 고객 위탁 판매 진행 상황을 확인하는 MySellStatus 페이지
+	 */
+	@GetMapping("/MySellStatus")
+	public String mySellStatus(Model model) {
+
+        /*아이디를 세션에서 받아와야 함 - 회원 테이블 연동 후
+        String sellerId = (String) session.getAttribute("SID");*/
+		List<GoodsRequest> mySellStatus = goodsService.mySellStatus("id001");
+		model.addAttribute("mySellStatus", mySellStatus);
+		model.addAttribute("title", "UPBUS");
+		model.addAttribute("h1text", "업사이클링 상품 위탁 판매 신청 진행 상황");
+		System.out.println(mySellStatus);
+		return pageType+"/MySellStatus";
+
+	}
 
 	@GetMapping("/MemberList")
 	public String memberList(Model model) {

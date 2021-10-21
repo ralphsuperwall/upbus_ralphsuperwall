@@ -50,6 +50,16 @@ public class GoodsService {
         return goodsMapper.firstDisapproval(goodsRequestCode);
     }
 
+    public int secondApproval(String goodsRequestCode){
+        //승인 처리와 관련된 고객 안내 로직 필요
+        return goodsMapper.secondApproval(goodsRequestCode);
+    }
+
+    public int secondDisapproval(String goodsRequestCode){
+        //거절 처리와 관련된 고객 안내 로직 필요
+        return goodsMapper.secondDisapproval(goodsRequestCode);
+    }
+
 
     public List<GoodsRequest> getGoodsRequest0() {
         List<GoodsRequest> totalGoodRequests = goodsMapper.getGoodsRequest0();
@@ -59,6 +69,15 @@ public class GoodsService {
         List<GoodsRequest> totalGoodRequests = goodsMapper.getGoodsRequest1();
         return totalGoodRequests;
     }
+    public List<GoodsRequest> getGoodsRequest2() {
+        List<GoodsRequest> totalGoodRequests = goodsMapper.getGoodsRequest2();
+        return totalGoodRequests;
+    }
+    public List<GoodsRequest> mySellStatus(String memberId) {
+        List<GoodsRequest> mySellStatus = goodsMapper.mySellStatus(memberId);
+        return mySellStatus;
+    }
+
 
     public List<GoodsCategoryMain> getGoodsCategoryMainList(){
         List<GoodsCategoryMain> goodsCategoryMainList = goodsMapper.getGoodsCategoryMainList();

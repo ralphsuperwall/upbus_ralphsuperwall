@@ -38,13 +38,13 @@ public class GoodsController {
 	@GetMapping("/MemberSellManage")
 	public String getGoodsRequestList(Model model){
 
-		//비즈니스 계층 호출
 		List<GoodsRequest> goodsRequestList0 = goodsService.getGoodsRequest0();
 		List<GoodsRequest> goodsRequestList1 = goodsService.getGoodsRequest1();
-		//결과 Model 객체 세팅
+		List<GoodsRequest> goodsRequestList2 = goodsService.getGoodsRequest2();
 		model.addAttribute("title", "승인 대기 중 위탁 판매 신청");
 		model.addAttribute("goodsRequestList0", goodsRequestList0);
 		model.addAttribute("goodsRequestList1", goodsRequestList1);
+		model.addAttribute("goodsRequestList2", goodsRequestList2);
 		return pageType+"/MemberSellManage";
 	}
 
@@ -61,6 +61,22 @@ public class GoodsController {
 	@GetMapping("/MemberSellManage/firstDisapproval/{goodsRequestCode}")
 	public String firstDisapproval(@PathVariable String goodsRequestCode) {
 		goodsService.firstDisapproval(goodsRequestCode);
+		return "redirect:/admin/goods/MemberSellManage";
+	}
+
+	/**
+	 * 위탁 판매 관리 시스템 : 2단계 처리(고객이 발송한 상품을 확인하고 재고화 승인)하는 기능
+	 * firstApproval - 2단계 처리 승인, firstDisapproval - 재고화 불가 : 고객 반송
+	 */
+	@GetMapping("/MemberSellManage/secondApproval/{goodsRequestCode}")
+	public String secondApproval(@PathVariable String goodsRequestCode) {
+		goodsService.secondApproval(goodsRequestCode);
+		return "redirect:/admin/goods/MemberSellManage";
+	}
+
+	@GetMapping("/MemberSellManage/secondDisapproval/{goodsRequestCode}")
+	public String secondDisapproval(@PathVariable String goodsRequestCode) {
+		goodsService.secondDisapproval(goodsRequestCode);
 		return "redirect:/admin/goods/MemberSellManage";
 	}
 

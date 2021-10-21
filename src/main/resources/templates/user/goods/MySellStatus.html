@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="@{layout/user}">
+
+<!-- 커스텀 타이틀 지정 -->
+<th:block layout:fragment="customTitle">
+  <title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="userCustomContents">
+
+  <div class="col-sm-12">
+    <div class="panel panel-primary" style="margin-top: 15px;">
+      <div class="panel-heading">
+        <h3 th:text="${h1text}" class="m-b-0 text-white"></h3>
+        <p class="m-b-0 text-white">위탁 판매 신청한 상품의 진행 상황을 확인할 수 있어요.<p>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table class="table table-bordered" style="font-size: large; padding: 15px;">
+            <thead>
+            <tr style="background: royalblue; color: white">
+              <th>고객님의 아이디</th>
+              <th>판매 신청한 상품의 이름</th>
+              <th>상품의 분류</th>
+              <th>신청한 가격</th>
+              <th>신청한 수량</th>
+              <th>신청한 날짜</th>
+              <th>진행 상태</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="l : ${mySellStatus}">
+              <tr class="table-active">
+                <td th:text="${l.goodsSellerId}"></td>
+                <td th:text="${l.goodsRequestName}"></td>
+                <td th:text="${l.goodsCategorySubName}"></td>
+                <td th:text="${l.goodsRequestPrice}"></td>
+                <td th:text="${l.goodsRequestAmount}"></td>
+                <td th:text="${l.goodsRequestDate}"></td>
+                th if
+                <!--<td class="sellStatusCell" style="color: white" th:value="${l.goodsRequestApproval}"></td>-->
+              </tr>
+            </th:block>
+            </tbody>
+          </table>
+          <!--<script th:inline="javascript">
+            $(function() {
+              var sellStatusCell = $('.sellStatusCell');
+              var approvalArray = [[${mySellStatus}]];
+              for(var i = 0; i < approvalArray.length; i++){
+                if (sellStatusCell.val() == 0) {
+                  sellStatusCell.text("판매 신청이 아직 확인 전이에요.");
+                  sellStatusCell.css("background", "purple");
+                }else if (sellStatusCell.val() == 1) {
+                  sellStatusCell.text("판매 신청이 승인되었어요! 상품을 발송해주세요.");
+                  sellStatusCell.css("background", "blue");
+                }else if (sellStatusCell.val() == 2) {
+                  sellStatusCell.text("위탁 판매가 완료되었어요. 판매되기를 기다려주세요.");
+                  sellStatusCell.css("background", "green");
+                }else {
+                  sellStatusCell.text("상품이 판매될 수 없었어요. 반송 주소를 입력해주세요.");
+                  sellStatusCell.css("background", "red");
+                }
+              }
+            });
+          </script>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+
+</html>

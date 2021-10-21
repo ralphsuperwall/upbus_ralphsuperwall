@@ -23,6 +23,7 @@
         <result property="goodsRequestImage" column="goods_request_image"></result>
         <result property="goodsRequestDesc" column="goods_request_desc"></result>
         <result property="goodsRequestDate" column="goods_request_date"></result>
+        <result property="goodsRequestApproval" column="goods_request_approval"></result>
     </resultMap>
 
 	<resultMap type="Egoods" id="egoodsResultMap">
@@ -35,6 +36,21 @@
 		<result property="egoodsDate" 						column="egoods_date"/>
 		<!-- collection 복잡한 맵핑 has many 관계 -->
 	</resultMap>
+
+    <select id="mySellStatus" resultMap="goodsRequest" parameterType="String">
+        SELECT
+            member_id,
+            goods_request_name,
+            goods_category_sub_name,
+            goods_request_price,
+            goods_request_amount,
+            goods_request_date,
+            goods_request_approval
+        FROM
+            goods_request
+        WHERE
+            member_id='id001';
+    </select>
 	
     <update id="firstApproval" parameterType="String">
         UPDATE
@@ -52,6 +68,24 @@
         WHERE
             goods_request_code=#{goodsRequestCode};
     </delete>
+
+    <update id="secondApproval" parameterType="String">
+        UPDATE
+            goods_request
+        SET
+            goods_request_approval=2
+        where
+            goods_request_code=#{goodsRequestCode};
+    </update>
+
+    <update id="secondDisapproval" parameterType="String">
+        UPDATE
+            goods_request
+        SET
+            goods_request_approval=3
+        where
+            goods_request_code=#{goodsRequestCode};
+    </update>
 
     <select id="getGoodsRequest0" resultMap="goodsRequest">
         SELECT
@@ -85,6 +119,23 @@
             goods_request
         WHERE
             goods_request_approval=1;
+    </select>
+
+    <select id="getGoodsRequest2" resultMap="goodsRequest">
+        SELECT
+            goods_request_code,
+            member_id,
+            goods_request_name,
+            goods_category_sub_name,
+            goods_request_price,
+            goods_request_amount,
+            goods_request_image,
+            goods_request_desc,
+            goods_request_date
+        FROM
+            goods_request
+        WHERE
+            goods_request_approval=2;
     </select>
 
 	<!--goods_inventory 개인위탁판매 재고 리절트 맵  -->
