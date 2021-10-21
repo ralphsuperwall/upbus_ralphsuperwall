@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/admin}">
+	  	  
+<!-- 커스텀 타이틀 지정 -->
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+	  
+<!-- contents layout:fragment 정의 -->
+<th:block layout:fragment="customContents">
+	<div class="card prod-p-card bg-c-green card-body">
+		<div class="row align-items-center">
+			<div class="col">
+				<h3 class="m-b-0 text-white">배송 정보 입력 시스템</h3>
+				<h5 class="m-b-0 text-white">UPCYCLING BUS : UPBUS LOGISTICS CONTRACT MANAGEMENT</h5>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<h4>계약 배송 업체 등록</h4>
+				<span class="d-block m-t-5">현재 계약 상태인 배송 업체의 정보를 확인할 수 있습니다.</span>
+				<span class="d-block m-t-5">신규 계약 업체를 등록할 수 있습니다.</span>
+			</div>
+			<div class="card-body table-border-style">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+						<tr>
+							<th>배송업체코드</th>
+							<th>배송업체명</th>
+							<th>최초등록일자</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						<th:block th:each="l : ${logistics}">
+							<tr class="table-active">
+								<td th:text="${l.logisticsCode}"></td>
+								<td th:text="${l.logisticsName}"></td>
+								<td th:text="${l.logisticsUpDate}"></td>
+								<td>
+									<button class="deleteBtn btn btn-danger btn-sm float-right" type="button" th:data-logisticsCode="${l.logisticsCode}">비활성화</button>
+									<button class="detailBtn btn btn-primary btn-sm float-right" type="button" th:data-logisticsCode="${l.logisticsCode}">상세정보</button>
+									<button class="renewBtn btn btn-primary btn-sm float-right" type="button" th:data-logisticsCode="${l.logisticsCode}">계약갱신등록</button>
+								</td>
+							</tr>
+						</th:block>
+						</tbody>
+					</table>
+
+					<table class="table">
+						<thead>
+						<tr>
+							<th>배송계약코드</th>
+							<th>배송업체코드</th>
+							<th>계약갱신일자</th>
+							<th>건당단가</th>
+							<th>계약최소건수</th>
+							<th>계약지점</th>
+							<th>계약지점전화번호</th>
+							<th>계약지점담당자</th>
+							<th>업체연락담당자</th>
+							<th>계약서원본경로</th>
+						</tr>
+						</thead>
+						<tbody id="logisticsContractDetail">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function (){
+			$('.deleteBtn').on('click',function(){
+
+				var logisticsCode = $(this).attr('data-logisticsCode');
+
+				$.ajax({
+					url: "/admin/shipping/LogisticsManage/LogisticsDelete",
+					data: {"logisticsCode" : logisticsCode.trim()},
+					type: "post",
+					success : function(data){
+						if(data == 1) {
+							alert("선택한 배송 업체가 리스트에서 제외되었습니다.")
+							location.reload();
+						}
+					},
+					error : function(){
+						alert("요청을 처리할 수 없습니다.")
+					}
+				});
+			})
+		});
+	</script>
+	<script>
+		$(function (){
+			$('.detailBtn').on('click',function(){
+
+				//var logisticsContractCode = $(this).parent().parent().children().eq(0).text();
+				var logisticsCode = $(this).attr('data-logisticsCode');
+				var logisticsContractDetail = $('#logisticsContractDetail');
+
+				$.ajax({
+					url: "/admin/shipping/LogisticsManage/Contract",
+					data: {"logisticsCode" : logisticsCode.trim()},
+					type: "post",
+					success : function(data){
+						alert("선택한 배송 업체의 상세 정보를 불러옵니다.")
+						logisticsContractDetail.empty();
+						$(data).each(function (i) {
+							logisticsContractDetail.append('<tr>');
+							logisticsContractDetail.append('<td>' + data[i].logisticsContractCode + '</td>');
+							logisticsContractDetail.append('<td>' + data[i].logisticsCode + '</td>');
+							logisticsContractDetail.append('<td>' + data[i].logisticsRenewDate + '</td>');
+							logisticsContractDetail.append('<td>' + data[i].logisticsPer + '</td>');
+							logisticsContractDetail.append('<td>' + data[i].logisticsStandard + '</td>');
+							logisticsContractDetail.append('<td>' + data[i].logisticsBranch + '</td>');
+							logisticsContractDetail.append('<td>' + data[i].logisticsPhone + '</td>');
+							logisticsContractDetail.append('<td>' + data[i].logisticsCharge + '</td>');
+							logisticsContractDetail.append('<td>' + data[i].logisticsIncharge + '</td>');
+							logisticsContractDetail.append('<td>' + data[i].logisticsPaper + '</td>');
+							logisticsContractDetail.append('</tr>');
+						});
+					},
+					error : function(){
+						alert("선택한 배송 업체의 상세 정보를 불러올 수 없습니다.")
+					}
+				});
+			})
+		});
+	</script>
+
+
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<h4>계약 갱신 내용 입력</h4>
+				<span class="d-block m-t-5">업체의 계약 내용이 갱신된 경우 계약 사항을 빠짐없이 입력하세요.</span>
+			</div>
+			<div class="card-body table-border-style">
+				<div class="table-responsive">
+					<form th:action="@{LogisticsManage/renewContract}" method="post" onsubmit="return checkRenew();">
+					<table class="table">
+						<thead>
+						<tr>
+							<th>계약 내용 분류</th>
+							<th>계약 내용 입력</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>계약번호</td>
+							<td>
+								<input type="text" class="form-control" id="renewCode" value="" name="logisticsContractCode" readonly>
+							</td>
+						</tr>
+						<tr>
+							<td>배송업체</td>
+							<td>
+								<input type="text" class="form-control" id="renewName" value="" name="logisticsCode" readonly>
+							</td>
+						</tr>
+						<tr>
+							<td>배송건당단가</td>
+							<td>
+								<input type="number" class="form-control" id="renewPer" name="logisticsPer">
+							</td>
+						</tr>
+						<tr>
+							<td>계약기준건수</td>
+							<td>
+								<input type="number" class="form-control" id="renewStandard" name="logisticsStandard">
+							</td>
+						</tr>
+						<tr>
+							<td>계약업체지점</td>
+							<td>
+								<input type="text" class="form-control" id="renewBranch" name="logisticsBranch">
+							</td>
+						</tr>
+						<tr>
+							<td>업체연락처</td>
+							<td>
+								<input type="text" class="form-control" id="renewPhone" name="logisticsPhone">
+							</td>
+						</tr>
+						<tr>
+							<td>업체담당자</td>
+							<td>
+								<input type="text" class="form-control" id="renewCharge" name="logisticsCharge">
+							</td>
+						</tr>
+						<tr>
+							<td>연락책임자</td>
+							<td>
+								<input type="text" class="form-control" id="renewIncharge" name="logisticsIncharge">
+							</td>
+						</tr>
+						<tr>
+							<td>계약서원본경로</td>
+							<td>
+								<input type="text" class="form-control" id="renewPaper" name="logisticsPaper">
+							</td>
+							<td>
+								<button type=submit class="btn btn-outline-primary"><i class="feather icon-thumbs-up"></i>등록</button>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					</form>
+					<script>
+						function checkRenew() {
+						var renewCode = document.getElementById('renewCode');
+						var renewName = document.getElementById('renewName');
+						var renewPer = document.getElementById('renewPer');
+						var renewStandard = document.getElementById('renewStandard');
+						var renewBranch = document.getElementById('renewBranch');
+						var renewPhone = document.getElementById('renewPhone');
+						var renewCharge = document.getElementById('renewCharge');
+						var renewIncharge = document.getElementById('renewIncharge');
+						var renewPaper = document.getElementById('renewPaper');
+
+							if(renewCode.value == '' || renewName.value =='') {
+								alert("상세 정보를 입력할 업체가 연동되지 않았습니다.");
+								return false;
+							}else if(renewPer.value == '') {
+								alert("건당 계약 단가가 입력되지 않았습니다.");
+								return false;
+							}else if(renewStandard.value == '') {
+								alert("계약 월간 기준 건수가 입력되지 않았습니다.");
+								return false;
+							}else if(renewBranch.value == '') {
+								alert("업체 계약 지점이 입력되지 않았습니다.");
+								return false;
+							}else if(renewPhone.value == '') {
+								alert("계약 지점 연락처가 입력되지 않았습니다.");
+								return false;
+							}else if(renewCharge.value == '') {
+								alert("계약 지점의 담당자가 입력되지 않았습니다.");
+								return false;
+							}else if(renewIncharge.value == '') {
+								alert("계약 지점을 관리하는 내부 담당자가 입력되지 않았습니다.");
+								return false;
+							}else if(renewPaper.value == '') {
+								alert("계약서 경로가 등록되지 않았습니다.");
+								return false;
+							}else{
+								return true;
+							}
+						}
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(function (){
+			$('.renewBtn').on('click',function(){
+				var logisticsCode = $(this).attr('data-logisticsCode');
+				var renewLogisticsContractCode = $('#renewCode')
+				var renewLogisticsCode = $('#renewName')
+				$.ajax({
+					url: "/admin/shipping/LogisticsManage/Renew",
+					data: {"logisticsCode" : logisticsCode.trim()},
+					type: "post",
+					success : function(data){
+						alert("업체 정보 연동 완료. 하단에 계약 상세 정보를 입력하세요.")
+						renewLogisticsContractCode.val(data.logisticsContractCode);
+						renewLogisticsCode.val(data.renewTargetCode);
+					},
+					error : function(){
+						alert("선택한 배송 업체의 상세 정보를 불러올 수 없습니다.")
+					}
+				});
+			})
+		});
+	</script>
+
+	<div class="col-md-12">
+		<div class="card" style="background-color: lightgoldenrodyellow;">
+			<div class="card-header">
+				<h4>신규 배송 업체 등록</h4>
+				<span class="d-block m-t-5">새로운 배송 업체를 등록할 수 있습니다.</span>
+			</div>
+			<div class="card-body table-border-style">
+				<div class="table-responsive">
+					<form th:action="@{LogisticsManage/newLogistics}" method="post" onsubmit="return checkNewLogistics();">
+						<div class="container-fluid">
+							<div class="row">
+								<div class ="col-sm-6">
+									<div>배송 업체 코드(대문자 2자로 등록)</div>
+									<div class="check_font" id="newLogisCheckText"></div>
+									<div style="margin-bottom: 15px;">
+										<input type="text" class="form-control" id="newLogisCode" name="logisticsCode">
+									</div>
+									<div>배송 업체명</div>
+									<div style="margin-bottom: 15px;">
+										<input type="text" class="form-control" id="newLogisName" name="logisticsName">
+									</div>
+								<button type="submit" id="newLogisSubmitBtn" class="btn btn-outline-primary"><i class="feather icon-thumbs-up"></i>등록</button>
+								</div>
+							</div>
+						</div>
+					</form>
+					<script>
+						$(function() {
+							var newLogisCode = $('#newLogisCode');
+							var newLogisCheckText = $('#newLogisCheckText');
+							var newLogisSubmitBtn = $('#newLogisSubmitBtn');
+							var letterCheck = /^[A-Z]*$/;
+							/*var letterCheckTarget = newLogisCode.val()*/
+							//이 위치에 선언하면 변화하기 전에 객체가 만들어져서 유효성 검사 대상 value가 담기지 않음
+
+							newLogisCode.change(function () {
+								var letterCheckTarget = newLogisCode.val()
+								if (letterCheck.test(letterCheckTarget) == false || letterCheckTarget.length > 2) {
+									alert("업체 코드는 영어 대문자 2자로 입력하세요.");
+									newLogisCode.val('');
+									return;
+								}
+
+								$.ajax({
+									url: '/admin/shipping/LogisticsManage/NewLogistics',
+									data: {
+										newLogisCode: newLogisCode.val(),
+									},
+									dataType: "json",
+									type: 'post',
+									success: function (data) {
+										if(data == 0) {
+											newLogisCheckText.text("사용할 수 있는 업체 코드");
+											newLogisCheckText.css("color", "blue");
+											newLogisSubmitBtn.attr("disabled", false);
+										}else{
+											newLogisCheckText.text("이미 존재하는 업체 코드 - 다른 코드로 지정하세요.");
+											newLogisCheckText.css("color", "red");
+											newLogisSubmitBtn.attr("disabled", true);
+										}
+									},
+									error: function () {
+										newLogisCheckText.text("잘못된 값이 입력되었습니다. 다시 입력하세요.");
+										newLogisCheckText.css("color", "red");
+										newLogisSubmitBtn.attr("disabled", true);
+									}
+								});
+							});
+						});
+					</script>
+					<script>
+						function checkNewLogistics() {
+							var checkLogisCode = document.getElementById('newLogisCode');
+							var checkNewLogisName = document.getElementById('newLogisName');
+
+							if(checkLogisCode.value == '') {
+								alert("업체 코드가 입력되지 않았습니다.");
+								return false;
+							}else if(checkNewLogisName.value == '') {
+								alert("업체명이 입력되지 않았습니다.");
+								return false;
+							}else{
+								return true;
+							}
+						}
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</th:block>
+</html>

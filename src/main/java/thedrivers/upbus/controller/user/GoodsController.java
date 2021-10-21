@@ -56,7 +56,6 @@ public class GoodsController {
 	@GetMapping("/MySell/goodsSellerRequest")
 	public String goodsRequest(GoodsRequest goodsRequest) {
 		goodsService.goodsRequest(goodsRequest);
-		System.out.println(goodsRequest);
 		return "redirect:/user/goods/MySell";
 	}
 
