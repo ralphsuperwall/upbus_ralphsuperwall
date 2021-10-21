@@ -46,7 +46,7 @@
 								</td>
 								<td><img src="#!" alt="" class=""></td>
 								<td th:text="${scrapRequestList.scrapUpcylingList.scrapName}"></td>
-								<td th:text="${scrapRequestList.scrapRequestAmount}"></td>
+								<td id="scrapRequestAmount" th:text="${scrapRequestList.scrapRequestAmount}"></td>
 								<td><!-- 승인여부 승인버튼 클릭시 Y 승인취소 클릭시 N -->
 									<span class="scrapRequestResultText" th:if="${scrapRequestList.scrapRequestResult eq 1}">Y</span>
 									<span class="scrapRequestResultText" th:unless="${scrapRequestList.scrapRequestResult eq 1}">N</span>
@@ -82,16 +82,19 @@
 					}else{
 						modifyScrapRequestResult = 0;						
 					}
-					
+ 					var scrapRequestAmountTest = $(this).parents('tr').find('#scrapRequestAmount').text();
+ 					var scrapRequestAmount = Number(scrapRequestAmountTest);
 					var scrapRequestCode = $(this).val();
 					var request = $.ajax({
 						url: "/admin/scrap/ScrapRequestApprovalAjax",
 						method: "POST",
-						data: { scrapRequestCode: scrapRequestCode, scrapRequestResult : modifyScrapRequestResult },
+						//data: { scrapRequestCode: scrapRequestCode, scrapRequestResult : modifyScrapRequestResult},
+						data: { scrapRequestCode: scrapRequestCode, scrapRequestResult : modifyScrapRequestResult, scrapRequestAmount : scrapRequestAmount },
 						dataType: "json"
 					});
 					 
 					request.done(function( data ) {
+						
 						var result = data.result;
 						if(result > 0){
 							if(scrapRequestResult == 0){	

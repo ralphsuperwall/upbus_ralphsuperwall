@@ -47,6 +47,8 @@
 	
 	</resultMap>
 	
+
+	
 	<!-- 업사이클링 재료 판매 신청서 쿼리문 -->
 	<select id="getScrapSale" resultMap="scrapSaleRequestList">
 		SELECT 
@@ -190,12 +192,77 @@
     	  ,CURDATE()
     	  ,#{scrapStatus});
 	</insert>
+		<resultMap type="ScrapCategory" id="scrapCategory">
+		<result property="scrapCategoryNumber" 				column="scrap_category_number"/>
+		<result property="scrapCategoryName" 				column="scrap_category_name"/>
 	
+	</resultMap>
+	<resultMap type="ScrapUpcylingList" id="scrapUpcylingList">
+		<result property="scrapMaterialListCode" 			column="scrap_material_list_code"/>
+		<result property="scrapCategoryNumber" 				column="scrap_category_number"/>
+		<result property="scrapName" 						column="scrap_name"/>
+		<result property="scrapPriceUnit" 					column="scrap_price_unit"/>
+		<result property="scrapMaterialPriceWon" 			column="scrap_material_price_won"/>
+		<result property="scrapWeightPerPiece" 				column="scrap_weight_per_piece"/>
+		<result property="scrapUpcylingImage"				column="scrap_upcyling_image"/>
+		<result property="mileageAccumulateStandardCode" 	column="scrap_category_name"/>
 	
+	</resultMap>
+	
+	  <select id="getscrapRequestCode" resultType="String">
+        SELECT
+            CASE
+                WHEN COUNT(1) = 0 THEN 'scrap_request_1'
+            ELSE
+                CONCAT('scrap_request_', MAX(CAST(SUBSTRING(scrap_request_code,2,3)AS DECIMAL)+1))
+            END AS scrap_request_code
+            FROM
+                scrap_sale_request;
+    </select>
 	<!-- user 업사이클링 재료 판매 신청 -->
-	<insert id="">
-	
+	 <insert id="scrapSaleRequest" parameterType="ScrapSaleRequest">
+        INSERT INTO scrap_sale_request
+        (scrap_request_code,
+         scrap_material_list_code,
+         scrap_member_id,
+         scrap_request_amount,
+         scrap_request_image,
+         scrap_request_date,
+         scrap_shipping_out_addr,
+         scrap_shipping_in_addr,
+        )VALUES (
+        #{scrapRequestCode},
+        #{scrapMaterialListCode},
+        #{scrapMemberId},
+        #{scrapRequestAmount},
+        #{scrapRequestImage},
+        CURDATE(),
+        #{scrapShippingOutAddr},
+        #{scrapShippingInAddr}
+        );
 	</insert>
+	
+	<!-- scrap 메인 category select -->
+	<select id="getScrapCategoryList" resultMap="scrapCategory">
+		SELECT
+			scrap_category_name
+		FROM
+			scrap_category;
+	</select>
+	<!-- scrap 서브 category select -->
+	<select id="getScrapCategorySubList" resultMap="scrapUpcylingList">
+		SELECT
+			scrap_name
+		FROM
+			scrap_category as m
+		INNER JOIN
+			scrap_upcyling_list as s
+		ON
+			s.scrap_category_number = m.scrap_category_number
+		WHERE
+			m.scrap_category_name = #{ScrapCategory};
+		
+	</select>
 </mapper>
 
 

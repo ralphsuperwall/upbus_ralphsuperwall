@@ -25,7 +25,7 @@
 								</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="exampleInputPassword1">주소</label>
+									<label for="exampleInputPassword1">출발주소</label>
 									<input type="text" class="form-control" id="addr" readonly="readonly" th:value="${scrapSaleRequestDetailList.scrapShippingOutAddr}" >
 								</div>
 							</div>
@@ -105,11 +105,12 @@
 				}else{
 					modifyScrapRequestResult = 0;						
 				}
-				
+				var scrapRequestAmountTest = $(this).parents('tr').find('#scrapRequestAmount').text();
+ 					var scrapRequestAmount = Number(scrapRequestAmountTest);
 				var request = $.ajax({
 					url: "/admin/scrap/ScrapRequestApprovalAjax", //요청 url
 					method: "POST", //요청방식
-					data: { scrapRequestCode: scrapRequestCode, scrapRequestResult : modifyScrapRequestResult }, //요청하는 곳에 전달될 데이터
+					data: { scrapRequestCode: scrapRequestCode, scrapRequestResult : modifyScrapRequestResult, scrapRequestAmount : scrapRequestAmount }, //요청하는 곳에 전달될 데이터
 					dataType: "json" //응답되어 받은 데이터를 parsing 시킬방식
 				});
 				 //반환된 객체에는 done 메서드가 있으며 , 요청과 응답이 정상적으로
