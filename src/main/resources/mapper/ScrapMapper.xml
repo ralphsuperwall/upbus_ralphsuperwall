@@ -181,12 +181,14 @@
     	</selectKey>    
     	INSERT INTO  scrap_list_inventory
     	(  scrap_inventory_code
+    	  ,scrap_sale_code
     	  ,scrap_inventory_status
     	  ,scrap_inventory_status_check
     	  ,scrap_inventory_primary_date
     	  ,scrapt_status
     	)VALUES(
     	   #{scrapInventoryCode}
+    	  ,#{scrapSaleCode}
     	  ,#{scrapInventoryStatus}
     	  ,#{scrapInventoryStatusCheck}
     	  ,CURDATE()
@@ -223,7 +225,7 @@
 	 <insert id="scrapSaleRequest" parameterType="ScrapSaleRequest">
         INSERT INTO scrap_sale_request
         (scrap_request_code,
-         scrap_material_list_code,
+         scrap_material_list_code,	
          scrap_member_id,
          scrap_request_amount,
          scrap_request_image,
@@ -253,6 +255,7 @@
 	<select id="getScrapCategorySubList" resultMap="scrapUpcylingList">
 		SELECT
 			scrap_name
+			
 		FROM
 			scrap_category as m
 		INNER JOIN
@@ -260,8 +263,16 @@
 		ON
 			s.scrap_category_number = m.scrap_category_number
 		WHERE
-			m.scrap_category_name = #{ScrapCategory};
+			m.scrap_category_name = #{scrapCategory};
 		
+	</select>
+	<select id="getMaterialListCode" parameterType="ScrapUpcylingList">
+		SELECT
+			scr ap_material_list_code
+		FROM
+			scrap_upcyling_list
+		WHERE
+			scrap_name = #{scrapName};
 	</select>
 </mapper>
 

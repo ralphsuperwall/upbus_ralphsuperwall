@@ -41,4 +41,6 @@ public interface ScrapMapper {
 	public List<ScrapCategory> getScrapCategoryList();
 	//3.1 서브 카테고리
 	public List<ScrapUpcylingList> getScrapCategorySubList(String scrapCategory);
+	//3.2 서브 카테고리 기본키 가져오기
+	public ScrapUpcylingList getMaterialListCode(ScrapUpcylingList scrapName);
  }

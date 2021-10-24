@@ -48,7 +48,7 @@
 					</div>
 					<div class="form-group">
 						2. 다음 작은 분류를 선택해주세요.
-						<select style="margin-bottom: 20px;" class="form-control" id="scrapUpcylingList" name="scrapName">
+						<select style="margin-bottom: 20px;" class="form-control" id="scrapUpcylingList" name="scrapMaterialListCode">
 							<option value="">재료 이름</option>
 						</select>
 					</div>
@@ -62,23 +62,24 @@
 								return;
 							}
 						});
-						var scrap
+						
 						function chainedSub(main) {
 							if(main == ''){
 								scrapSubCategory.append('<option value="">재료 이름</option>');
 							}
 							$.ajax({
 								url: 'user/scrap/Sell/GetScrapSubCategory',
-								data: {scrapCategory: $('#scrapCategory').val()},
+								data: {scrapCategory: $('#scrapCategory option:selected').val()},
 								dataType: "json",
 								type: 'get',
 								success: function (data) {
-									$('#scrapSubCategory').remove();
+									
+									$('#scrapSubCategory option').remove();
 									if(data.length == 0){
 										scrapSubCategory.append('<option value="">재료 이름</option>');
 									}else {
 										$(data).each(function (i) {
-											scrapSubCategory.append('<option value="' + data[i].scrapName + '">'
+											scrapSubCategory.append('<option value="' + data[i].scrapName+ '">'
 													+ data[i].scrapName + '</option>');
 										});
 									}
@@ -93,13 +94,16 @@
 					<div class="input-group mb-3">
 						<input style= "margin-bottom: 20px;" type="number" class="form-control" placeholder="상품의 개수" id="scrapRequestAmount" name="scrapRequestAmount" >
 					</div>
+					<div>
+					주소 API 넣을 예정
+					</div>
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="form-group">
 								<label style = "font-size: large;"><!--for="goodsImageLabel"-->상품이 어떤 모습인지도 보여주세요!</label>
 								<!--<input type="file" id="goodsImageLabel" name="goodsRequestImage">-->
 								<p class="help-block">상품의 사진을 여기에 업로드 해주세요.</p>
-								<input type="text" class="form-control" placeholder="사진 업로드 기능 추가 후 삭제" value="" name="goodsRequestImage" style="display: none;"/>
+								<input type="text" class="form-control" placeholder="사진 업로드 기능 추가 후 삭제" value="" name="scrapRequestImage" style="display: none;"/>
 							</div>
 						</div>
 					</div>
