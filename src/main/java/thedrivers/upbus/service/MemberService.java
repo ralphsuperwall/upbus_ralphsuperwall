@@ -3,7 +3,6 @@ package thedrivers.upbus.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import thedrivers.upbus.domain.Launching;
 import thedrivers.upbus.domain.Member;
@@ -26,15 +25,29 @@ public class MemberService {
 	public int modify(Member member) {
 		return memberMapper.modify(member);
 	}
+	//입점 정보 수정
+	public int list(Launching launching) {
+		return memberMapper.list(launching);
+	}
 	// 회원정보 가져오기
 	public Member getMemberInfobyId(String memberId) {
 		return memberMapper.getMemberInfoById(memberId);
+	}
+	// 입점신청 정보 가져오기
+	public Launching getMemberInfobyId2(String memberId1) {
+		return memberMapper.getMemberInfoById2(memberId1);
 	}
 	// 2.조건없이 전체회원조회
 	public List<Member> getMemberList(){
 		List<Member> memberList = memberMapper.getMemberList();
 		return memberList;
 	}
+	//입점신청 내역
+	public List<Launching> getLaunchingList(){
+		List<Launching> launchingList = memberMapper.getLaunchingList();
+		return launchingList;
+	}
+	//입점신청
 	public int Application2(Launching launching) {
 		return memberMapper.Application2(launching);
 	}
