@@ -33,13 +33,13 @@
 			<div class="col-md-2" >
 				 <ul class="navbar-detail">
 				  	<li class="navbar-detail-li">
-				  		<a th:href="@{/user/member/Signup}">회원 가입(강현석)</a>
+				  		<a th:if="${session.SID == null }" th:href="@{/user/member/Signup}">회원 가입(강현석)</a>
 				  	</li>
 				  	<li class="navbar-detail-li">
-				  		<a th:href="@{/user/member/Secession}">회원 탈퇴(강현석)</a>
+				  		<a th:href="@{/user/member/MemberDeleteWarning}" th:unless="${session.SID == null }">회원 탈퇴(강현석)</a>
 				  	</li>
 				  	<li class="navbar-detail-li">
-				  		<a th:href="@{/user/member/Modify}">회원 정보 수정(강현석)</a>
+				  		<a th:href="@{/user/member/Modify}" th:unless="${session.SID == null }">회원 정보 수정(강현석)</a>
 				  	</li>
 				  	<li class="navbar-detail-li">
 				  		<a th:href="@{/user/member/Cart}">장바구니(차현송)</a>	
@@ -74,10 +74,10 @@
 			<div class="col-md-2" >
 			  	<ul class="navbar-detail">
 			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/opening/Application}">입점 신청(강현석)</a>
+			  			<a th:href="@{/user/opening/Application}" th:unless="${session.SID == null}">입점 신청(강현석)</a>
 			  		</li>
 			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/opening/List}">입점 내역(강현석)</a>
+			  			<a th:href="@{/user/opening/List}" th:unless="${session.SID == null }" >입점 내역(강현석)</a>
 			  		</li>
 			  	</ul>
 			</div>

@@ -129,6 +129,44 @@
 			member_id=#{memberId}
 	</update>
 	
+	<update id="list" parameterType="Launching">
+		UPDATE Launching
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="launchingBrand != null and launchingBrand != ''.toString()">
+				launching_brand = #{launchingBrand},
+			</if>
+			<if test="launchingCompany != null and launchingCompany != ''.toString()">
+				launching_company = #{launchingCompany},
+			</if>
+			<if test="launchingBusiness_reg_num != null and launchingBusiness_reg_num != ''.toString()">
+				launching_business_reg_num = #{launchingBusiness_reg_num},
+			</if>
+			<if test="launchingManager != null and launchingManager != ''.toString()">
+				launching_manager = #{launchingManager},
+			</if>
+			<if test="launchingPhone != null and launchingPhone != ''.toString()">
+				launching_phone = #{launchingPhone},
+			</if>
+			<if test="launchingAddr != null and launchingAddr != ''.toString()">
+				launching_addr = #{launchingAddr},
+			</if>
+			<if test="launchingContent != null and launchingContent != ''.toString()">
+				launching_content = #{launchingContent},
+			</if>
+			<if test="launchingHwp != null and launchingHwp != ''.toString()">
+				launching_hwp = #{launchingHwp},
+			</if>
+			<if test="launchingUrl != null and launchingUrl != ''.toString()">
+				launching_url = #{launchingUrl},
+			</if>
+			<if test="launchingFile != null and launchingFile != ''.toString()">
+				launching_file = #{launchingFile},
+			</if>
+		</trim>
+		WHERE
+			member_id=#{memberId1}
+	</update>
+	
 	<select id="getMemberInfoById" parameterType="String" resultType="Member">
 		SELECT 
 			  member_id					AS memberId
@@ -143,6 +181,25 @@
 			member
 		WHERE
 			member_id = #{memberId};
+	</select>
+	
+	<select id="getMemberInfoById2" parameterType="String" resultType="Launching">
+		SELECT 
+			  member_id						AS memberId1
+			, launching_brand				AS launchingBrand
+			, launching_company				AS launchingCompany
+			, launching_business_reg_num	AS launchingBusiness_reg_num
+			, launching_manager				AS launchingManager
+			, launching_phone				AS launchingPhone
+			, launching_addr				AS launchingAddr
+			, launching_content				AS launchingContent
+			, launching_hwp					AS launchingHwp
+			, launching_url					AS launchingUrl
+			, launching_file				AS launchingFile
+		FROM 
+			launching
+		WHERE
+			member_id = #{memberId1};
 	</select>
 	
 	<select id="getMemberList" resultMap="memberResultMap">
