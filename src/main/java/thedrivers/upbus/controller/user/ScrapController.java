@@ -46,9 +46,10 @@ public class ScrapController {
 		String scrapRequestCode = scrapService.getscrapRequestCode();
 		//Sell에서 대분류 카테고리를 선택하면 카테고리를 불러옴
 		List<ScrapCategory> scrapCategory = scrapService.getScrapCategoryList();
-		
+	
 		model.addAttribute("scrapRequestCode", scrapRequestCode);
 		model.addAttribute("scrapCategory", scrapCategory);
+		
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "업사이클링 재료 판매");
 		return pageType+"/Sell";
@@ -60,14 +61,16 @@ public class ScrapController {
 	}
 	@GetMapping(value = "user/scrap/Sell/GetScrapSubCategory", produces = "application/json")
 	@ResponseBody
-	public List<ScrapUpcylingList> getScrapCategorySubList(@RequestParam("scrapCategory")
-																	 String scrapCategory){
-
+	public List<ScrapUpcylingList> getScrapCategorySubList(@RequestParam("scrapCategory") String scrapCategory){
+	
 		List<ScrapUpcylingList> scrapCategorySubList = scrapService.getScrapCategorySubList(scrapCategory);
 		return scrapCategorySubList;
 	}
+	
 	@GetMapping("/Buy")
 	public String buy(Model model) {		
+		List<ScrapCategory> scrapCategory = scrapService.getScrapCategoryList();
+		model.addAttribute("scrapCategory", scrapCategory);
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "업사이클링 재료 구매");
 		return pageType+"/Buy";

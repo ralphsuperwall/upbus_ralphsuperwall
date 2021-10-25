@@ -82,12 +82,7 @@ public class ScrapService {
 		//신청서 승인 시 업사이클링 재고 등록
 			if(result > 0 && scrapSaleAmount > 0) {
 				ScrapListInventory scrapListInventory = new ScrapListInventory();
-				scrapListInventory.setScrapInventoryCode(scrapListInventory.getScrapInventoryCode());
-				scrapListInventory.setScrapInventoryStatus(scrapListInventory.getScrapInventoryStatus());
-				scrapListInventory.setScrapInventoryStatusCheck(scrapListInventory.getScrapInventoryStatusCheck());
-				scrapListInventory.setScrapInventoryPrimaryDate(scrapListInventory.getScrapInventoryPrimaryDate());
-				scrapListInventory.setScrapStatus(scrapListInventory.getScrapStatus());
-				
+				scrapListInventory.setScrapSaleCode(scrapSale.getScrapSaleCode());
 				result += scrapMapper.scrapInventoryInsert(scrapListInventory);
 			}
 		
@@ -114,6 +109,11 @@ public class ScrapService {
 	public List<ScrapUpcylingList> getScrapCategorySubList(String scrapCategory){
 		List<ScrapUpcylingList> scrapCategorySubList = scrapMapper.getScrapCategorySubList(scrapCategory);
 		return scrapCategorySubList;
+	}
+	//서브 카테고리 기본키
+	public ScrapUpcylingList getMaterialListCode(ScrapUpcylingList scrapName) {
+		ScrapUpcylingList scrapMaterialCode = scrapMapper.getMaterialListCode(scrapName);
+		return scrapMaterialCode;
 	}
 	
 }
