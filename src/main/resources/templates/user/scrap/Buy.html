@@ -54,7 +54,7 @@
 								type: 'get',
 								success: function (data) {
 									
-									$('#scrapSubCategory option').remove();
+									scrapSubCategory.html('');
 									if(data.length == 0){
 										scrapSubCategory.append('<option value="">재료 이름</option>');
 									}else {
