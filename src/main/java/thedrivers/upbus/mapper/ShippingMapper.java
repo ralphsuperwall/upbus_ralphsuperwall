@@ -1,6 +1,7 @@
 package thedrivers.upbus.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import thedrivers.upbus.domain.Member;
 import thedrivers.upbus.domain.Shipping;
 
 import java.util.List;

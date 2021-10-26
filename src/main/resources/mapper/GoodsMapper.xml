@@ -34,8 +34,13 @@
 		<result property="egoodsAmount" 					column="egoods_amount"/>
 		<result property="egoodsImage" 						column="egoods_image"/>
 		<result property="egoodsDate" 						column="egoods_date"/>
-		<!-- collection 복잡한 맵핑 has many 관계 -->
 	</resultMap>
+
+    <resultMap type="Member" id="applyMember">
+        <result property="memberName" 						column="member_name"/>
+        <result property="memberAddr" 						column="member_addr"/>
+        <result property="memberPhoneNumber" 				column="member_phone_number"/>
+    </resultMap>
 
     <select id="mySellStatus" resultMap="goodsRequest" parameterType="String">
         SELECT
@@ -245,6 +250,18 @@
         0
         );
     </insert>
+
+    <!--위탁 판매 신청이 승인된 고객이 상품 발송을 위해 고객 정보를 연동하는 쿼리-->
+    <select id="getApplyMember" parameterType="String" resultMap="applyMember">
+        SELECT
+            member_name,
+            member_addr,
+            member_phone_number
+        FROM
+            member
+        WHERE
+            member_id=#{member_id};
+    </select>
 
 	<select id="getEgoodsList" resultMap="egoodsResultMap">
 		SELECT 

@@ -23,7 +23,6 @@
 		<result property="classTeacherDivision" 			column="class_teacher_division"/>
 		<result property="memberLogin_history_code" 		column="member_login_history_code"/>
 		<result property="memberDivision" 					column="member_division"/>
-		<!-- collection 복잡한 맵핑 has many 관계 -->
 	</resultMap>
 	
 	<resultMap type="Launching" id="launchingResultMap">
@@ -182,4 +181,6 @@
 		WHERE
 			member_id = #{memberId};
 	</delete>
+
+
 </mapper>

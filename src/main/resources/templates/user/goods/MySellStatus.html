@@ -18,58 +18,123 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-body">
-          <table class="table table-bordered" style="font-size: large; padding: 15px;">
-            <thead>
-            <tr style="background: royalblue; color: white">
-              <th>고객님의 아이디</th>
-              <th>판매 신청한 상품의 이름</th>
-              <th>상품의 분류</th>
-              <th>신청한 가격</th>
-              <th>신청한 수량</th>
-              <th>신청한 날짜</th>
-              <th>진행 상태</th>
+
+        <th:block th:if="${#lists.isEmpty(mySellStatus)}">
+        <table class="table table-bordered" style="font-size: x-large;">
+          <div style="background: greenyellow; text-align: center; padding: 20px;">
+            <h3 style="color: green; font-weight: bold">업사이클링 위탁 판매하신 내역이 없습니다.</h3>
+          </div>
+          <thead>
+            <div style="background: mistyrose; text-align: center; padding: 10px;">
+              <div>
+                <h3 style="color: red; font-weight: bold">발송 신청 주의사항</h3>
+              </div>
+              <div style="font-size: large">
+                1. 발송 신청이 완료되면 2-3일 이내에 택배 방문 기사님이 입력하신 주소로 방문합니다. <br>
+                2. 깨지지 않게 잘 포장하여 보내주세요. 파손 시 접수가 거절됩니다. <br>
+                3. 접수 신청하신 내용과 상이한 내용의 상품이 도착하면 접수가 거절됩니다. <br>
+                (이 경우 추후 업사이클링 상품 위탁 판매 서비스 이용에 제한을 받을 수 있습니다.) <br>
+                4. 주소를 잘못 기입하거나 부재 등의 이유로 2회 방문 시도 후에도 발송이 되지 않으면 접수가 취소됩니다. <br>
+                5. 상기 이유로 접수가 거절된 경우 고객님의 부담(착불)으로 반송 처리됩니다. <br><br>
+              </div>
+            </div>
+          </thead>
+        </table>
+        </th:block>
+
+        <th:block th:unless="${#lists.isEmpty(mySellStatus)}">
+          <table class="table table-bordered" style="font-size: x-large;">
+          <thead>
+          <tr style="background: royalblue; color: white">
+            <th>판매 신청한 상품의 이름</th>
+            <th>상품의 분류</th>
+            <th>신청한 가격</th>
+            <th>신청한 수량</th>
+            <th>신청한 날짜</th>
+            <th>진행 상태</th>
+          </tr>
+          </thead>
+          <tbody>
+          <th:block th:each="l : ${mySellStatus}">
+            <tr class="table-active">
+              <td th:text="${l.goodsRequestName}"></td>
+              <td th:text="${l.goodsCategorySubName}"></td>
+              <td th:text="${l.goodsRequestPrice}"></td>
+              <td th:text="${l.goodsRequestAmount}"></td>
+              <td th:text="${l.goodsRequestDate}"></td>
+              <td th:if="${l.goodsRequestApproval eq 0}" style="background: mediumpurple">판매 신청이 아직 확인 전이에요.</td>
+              <td th:if="${l.goodsRequestApproval eq 1}" style="background: deepskyblue">판매 신청이 승인되었어요! 상품을 발송해주세요.
+                <button type="button" class="btn btn-primary" id="applySeller" disabled>배송 신청</button>
+                <button type="button" class="btn btn-danger">신청 취소</button>
+              </td>
+              <td th:if="${l.goodsRequestApproval eq 2}" style="background: lightgreen">위탁 판매가 완료되었어요. 판매되기를 기다려주세요.</td>
+              <td th:if="${l.goodsRequestApproval eq 3}" style="background: orangered">상품이 판매될 수 없었어요. 반송 주소를 입력해주세요.</td>
             </tr>
+          </th:block>
+          </tbody>
+          </table>
+          <table class="table table-bordered" style="font-size: x-large;">
+            <thead>
+            <div style="background: mistyrose; text-align: center; padding: 10px;">
+              <div>
+                <h3 style="color: red; font-weight: bold">발송 신청 주의사항</h3>
+              </div>
+              <div style="font-size: large">
+                1. 발송 신청이 완료되면 2-3일 이내에 택배 방문 기사님이 입력하신 주소로 방문합니다. <br>
+                2. 깨지지 않게 잘 포장하여 보내주세요. 파손 시 접수가 거절됩니다. <br>
+                3. 접수 신청하신 내용과 상이한 내용의 상품이 도착하면 접수가 거절됩니다. <br>
+                (이 경우 추후 업사이클링 상품 위탁 판매 서비스 이용에 제한을 받을 수 있습니다.) <br>
+                4. 주소를 잘못 기입하거나 부재 등의 이유로 2회 방문 시도 후에도 발송이 되지 않으면 접수가 취소됩니다. <br>
+                5. 상기 이유로 접수가 거절된 경우 고객님의 부담(착불)으로 반송 처리됩니다. <br><br>
+                <div style="font-size: x-large; font-weight: bolder">
+                  위 내용에 동의합니다 <input type="checkbox" style="zoom: 1.5" id="sellerAgreement">
+                </div>
+                <script>
+                  $(function (){
+                    $("#sellerAgreement").change(function(){
+                      if($("#sellerAgreement").is(":checked")){
+                        $("#applySeller").attr("disabled", false);
+                      }else{
+                        $("#applySeller").attr("disabled", true);
+                      }
+                    });
+                  });
+                </script>
+              </div>
+            </div>
             </thead>
             <tbody>
-            <th:block th:each="l : ${mySellStatus}">
-              <tr class="table-active">
-                <td th:text="${l.goodsSellerId}"></td>
-                <td th:text="${l.goodsRequestName}"></td>
-                <td th:text="${l.goodsCategorySubName}"></td>
-                <td th:text="${l.goodsRequestPrice}"></td>
-                <td th:text="${l.goodsRequestAmount}"></td>
-                <td th:text="${l.goodsRequestDate}"></td>
-                th if
-                <!--<td class="sellStatusCell" style="color: white" th:value="${l.goodsRequestApproval}"></td>-->
-              </tr>
-            </th:block>
+            <tr class="table-active">
+              <h3 style="font-weight: bolder; color: blue">발송자 이름, 주소, 전화번호를 확인하세요.
+                발송자 정보가 맞으면 접수 완료할 상품의 <button type="button" class="btn btn-primary" onclick="buttonex();">배송 신청</button>버튼을
+                클릭해주세요.</h3>
+              <script>
+                function buttonex() {
+                  alert("배송 신청은 상단에 있는 신청 내역의 배송 신청 버튼을 클릭해주세요.");
+                }
+              </script>
+            </tr>
+            <tr class="table-active">
+              <td>발송 고객 이름</td>
+              <td>
+                <input type="text" class="form-control" th:value="${memberName}" name="logisticsContractCode">
+              </td>
+              <td>발송 주소</td>
+              <td>
+                <input type="text" class="form-control" th:value="${memberAddr}" name="logisticsCode">
+              </td>
+              <td>발송 고객 전화번호</td>
+              <td>
+                <input type="text" class="form-control" th:value="${memberPhoneNumber}" name="logisticsPer">
+              </td>
+            </tr>
             </tbody>
           </table>
-          <!--<script th:inline="javascript">
-            $(function() {
-              var sellStatusCell = $('.sellStatusCell');
-              var approvalArray = [[${mySellStatus}]];
-              for(var i = 0; i < approvalArray.length; i++){
-                if (sellStatusCell.val() == 0) {
-                  sellStatusCell.text("판매 신청이 아직 확인 전이에요.");
-                  sellStatusCell.css("background", "purple");
-                }else if (sellStatusCell.val() == 1) {
-                  sellStatusCell.text("판매 신청이 승인되었어요! 상품을 발송해주세요.");
-                  sellStatusCell.css("background", "blue");
-                }else if (sellStatusCell.val() == 2) {
-                  sellStatusCell.text("위탁 판매가 완료되었어요. 판매되기를 기다려주세요.");
-                  sellStatusCell.css("background", "green");
-                }else {
-                  sellStatusCell.text("상품이 판매될 수 없었어요. 반송 주소를 입력해주세요.");
-                  sellStatusCell.css("background", "red");
-                }
-              }
-            });
-          </script>-->
-        </div>
+        </th:block>
+
       </div>
     </div>
   </div>
+</div>
 </th:block>
-
 </html>

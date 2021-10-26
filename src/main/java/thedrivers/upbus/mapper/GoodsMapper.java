@@ -20,6 +20,7 @@ public interface GoodsMapper {
     List<GoodsRequest> getGoodsRequest1();
     List<GoodsRequest> getGoodsRequest2();
     List<GoodsRequest> mySellStatus(String memberId);
+    List<Member> getApplyMember(String memberId);
     String getGoodsRequestCode();
     int firstApproval(String goodsRequestCode);
     int firstDisapproval(String goodsRequestCode);

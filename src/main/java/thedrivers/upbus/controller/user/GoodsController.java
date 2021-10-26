@@ -3,12 +3,12 @@ package thedrivers.upbus.controller.user;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import thedrivers.upbus.domain.GoodsCategorySub;
-import thedrivers.upbus.domain.Egoods;
-import thedrivers.upbus.domain.GoodsCategoryMain;
-import thedrivers.upbus.domain.GoodsRequest;
+import thedrivers.upbus.domain.*;
 import thedrivers.upbus.service.GoodsService;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user/goods")
@@ -168,10 +168,16 @@ public class GoodsController {
         /*아이디를 세션에서 받아와야 함 - 회원 테이블 연동 후
         String sellerId = (String) session.getAttribute("SID");*/
 		List<GoodsRequest> mySellStatus = goodsService.mySellStatus("id001");
+		List<Member> applyMember = goodsService.getApplyMember("id001");
+		String memberName = applyMember.get(0).getMemberName();
+		String memberAddr = applyMember.get(0).getMemberAddr();
+		String memberPhoneNumber = applyMember.get(0).getMemberPhoneNumber();
 		model.addAttribute("mySellStatus", mySellStatus);
+		model.addAttribute("memberName", memberName);
+		model.addAttribute("memberAddr", memberAddr);
+		model.addAttribute("memberPhoneNumber", memberPhoneNumber);
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "업사이클링 상품 위탁 판매 신청 진행 상황");
-		System.out.println(mySellStatus);
 		return pageType+"/MySellStatus";
 
 	}

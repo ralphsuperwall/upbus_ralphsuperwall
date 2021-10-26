@@ -28,6 +28,10 @@ public class GoodsService {
         this.goodsMapper = goodsMapper;
     }
 
+    public List<Member> getApplyMember(String memberId){
+        return goodsMapper.getApplyMember(memberId);
+    }
+
     public int goodsRequest(GoodsRequest goodsRequest) {
         return goodsMapper.goodsRequest(goodsRequest);
     }
