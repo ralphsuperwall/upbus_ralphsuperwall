@@ -5,7 +5,7 @@ public class Launching {
 	private String memberId1;
 	private String launchingBrand;
 	private String launchingCompany;
-	private String launchingBusiness_reg_num;
+	private String launchingBusinessRegNum;
 	private String launchingManager;
 	private String launchingPhone;
 	private String launchingAddr;
@@ -39,11 +39,11 @@ public class Launching {
 	public void setLaunchingCompany(String launchingCompany) {
 		this.launchingCompany = launchingCompany;
 	}
-	public String getLaunchingBusiness_reg_num() {
-		return launchingBusiness_reg_num;
+	public String getLaunchingBusinessRegNum() {
+		return launchingBusinessRegNum;
 	}
-	public void setLaunchingBusiness_reg_num(String launchingBusiness_reg_num) {
-		this.launchingBusiness_reg_num = launchingBusiness_reg_num;
+	public void setLaunchingBusinessRegNum(String launchingBusinessRegNum) {
+		this.launchingBusinessRegNum = launchingBusinessRegNum;
 	}
 	public String getLaunchingManager() {
 		return launchingManager;
@@ -102,14 +102,12 @@ public class Launching {
 	@Override
 	public String toString() {
 		return "Launching [launchingCode=" + launchingCode + ", memberId1=" + memberId1 + ", launchingBrand="
-				+ launchingBrand + ", launchingCompany=" + launchingCompany + ", launchingBusiness_reg_num="
-				+ launchingBusiness_reg_num + ", launchingManager=" + launchingManager + ", launchingPhone="
+				+ launchingBrand + ", launchingCompany=" + launchingCompany + ", launchingBusinessRegNum="
+				+ launchingBusinessRegNum + ", launchingManager=" + launchingManager + ", launchingPhone="
 				+ launchingPhone + ", launchingAddr=" + launchingAddr + ", launchingContent=" + launchingContent
 				+ ", launchingHwp=" + launchingHwp + ", launchingUrl=" + launchingUrl + ", launchingFile="
 				+ launchingFile + ", lauchingStauts=" + lauchingStauts + ", lauchingFee=" + lauchingFee + "]";
 	}
-	
-
 	
 	
 }

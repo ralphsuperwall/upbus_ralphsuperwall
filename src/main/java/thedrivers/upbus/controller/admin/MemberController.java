@@ -57,7 +57,7 @@ public class MemberController {
 					session.setAttribute("SNAME", member.getMemberName());
 
 					// return "redirect:/user/member/Login";
-					return "/main";
+					return "main";
 				}
 
 			}

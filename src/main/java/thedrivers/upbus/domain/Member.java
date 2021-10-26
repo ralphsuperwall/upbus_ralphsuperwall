@@ -7,7 +7,7 @@ public class Member {
 	private String memberEmail;
 	private String memberGender;
 	private String memberAddr;
-	private String memberPhone_number;
+	private String memberPhoneNumber;
 	private String memberBirth;
 	private String memberMile;
 	private String memberSign;
@@ -17,7 +17,7 @@ public class Member {
 	private String memberImage;
 	private String classStudentDivision;
 	private String classTeacherDivision;
-	private String memberLogin_history_code;
+	private String memberLoginHistoryCode;
 	private String memberDivision;
 	public String getMemberId() {
 		return memberId;
@@ -55,11 +55,11 @@ public class Member {
 	public void setMemberAddr(String memberAddr) {
 		this.memberAddr = memberAddr;
 	}
-	public String getMemberPhone_number() {
-		return memberPhone_number;
+	public String getMemberPhoneNumber() {
+		return memberPhoneNumber;
 	}
-	public void setMemberPhone_number(String memberPhone_number) {
-		this.memberPhone_number = memberPhone_number;
+	public void setMemberPhoneNumber(String memberPhoneNumber) {
+		this.memberPhoneNumber = memberPhoneNumber;
 	}
 	public String getMemberBirth() {
 		return memberBirth;
@@ -115,11 +115,11 @@ public class Member {
 	public void setClassTeacherDivision(String classTeacherDivision) {
 		this.classTeacherDivision = classTeacherDivision;
 	}
-	public String getMemberLogin_history_code() {
-		return memberLogin_history_code;
+	public String getMemberLoginHistoryCode() {
+		return memberLoginHistoryCode;
 	}
-	public void setMemberLogin_history_code(String memberLogin_history_code) {
-		this.memberLogin_history_code = memberLogin_history_code;
+	public void setMemberLoginHistoryCode(String memberLoginHistoryCode) {
+		this.memberLoginHistoryCode = memberLoginHistoryCode;
 	}
 	public String getMemberDivision() {
 		return memberDivision;
@@ -131,16 +131,13 @@ public class Member {
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName
 				+ ", memberEmail=" + memberEmail + ", memberGender=" + memberGender + ", memberAddr=" + memberAddr
-				+ ", memberPhone_number=" + memberPhone_number + ", memberBirth=" + memberBirth + ", memberMile="
+				+ ", memberPhoneNumber=" + memberPhoneNumber + ", memberBirth=" + memberBirth + ", memberMile="
 				+ memberMile + ", memberSign=" + memberSign + ", gradeCode=" + gradeCode + ", memberExp=" + memberExp
 				+ ", memberStatus=" + memberStatus + ", memberImage=" + memberImage + ", classStudentDivision="
-				+ classStudentDivision + ", classTeacherDivision=" + classTeacherDivision
-				+ ", memberLogin_history_code=" + memberLogin_history_code + ", memberDivision=" + memberDivision + "]";
+				+ classStudentDivision + ", classTeacherDivision=" + classTeacherDivision + ", memberLoginHistoryCode="
+				+ memberLoginHistoryCode + ", memberDivision=" + memberDivision + "]";
 	}
 	
-	
-	
-
 	
 	
 }
