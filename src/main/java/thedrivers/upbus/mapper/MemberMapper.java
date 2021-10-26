@@ -17,14 +17,23 @@ public interface MemberMapper {
 	//회원목록 조회
 	public List<Member> getMemberList();
 	
+	//입점신청 내역 조회
+	public List<Launching> getLaunchingList();
+	
 	//ajax
 	public String getCompareMemberId(String memberId);
 	
 	//회원 정보 수정
 	public int modify(Member member);
 	
+	//입점 정보 수정
+	public int list(Launching launching);
+	
 	//회원 정보 조회
 	public Member getMemberInfoById(String memberId);
+	
+	//입점 정보 조회
+	public Launching getMemberInfoById2(String memberId1);
 	
 	//회원삭제
 	public int memberDelete(String memberId);

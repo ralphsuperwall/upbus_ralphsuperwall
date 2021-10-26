@@ -5,6 +5,14 @@
 	  
 <!-- contents layout:fragment 정의 -->
 <th:block layout:fragment="customContents">
+	<div class="card prod-p-card bg-c-green card-body">
+		<div class="row align-items-center">
+			<div class="col">
+				<h3 class="m-b-0 text-white">업사이클링 재료 매입 목록 관리 시스템</h3>
+				<h5 class="m-b-0 text-white">UPCYCLING BUS : UPBUS CUSTOMERS CONSIGNMENT MANAGEMENT</h5>
+			</div>
+		</div>
+	</div>
 	<h1>업사이클링 재료 매입 목록</h1>
 	<div class="card table-card">
 		<div class="card-header">
@@ -23,9 +31,9 @@
 				</div>
 			</div>
 		</div>
-	<div class="pro-scroll ps ps--active-y" style="height:415px;position:relative;">
-		<div class="card-body p-0">
+		<div class="card-body p-0" style="overflow:scroll;height:600px;position:relative;">
 			<div class="table-responsive">
+				<form th:action="@{ScrapSaleList}" method="get">
 				
 				<table class="table table-hover m-b-0">
 					
@@ -43,12 +51,22 @@
 						</thead>
 						<tbody style="font-size: 20px;">
 							<tr th:each="saleList: ${saleList}">
-								<td th:text="${saleList.scrapSaleCode}"></td>
-								<td th:text="${saleList.scrapRequestCode}"></td>
-								<td th:text="${saleList.scrapMileageUserListCode}"></td>
-								<td th:text="${saleList.scrapReceivingDate}"></td>
-								<td th:text="${saleList.scrapInspectionDate}"></td>
-								<td th:text="${saleList.scrapWeight}"></td>
+								<td th:text="${saleList.scrapSaleCode}">재료매입코드</td>
+								<td th:text="${saleList.scrapRequestCode}">재료판매신청코드</td>
+								<td th:text="${saleList.scrapMileageUserListCode}">마일리지내역코드</td>
+								<td th:text="${saleList.scrapReceivingDate}">입고일자</td>
+								<td th:text="${saleList.scrapInspectionDate}">검수일자</td> <!-- 버튼 누르면 버튼 사라지고 검수 날짜 나왔으면 좋겠다 -->
+								<td>
+								  <input type="text" style= "margin-bottom: 20px;" class="form-control" placeholder="재료 무게" name="scrapWeight"/>
+								 <!-- <div class="col-sm-12">
+								    <div class="input-group">
+								      <input type="text" class="form-control" placeholder="Search for...">
+								      <span class="input-group-btn">
+								        <button class="btn btn-default" type="button">Go!</button>
+								      </span>
+								    </div>
+								  </div>/.col-lg-6 -->
+								</td>
 								<td>
 									<span class="scrapStatusAmountText" th:if="${saleList.scrapStatusAmount eq 1}">Y</span>
 									<span class="scrapStatusAmountText" th:unless="${saleList.scrapStatusAmount eq 1}">N</span>
@@ -61,10 +79,10 @@
 							</tr>		
 						</tbody>
 					</table>
+				</form>
 				</div>
 			</div>
 		<div class="ps__rail-x" style="left: 0px; bottom: -50px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 50px; height: 415px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 36px; height: 299px;"></div></div></div>
-		</div>
 		
 		<script>
 			$(function(){

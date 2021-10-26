@@ -5,6 +5,14 @@
 	  
 <!-- contents layout:fragment 정의 -->
 <th:block layout:fragment="customContents">
+	<div class="card prod-p-card bg-c-green card-body">
+		<div class="row align-items-center">
+			<div class="col">
+				<h3 class="m-b-0 text-white">업사이클링 재료 매입 신청 목록 관리 시스템</h3>
+				<h5 class="m-b-0 text-white">UPCYCLING BUS : UPBUS CUSTOMERS CONSIGNMENT MANAGEMENT</h5>
+			</div>
+		</div>
+	</div>
 	<h1>업사이클링 재료 목록</h1>
 	<div class="card table-card">
 		<div class="card-header">
@@ -23,7 +31,7 @@
 				</div>
 			</div>
 		</div>
-	<div class="pro-scroll ps ps--active-y" style="height:415px;position:relative;">
+	<div class="sidebar" style="height:415px;position:relative;">
 		<div class="card-body p-0">
 			<div class="table-responsive">
 				
@@ -46,7 +54,7 @@
 								</td>
 								<td><img src="#!" alt="" class=""></td>
 								<td th:text="${scrapRequestList.scrapUpcylingList.scrapName}"></td>
-								<td th:text="${scrapRequestList.scrapRequestAmount}"></td>
+								<td id="scrapRequestAmount" th:text="${scrapRequestList.scrapRequestAmount}"></td>
 								<td><!-- 승인여부 승인버튼 클릭시 Y 승인취소 클릭시 N -->
 									<span class="scrapRequestResultText" th:if="${scrapRequestList.scrapRequestResult eq 1}">Y</span>
 									<span class="scrapRequestResultText" th:unless="${scrapRequestList.scrapRequestResult eq 1}">N</span>
@@ -82,16 +90,19 @@
 					}else{
 						modifyScrapRequestResult = 0;						
 					}
-					
+ 					var scrapRequestAmountTest = $(this).parents('tr').find('#scrapRequestAmount').text();
+ 					var scrapRequestAmount = Number(scrapRequestAmountTest);
 					var scrapRequestCode = $(this).val();
 					var request = $.ajax({
 						url: "/admin/scrap/ScrapRequestApprovalAjax",
 						method: "POST",
-						data: { scrapRequestCode: scrapRequestCode, scrapRequestResult : modifyScrapRequestResult },
+						//data: { scrapRequestCode: scrapRequestCode, scrapRequestResult : modifyScrapRequestResult},
+						data: { scrapRequestCode: scrapRequestCode, scrapRequestResult : modifyScrapRequestResult, scrapRequestAmount : scrapRequestAmount },
 						dataType: "json"
 					});
 					 
 					request.done(function( data ) {
+						
 						var result = data.result;
 						if(result > 0){
 							if(scrapRequestResult == 0){	

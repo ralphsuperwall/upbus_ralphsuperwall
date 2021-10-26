@@ -1,8 +1,9 @@
+
 package thedrivers.upbus.domain;
 
 public class ScrapListInventory {
 	private String scrapInventoryCode;
-	private String scrapRequestCode;
+	private String scrapSaleCode;
 	private int scrapInventoryStatus;
 	private int scrapInventoryStatusCheck;
 	private String scrapInventoryPrimaryDate;
@@ -18,11 +19,11 @@ public class ScrapListInventory {
 	public void setScrapInventoryCode(String scrapInventoryCode) {
 		this.scrapInventoryCode = scrapInventoryCode;
 	}
-	public String getScrapRequestCode() {
-		return scrapRequestCode;
+	public String getScrapSaleCode() {
+		return scrapSaleCode;
 	}
-	public void setScrapRequestCode(String scrapRequestCode) {
-		this.scrapRequestCode = scrapRequestCode;
+	public void setScrapSaleCode(String scrapSaleCode) {
+		this.scrapSaleCode = scrapSaleCode;
 	}
 	public int getScrapInventoryStatus() {
 		return scrapInventoryStatus;
@@ -83,8 +84,8 @@ public class ScrapListInventory {
 		StringBuilder builder = new StringBuilder();
 		builder.append("ScrapListInventory [scrapInventoryCode=");
 		builder.append(scrapInventoryCode);
-		builder.append(", scrapRequestCode=");
-		builder.append(scrapRequestCode);
+		builder.append(", scrapSaleCode=");
+		builder.append(scrapSaleCode);
 		builder.append(", scrapInventoryStatus=");
 		builder.append(scrapInventoryStatus);
 		builder.append(", scrapInventoryStatusCheck=");
@@ -106,5 +107,6 @@ public class ScrapListInventory {
 		builder.append("]");
 		return builder.toString();
 	}
+	
 	
 }

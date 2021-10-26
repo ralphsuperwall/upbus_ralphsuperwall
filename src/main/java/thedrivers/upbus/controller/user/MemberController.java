@@ -101,7 +101,7 @@ private final MemberService memberService;
 
 		session.invalidate();
 
-		return "mainuser";
+		return "/mainuser";
 	}
 
    @GetMapping(value="/idCheck", produces = "application/json")
