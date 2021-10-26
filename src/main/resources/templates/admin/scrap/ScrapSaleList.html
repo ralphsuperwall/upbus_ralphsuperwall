@@ -55,9 +55,17 @@
 								<td th:text="${saleList.scrapRequestCode}">재료판매신청코드</td>
 								<td th:text="${saleList.scrapMileageUserListCode}">마일리지내역코드</td>
 								<td th:text="${saleList.scrapReceivingDate}">입고일자</td>
-								<td th:text="${saleList.scrapInspectionDate}">검수일자</td>
+								<td th:text="${saleList.scrapInspectionDate}">검수일자</td> <!-- 버튼 누르면 버튼 사라지고 검수 날짜 나왔으면 좋겠다 -->
 								<td>
-									<input type="text" style= "margin-bottom: 20px;" class="form-control" placeholder="재료 무게" name="scrapWeight"/>
+								  <input type="text" style= "margin-bottom: 20px;" class="form-control" placeholder="재료 무게" name="scrapWeight"/>
+								 <!-- <div class="col-sm-12">
+								    <div class="input-group">
+								      <input type="text" class="form-control" placeholder="Search for...">
+								      <span class="input-group-btn">
+								        <button class="btn btn-default" type="button">Go!</button>
+								      </span>
+								    </div>
+								  </div>/.col-lg-6 -->
 								</td>
 								<td>
 									<span class="scrapStatusAmountText" th:if="${saleList.scrapStatusAmount eq 1}">Y</span>

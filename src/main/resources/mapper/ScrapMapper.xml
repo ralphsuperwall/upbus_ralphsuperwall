@@ -234,7 +234,7 @@
          scrap_shipping_in_addr,
         )VALUES (
         #{scrapRequestCode},
-        #{scrapMaterialListCode},
+		#{scrap_material_list_code},
         #{scrapMemberId},
         #{scrapRequestAmount},
         #{scrapRequestImage},
