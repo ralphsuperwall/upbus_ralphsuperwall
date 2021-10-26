@@ -81,18 +81,29 @@ public class ScrapController {
 	//업사이클링 재료 신청서 승인 버튼 ajax
 	@PostMapping(value = "/ScrapRequestApprovalAjax", produces = "application/json") 
 	@ResponseBody
-	public Map<String,Object> ScrapRequestApprovalAjax(Model model, ScrapSaleRequest scrapSaleRequest) {	
-		System.out.println(scrapSaleRequest + "-----------------------------------------------scrapSaleRequest");
+	public Map<String,Object> ScrapRequestApprovalAjax(@RequestParam(value="scrapRequestCode", required = false) String scrapRequestCode,
+														Model model, ScrapSaleRequest scrapSaleRequest) {	
 		Map<String,Object> map = new HashMap<String,Object>();		
-		map.put("result", scrapService.scrapSaleApprovalModify(scrapSaleRequest));
-
+		map.put("result", scrapService.scrapSaleApprovalModify(scrapSaleRequest ,scrapRequestCode));
 		return map; 
 	}
 	@PostMapping(value ="/scrapSaleApprovalAjax", produces="application/json")
 	@ResponseBody
-	public Map<String,Object> scrapSaleApprovalAjax(Model model, ScrapSale scrapsale){
+	public Map<String,Object> scrapSaleApprovalAjax(@RequestParam(value="scrapSaleCode", required = false) String scrapSaleCode,
+													Model model, ScrapSale scrapsale){
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("result", scrapService.scrapSaleAmountApprovalModify(scrapsale));
+		map.put("result", scrapService.scrapSaleAmountApprovalModify(scrapsale, scrapSaleCode));
+		return map;
+	}
+	//업사이클링 매입 재료 무게 계산
+	@GetMapping(value = "/scrapWeightApprovalAjax")
+	@ResponseBody
+	public Map<String,Object> scrapWeightApprovalAjax(
+														Model model, ScrapSale scrapSale){
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("result", scrapService.scrapWeightApprovalInsert(scrapSale));
 		return map;
 	}
 }
+

@@ -8,6 +8,7 @@ public class ScrapSale {
 	private String scrapInspectionDate;
 	private int scrapStatusAmount;
 	private int scrapWeight;
+	private int scrapPrice;
 	public String getScrapSaleCode() {
 		return scrapSaleCode;
 	}
@@ -50,6 +51,12 @@ public class ScrapSale {
 	public void setScrapWeight(int scrapWeight) {
 		this.scrapWeight = scrapWeight;
 	}
+	public int getScrapPrice() {
+		return scrapPrice;
+	}
+	public void setScrapPrice(int scrapPrice) {
+		this.scrapPrice = scrapPrice;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -67,6 +74,8 @@ public class ScrapSale {
 		builder.append(scrapStatusAmount);
 		builder.append(", scrapWeight=");
 		builder.append(scrapWeight);
+		builder.append(", scrapPrice=");
+		builder.append(scrapPrice);
 		builder.append("]");
 		return builder.toString();
 	}
