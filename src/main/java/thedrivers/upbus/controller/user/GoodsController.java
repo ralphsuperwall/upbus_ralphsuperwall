@@ -168,13 +168,32 @@ public class GoodsController {
 		model.addAttribute("h1text", "위탁 판매 상품 목록");
 		return pageType+"/MemberList";
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/Order")
 	public String order(Model model) {
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "상품 주문");
+		
+		/**
+		 * 고객 위탁 판매 MySell에서 고객이 상품 카테고리를 선택할 때 데이터베이스의 상품 카테고리를 불러오는 기능
+		 */
+		List<GoodsCategoryMain> goodsCategoryMainList = goodsService.getGoodsCategoryMainList();
+		
+		model.addAttribute("goodsCategoryMainList", goodsCategoryMainList);
+		List<Egoods> egoodsList = goodsService.getEgoodsList();
+		
+		model.addAttribute("egoodsList", egoodsList);
 		return pageType+"/Order";
 	}
+	
+	
 	@GetMapping("/OrderList")
 	public String orderList(Model model) {
 		model.addAttribute("title", "UPBUS");
