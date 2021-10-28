@@ -53,7 +53,7 @@ public class ScrapService {
 	}
 	// 업사이클링 재료 판매 신청서 승인 버튼 ajax
 	
-	public Object scrapSaleApprovalModify(ScrapSaleRequest scrapSaleRequest) {
+	public Object scrapSaleApprovalModify(ScrapSaleRequest scrapSaleRequest, String scrapRequestCode) {
 		int result = 0;
 		int scrapSaleRequestResult = 0;
 		int scrapRequestAmount = scrapSaleRequest.getScrapRequestAmount();
@@ -69,10 +69,17 @@ public class ScrapService {
 			 result += scrapMapper.scrapSaleInsert(scrapSale);	
 			}
 		}
+		
+		if(scrapSaleRequestResult < 1) {
+			ScrapSale scrapSale = new ScrapSale();
+			scrapSale.setScrapRequestCode(scrapSaleRequest.getScrapRequestCode());
+			result += scrapMapper.scrapSaleDelete(scrapRequestCode);
+		}
+			//scrapMapper.scrapSaleDelete(scrapSaleCode)
 		return result;
 	}
 	// 업사이클링 매입 확정 버튼 ajax
-	public int scrapSaleAmountApprovalModify(ScrapSale scrapSale) {
+	public int scrapSaleAmountApprovalModify(ScrapSale scrapSale, String scrapSaleCode) {
 		int result = 0;
 		int scrapSaleAmount = 0;
 		
@@ -85,10 +92,16 @@ public class ScrapService {
 				scrapListInventory.setScrapSaleCode(scrapSale.getScrapSaleCode());
 				result += scrapMapper.scrapInventoryInsert(scrapListInventory);
 			}
-		
+			if(scrapSaleAmount < 1) {
+				ScrapListInventory scrapListInventory = new ScrapListInventory();
+				scrapListInventory.setScrapSaleCode(scrapSale.getScrapSaleCode());
+				result += scrapMapper.scrapInventoryDelete(scrapSaleCode);
+			}
 		return result;
 	}
-	
+	public int scrapWeightApprovalInsert(ScrapSale scrapSale) {
+		return scrapMapper.scrapWeightApprovalInsert(scrapSale);
+	}
 
 	//user
 	//업사이클링 재료 판매 신청서 유저에서 신청해서 관ㄹ리자로 파라미터값 보내기 자동증가
@@ -98,6 +111,11 @@ public class ScrapService {
 	
 	// 업사이클링 재료 판매 신청서 유저에서 신청해서 관ㄹ리자로 파라미터값 보내기 
 	public int scrapSaleRequest(ScrapSaleRequest scrapSaleRequest) {
+		String scrapRequestCode = scrapMapper.getscrapRequestCode();
+		if(scrapRequestCode != null && !"".equals(scrapRequestCode)) {
+			scrapSaleRequest.setScrapRequestCode(scrapRequestCode);
+		}
+		
 		return scrapMapper.scrapSaleRequest(scrapSaleRequest);
 	}
 	//스크랩 메인 카테고리
