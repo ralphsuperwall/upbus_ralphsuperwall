@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -105,6 +106,23 @@ public class ClassController {
 		return "redirect:admin/class/EnrollmentManage";
 	}
 	
+	// (4) 클래스 일정 관리 시스템
+	@GetMapping("ClassScheduleManagement")
+	public String classScheduleManagement(Model model) {
+		model.addAttribute("schedule", "calender");
+		
+		// 테스트 용도의 index 파일
+		return pageType + "/index";
+	}
+	
+	
+	// (테스트용도) 게시판 파일들 ( html ) 컨트롤러 무한 반복 작성 X → 바로 테스트 하기 위한 연결
+	// /static/fullcalendar/~.html 파일들은 여기에서 바로 페이지명을 받으면 바로 페이지로 넘기도록 한다.
+	@RequestMapping(value="/resource/static/fullcalendar/{pageName}")
+	public String getSinglePage(@PathVariable("pageName") String pageName) {
+		System.out.println(pageName + "← pageName");
+		return "/resource/static/fullcalendar/" + pageName;
+	}
 	
 	@GetMapping("/StatusManage")
 	public String statusManage(Model model) {
