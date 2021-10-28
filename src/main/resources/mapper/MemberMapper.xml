@@ -11,7 +11,7 @@
 		<result property="memberEmail" 						column="member_email"/>
 		<result property="memberGender" 					column="member_gender"/>
 		<result property="memberAddr" 						column="member_addr"/>
-		<result property="memberPhone_number" 				column="member_phone_number"/>
+		<result property="memberPhoneNumber" 				column="member_phone_number"/>
 		<result property="memberBirth" 						column="member_birth"/>
 		<result property="memberMile" 						column="member_mile"/>
 		<result property="memberSign" 						column="member_sign"/>
@@ -21,9 +21,8 @@
 		<result property="memberImage" 						column="member_image"/>
 		<result property="classStudentDivision" 			column="class_student_division"/>
 		<result property="classTeacherDivision" 			column="class_teacher_division"/>
-		<result property="memberLogin_history_code" 		column="member_login_history_code"/>
+		<result property="memberLoginHistoryCode" 		column="member_login_history_code"/>
 		<result property="memberDivision" 					column="member_division"/>
-		<!-- collection 복잡한 맵핑 has many 관계 -->
 	</resultMap>
 	
 	<resultMap type="Launching" id="launchingResultMap">
@@ -31,7 +30,7 @@
 		<result property="memberId1" 						column="member_id"/>
 		<result property="launchingBrand" 					column="launching_brand"/>
 		<result property="launchingCompany" 				column="launching_company"/>
-		<result property="launchingBusiness_reg_num" 		column="launching_business_reg_num"/>
+		<result property="launchingBusinessRegNum" 		column="launching_business_reg_num"/>
 		<result property="launchingManager" 				column="launching_manager"/>
 		<result property="launchingPhone" 					column="launching_phone"/>
 		<result property="launchingAddr" 					column="launching_addr"/>
@@ -41,7 +40,6 @@
 		<result property="launchingFile" 					column="launching_file"/>
 		<result property="lauchingStauts" 					column="lauching_stauts"/>
 		<result property="lauchingFee" 						column="lauching_fee"/>
-		<!-- collection 복잡한 맵핑 has many 관계 -->
 	</resultMap>
 	
 	
@@ -63,7 +61,7 @@
 		   ,#{memberEmail}
 		   ,#{memberGender}
 		   ,#{memberAddr}
-		   ,#{memberPhone_number}
+		   ,#{memberPhoneNumber}
 		   ,#{memberBirth}
 		   , CURDATE()
 		);	
@@ -89,7 +87,7 @@
 		   ,#{memberId1}
 		   ,#{launchingBrand}
 		   ,#{launchingCompany}
-		   ,#{launchingBusiness_reg_num}
+		   ,#{launchingBusinessRegNum}
 		   ,#{launchingManager}
 		   ,#{launchingPhone}
 		   ,#{launchingAddr}
@@ -115,8 +113,8 @@
 			<if test="memberAddr != null and memberAddr != ''.toString()">
 				member_addr = #{memberAddr},
 			</if>
-			<if test="memberPhone_number != null and memberPhone_number != ''.toString()">
-				member_phone_number = #{memberPhone_number},
+			<if test="memberPhoneNumber != null and memberPhoneNumber != ''.toString()">
+				member_phone_number = #{memberPhoneNumber},
 			</if>
 			<if test="memberBirth != null and memberBirth != ''.toString()">
 				member_birth = #{memberBirth},
@@ -138,8 +136,8 @@
 			<if test="launchingCompany != null and launchingCompany != ''.toString()">
 				launching_company = #{launchingCompany},
 			</if>
-			<if test="launchingBusiness_reg_num != null and launchingBusiness_reg_num != ''.toString()">
-				launching_business_reg_num = #{launchingBusiness_reg_num},
+			<if test="launchingBusinessRegNum != null and launchingBusinessRegNum != ''.toString()">
+				launching_business_reg_num = #{launchingBusinessRegNum},
 			</if>
 			<if test="launchingManager != null and launchingManager != ''.toString()">
 				launching_manager = #{launchingManager},
@@ -174,7 +172,7 @@
 			, member_name				AS memberName
 			, member_email				AS memberEmail
 			, member_addr				AS memberAddr
-			, member_phone_number		AS memberPhone_number
+			, member_phone_number		AS memberPhoneNumber
 			, member_birth				AS memberBirth
 			, member_image				AS memberImage
 		FROM 
@@ -188,7 +186,7 @@
 			  member_id						AS memberId1
 			, launching_brand				AS launchingBrand
 			, launching_company				AS launchingCompany
-			, launching_business_reg_num	AS launchingBusiness_reg_num
+			, launching_business_reg_num	AS launchingBusinessRegNum
 			, launching_manager				AS launchingManager
 			, launching_phone				AS launchingPhone
 			, launching_addr				AS launchingAddr
@@ -238,5 +236,13 @@
 			member
 		WHERE
 			member_id = #{memberId};
+	</delete>
+	
+	<delete id="Remove" parameterType="String">
+		DELETE
+		FROM 
+			launching
+		WHERE
+			member_id = #{memberId1};
 	</delete>
 </mapper>

@@ -80,7 +80,7 @@ private final MemberService memberService;
 					session.setAttribute("SNAME", member.getMemberName());
 
 					// return "redirect:/user/member/Login";
-					return "/mainuser";
+					return "mainuser";
 				}
 
 			}
@@ -101,7 +101,7 @@ private final MemberService memberService;
 
 		session.invalidate();
 
-		return "/mainuser";
+		return "mainuser";
 	}
 
    @GetMapping(value="/idCheck", produces = "application/json")
