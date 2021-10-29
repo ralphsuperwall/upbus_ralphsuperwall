@@ -115,6 +115,7 @@ public class ScrapSaleRequest {
 		builder.append("]");
 		return builder.toString();
 	}
+
 	
 	
 	

@@ -10,6 +10,604 @@
 	  
 <!-- contents layout:fragment 정의 -->
 <th:block layout:fragment="userCustomContents">
+	<style>
+		.panel-default{
+			background: #007a00;
+			border-color:#006400;
+			color: #ffffffff;
+			margin-top: 20px;
+		}
+		
+		.panel-body {
+		    padding: 10px;
+		    text-align: center;
+		    -webkit-text-stroke: thin;
+		}
+		
+		.panel-footer {
+			color: black;
+			background: #ffff;
+			
+			padding-left: 0px;
+		    padding-right: 0px;
+		    padding-top: 20px;
+		    padding-bottom: 20px;
+		}
+		
+		
+		#panel-checkbox-head {
+			background:#dc143c;
+		}
+		
+		#panel-checkbox-footer {
+			background:#ffff;
+			
+			padding-left: 40px;
+		    padding-right: 30px;
+		}
+		
+		.panel-checkbox-input{
+			background: #c0c0c0;
+		    color: #000000;
+		    font: small-caption;
+		    font-weight: bolder;
+		}
+		
+		.img-thumbnail{
+		    background:#008000;
+		    width: 200px;
+		}
+		
+		.label-control{
+		    position: relative;
+		    top: 6.5px;
+		    text-align: -webkit-right;
+		}
+		#imgSetting{
+			text-align: center;
+		}
+		
+		#egoods-name-input{
+			padding:0;
+		}
+		
+		#formgroup-flex{
+			display: flex;
+		}
+		
+		.test{
+			background: red;
+			height: 50px;
+		}
+		
+		#egoods-price-style
+	,	.category-style{
+			text-align: -webkit-right;
+		}
+		
+		.category-style{
+			height:30px;
+		}
+		
+		.img-text {
+			padding: 5px 10px;
+			text-align: center;
+			text-decoration: underline;
+		}
+		
+		#egdoos-btn-rowGrid{
+			text-align: left;
+			padding-left:0px;
+		}
+		
+		#egdoos-btn-style{
+ 		   	padding-right: 10px;
+ 		   	padding-left: 10px;
+		}
+		
+		.form-group{
+			margin-top: 15px;
+			margin-bottom: 25px;
+		}
+		
+    	
+    	#postcode
+    ,	#address
+    ,	#detailAddress{
+    		border-bottom-width: 2px;
+  			border-left-width: 2px;
+		    border-right-width: 2px;
+		    margin-bottom: 10px;
+    	}
+    	
+    	.Daumbtn{
+    		margin-bottom: 10px;
+    		background: slateblue;
+    	}
+    	
+    	#address-label-Style{
+    	    text-align: center;
+		    font-size: 15px;
+		    padding: 3px   	
+    	}
+	
+		.phone-number-style{
+			display: inline;
+	    	width: 30%;
+		}
+		.pnl-style{
+			padding-left: 5px;
+    		padding-right: 5px;
+		}
+		
+		#phonenumber-group{
+			padding-right: 0px;
+		}
+		
+		.panel-footer{
+			padding-top: 20px;
+  			padding-bottom: 20px;
+		}
+		
+		#oreder-info-panel-footer{
+			padding-top:0px;
+			padding-bottom:0px;
+		}
+		
+		#payment-panelBody{
+			background:#dc143c;
+		}
+		
+		#pina-number{
+			width: 90%;
+		}
+		
+		#user-mileage::placeholder{
+			font-weight:900;
+			text-align:right;
+			color:red;
+		}
+
+		
+	</style>
+	
+<!--   	<div class="panel panel-default" id="panel-checkbox-head">
+  		<div class="panel-body">
+    		상품 주문하기 전에 체크 사항
+  		</div>
+  		<div class="panel-footer" id="panel-checkbox-footer">
+		    <div class="input-group">
+		      <span class="input-group-addon">
+		        <input type="checkbox" aria-label="...">
+		      </span>
+		      <div class="form-control panel-checkbox-input"> 입점 기업 물품 주문 (체크시에 입점기업 물품을 주문할 수 있도록 합니다) </div>
+		    </div>/input-group
+			  
+		    <div class="input-group">
+		      <span class="input-group-addon">
+		        <input type="checkbox" aria-label="...">
+		      </span>
+		      <div class="form-control panel-checkbox-input"> 위탁 판매 물품 주문 (체크시에 위탁판매 물품을 주문할 수 있도록 합니다) </div>
+		    </div>/input-group
+  		</div>
+	</div> -->
+	
+	
+	<div class="panel panel-default">
+  		<div class="panel-body">
+    		주문자 정보 입력하기
+  		</div>
+  		<div class="panel-footer" id="oreder-info-panel-footer">
+			<div class=container-fluid>
+				<form class="form-horizontal">
+					<div class="col-lg-12 col-sm-12 col-xs-12">
+						<div class="form-group">
+							<label class="label-control col-lg-2 col-sm-2 col-xs-2" for="user-id">아이디</label>
+							<div class="col-lg-4 col-sm-4 col-xs-4">
+								<input type="text" class="form-control" name="user-id">
+							</div>
+							<label class="label-control col-lg-2 col-sm-2 col-xs-2" for="user-Name">성명</label>
+							<div class="col-lg-4 col-sm-4 col-xs-4">
+								<input type="text" class="form-control" name="user-Name">
+							</div>
+						</div>
+	 				</div>
+	 				
+	 				<div class="form-group">
+					 	<div class="col-lg-12 col-sm-12 col-xs-12" >
+					 		<label class="label-control col-lg-2 col-sm-2 col-xs-2" for="phone-nubmer1">휴대폰 번호</label>
+							<div class="col-lg-10 col-sm-10 col-xs-10" id="phonenumber-group" >
+								<input type="text" class="form-control phone-number-style" name="phone-number1">  
+							 	<label class="pnl-style"> - </label>
+							 	<input type="text" class="form-control phone-number-style" name="phone-number2">
+							 	<label class="pnl-style"> - </label>
+							 	<input type="text" class="form-control phone-number-style" name="phone-number3">
+							</div>
+					 	</div>
+				 	</div>
+				 	
+				 	<div class="form-group">
+						<div class="col-lg-12 col-sm-12 col-xs-12">
+							<label class="label-control col-lg-2 col-sm-2 col-xs-2" for="user-email">아이디</label>
+							<div class="col-lg-10 col-sm-10 col-xs-10">
+								<input type="text" class="form-control" name="user-email">
+							</div>
+		 				</div>
+	 				</div>
+ 				</form>
+ 			</div>	
+		</div>
+	</div>
+	
+  	<div class="panel panel-default">
+  		<div class="panel-body">
+    		입점 기업 상품 판매 주문 하기
+  		</div>
+  		<div class="panel-footer">
+			<div class=container-fluid>
+				<div class="col-lg-9 col-sm-9 col-xs-9">
+					<form class="form-horizontal">
+						<div class="form-group category-style" id="formgroup-flex">
+							<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2 ">
+								<label class="label-control" > (대분류) </label>
+							</div>
+					 		<div class="input-group col-lg-4 col-sm-4 col-md-4 col-xs-4">
+								<select class="form-control" id="goodsMainCategory" onchange="chainedSub(this.value)">
+									<option value="">큰 분류</option>
+									<option th:each="list : ${goodsCategoryMainList}" th:value="${list.goodsCategoryMainName}">[[${list.goodsCategoryMainName}]]</option>
+								</select>
+					 		</div>
+					 		<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2 " id="egoods-price-style">
+								<label class="label-control" for="egoods_amount"> (소분류) </label>
+					 		</div>
+					 		<div class="input-group col-lg-4 col-sm-4 col-md-4 col-xs-4">
+								<select style="margin-bottom: 20px;" class="form-control" id="goodsSubCategory" name="goodsCategorySubName">
+									<option value="">작은 분류</option>
+								</select>
+					 		</div>
+					 	</div>
+						
+						<div class="form-group" id="egoods-name-group">
+							<label class="label-control col-lg-2 col-sm-2 col-xs-2" for="egoods-name">상품명</label>
+							<div class="col-lg-10 col-sm-10 col-xs-10" id="egoods-name-input">
+								<input type="text" class="form-control" name="egoods_name">
+							</div>
+						</div>
+						<div class="form-group" id="formgroup-flex">
+							<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
+								<label class="label-control" for="egoods-price">개당 판매가격</label>
+							</div>
+					 		<div class="input-group col-lg-4 col-sm-4 col-md-4 col-xs-4">
+								<input type="text" class="form-control" name="egoods_price">
+					  			<span class="input-group-addon">₩</span>
+					 		</div>
+					 		<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" id="egoods-price-style">
+								<label class="label-control" for="egoods_amount">수량</label>
+					 		</div>
+					 		<div class="input-group col-lg-3 col-sm-3 col-md-3 col-xs-3">
+								<input type="number" class="form-control" name="egoods_amount" aria-label="Amount (to the nearest dollar)">
+					  			<span class="input-group-addon">개</span>
+					 		</div>
+					 	</div>
+					</form>
+				</div>
+				
+			 	<div class="col-lg-3 col-sm-3 col-xs-3" id="imgSetting">
+					<div> <img src="/img/goods/MESSENGER BAGS.PNG" class="img-thumbnail"></div>
+					<div class="img-text"> <p>상품 이미지 링크</p> </div>
+			 	</div>
+			 	
+ 			</div>
+ 		</div>	
+	</div>
+
+	<div class="panel panel-default">
+  		<div class="panel-body">
+    		개인 위탁 상품 판매 주문 하기
+  		</div>
+  		<div class="panel-footer">
+			<div class=container-fluid>
+				<div class="col-lg-9 col-sm-9 col-xs-9">
+					<form class="form-horizontal">
+						<div class="form-group category-style" id="formgroup-flex">
+							<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2 ">
+								<label class="label-control" > (대분류) </label>
+							</div>
+					 		<div class="input-group col-lg-4 col-sm-4 col-md-4 col-xs-4">
+								<select class="form-control" id="goodsMainCategory" onchange="chainedSub(this.value)">
+									<option value="">큰 분류</option>
+									<option th:each="list : ${goodsCategoryMainList}" th:value="${list.goodsCategoryMainName}">[[${list.goodsCategoryMainName}]]</option>
+								</select>
+					 		</div>
+					 		<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2 " id="egoods-price-style">
+								<label class="label-control" for="egoods_amount"> (소분류) </label>
+					 		</div>
+					 		<div class="input-group col-lg-4 col-sm-4 col-md-4 col-xs-4">
+								<select style="margin-bottom: 20px;" class="form-control" id="goodsSubCategory" name="goodsCategorySubName">
+									<option value="">작은 분류</option>
+								</select>
+					 		</div>
+					 	</div>
+						
+						<div class="form-group" id="egoods-name-group">
+							<label class="label-control col-lg-2 col-sm-2 col-xs-2" for="egoods-name">상품명</label>
+							<div class="col-lg-10 col-sm-10 col-xs-10" id="egoods-name-input">
+								<input type="text" class="form-control" name="egoods_name">
+							</div>
+						</div>
+						<div class="form-group" id="formgroup-flex">
+							<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
+								<label class="label-control" for="egoods-price">개당 판매가격</label>
+							</div>
+					 		<div class="input-group col-lg-4 col-sm-4 col-md-4 col-xs-4">
+								<input type="text" class="form-control" name="egoods_price">
+					  			<span class="input-group-addon">₩</span>
+					 		</div>
+					 		<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" id="egoods-price-style">
+								<label class="label-control" for="egoods_amount">수량</label>
+					 		</div>
+					 		<div class="input-group col-lg-3 col-sm-3 col-md-3 col-xs-3">
+								<input type="number" class="form-control" name="egoods_amount" aria-label="Amount (to the nearest dollar)">
+					  			<span class="input-group-addon">개</span>
+					 		</div>
+					 	</div>
+					</form>
+				</div>
+				
+			 	<div class="col-lg-3 col-sm-3 col-xs-3" id="imgSetting">
+					<div> <img src="/img/goods/POUCHES.PNG" class="img-thumbnail"></div>
+					<div class="img-text"> <p>상품 이미지 링크</p> </div>
+			 	</div>
+			 	
+ 			</div>
+ 		</div>	
+	</div>
+	
+	
+	<div class="panel panel-default">
+  		<div class="panel-body">
+    		배송 정보
+  		</div>
+  		<div class="panel-footer">
+			<div class=container-fluid>
+				<div class="form-group m-form__group row">
+					 <!-- 주소 좌측 그리드 -->
+					  <label class="col-md-2 col-form-label" id="address-label-Style">
+					  	주&nbsp;&nbsp;소&nbsp;&nbsp;
+					  	<span class="m--font-orange vertical-middle">*</span>
+					  </label>
+					  <!-- 주소 우측 그리드 -->
+					  <div class="col-md-10" style="padding: 0px;">
+						  <div class="col-md-12">
+						    <input type="text" class="form-control m-input" name="postcode" id="postcode" placeholder="우편번호" readonly />
+						  </div>
+						  <div class="col-md-2 postcode-btn">
+						    <button type="button" class="btn btn-info Daumbtn" onclick="execDaumPostcode()">우편번호 찾기</button>
+						  </div>
+						  <div class="col-md-12">
+						    <input
+						      type="text"
+						      class="form-control m-input m--margin-top-10"
+						      name="address"
+						      id="address"
+						      placeholder="도로명 주소"
+						      readonly
+						    />
+						  </div>
+						  <div class="col-md-12 ">
+						    <input
+						      type="text"
+						      class="form-control m-input m--margin-top-10"
+						      name="detailAddress"
+						      placeholder="상세 주소"
+						      required
+						    />
+						  </div>
+				 	 </div>
+				</div>
+			</div>
+ 		</div>	
+	</div>
+	
+	<div class="panel panel-default">
+  		<div class="panel-body">
+    		배송자 정보 입력하기
+  		</div>
+  		<div class="panel-footer" id="oreder-info-panel-footer">
+			<div class=container-fluid>
+				<div class="form-horizontal">
+					<div class="col-lg-2 col-sm-2 col-xs-2"></div>
+					<div class="col-lg-10 col-sm-10 col-xs-10">
+					    <div class="input-group">
+					   		<span class="input-group-addon">
+					        	<input type="checkbox" aria-label="..."> 
+					    	</span>
+					 		<input type="text" class="form-control" aria-label="..." readonly="readonly" value="주문자 정보와 동일" style="width: 30%;"> 
+					 	</div>
+					 </div>
+				
+					<div class="col-lg-12 col-sm-12 col-xs-12">
+						<div class="form-group">
+							<label class="label-control col-lg-2 col-sm-2 col-xs-2" for="shipper-Name">성명</label>
+							<div class="col-lg-10 col-sm-10 col-xs-10">
+								<input type="text" class="form-control" name="shipper-Name">
+							</div>
+						</div>
+	 				</div>
+	 				
+	 				<div class="form-group">
+					 	<div class="col-lg-12 col-sm-12 col-xs-12" >
+					 		<label class="label-control col-lg-2 col-sm-2 col-xs-2" for="shipper-phone-nubmer1">휴대폰 번호</label>
+							<div class="col-lg-10 col-sm-10 col-xs-10" id="phonenumber-group" >
+								<input type="text" class="form-control phone-number-style" name="shipper-phone-number1">  
+							 	<label class="pnl-style"> - </label>
+							 	<input type="text" class="form-control phone-number-style" name="shipper-phone-number2">
+							 	<label class="pnl-style"> - </label>
+							 	<input type="text" class="form-control phone-number-style" name="shipper-phone-number3">
+							</div>
+					 	</div>
+				 	</div>
+				 	
+				 	<div class="form-group">
+						<div class="col-lg-12 col-sm-12 col-xs-12">
+							<label class="label-control col-lg-2 col-sm-2 col-xs-2" for="user-email">아이디</label>
+							<div class="col-lg-10 col-sm-10 col-xs-10">
+								<input type="text" class="form-control" name="user-email">
+							</div>
+		 				</div>
+	 				</div>
+ 				</div>
+ 			</div>	
+		</div>
+	</div>
+	
+	<div class="panel panel-default">
+  		<div class="panel-body" id="payment-panelBody">
+    		결제 정보 입력하기
+  		</div>
+  		<div class="panel-footer" id="oreder-info-panel-footer">
+			<div class=container-fluid>
+				<div class="form-horizontal">
+					<div class="form-group category-style" id="formgroup-flex">
+						<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2 ">
+							<label class="label-control" > 기관  </label>
+						</div>
+				 		<div class="input-group col-lg-3 col-sm-3 col-md-3 col-xs-3">
+							<select class="form-control" id="payment-agency-type" name="payment-agency-type">
+								<option value="">:: 선택 ::</option>
+								<option value="국민"> 국민 </option>
+								<option value="우리"> 우리 </option>
+								<option value="신한"> 신한 </option>
+								<option value="하나"> 하나 </option>
+								<option value="농협"> 농협 </option>
+								<option value="기업"> 기업 </option>
+								<option value="씨티"> 씨티 </option>
+								<option value="SC제일"> SC제일 </option>
+								<option value="우체국"> 우체국 </option>
+								<option value="산업"> 산업 </option>
+							</select>
+				 		</div>
+				 		<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2 " >
+							<label class="label-control"> 계좌/카드번호</label>
+				 		</div>
+				 		<div class="input-group col-lg-5 col-sm-5 col-md-5 col-xs-5">
+				 			<input type="text" class="form-control" name="payment-input-account-card-number" id="pina-number">
+				 		</div>
+				 	</div>
+				 	
+				 	<div class="form-group">
+						<div class="col-lg-12 col-sm-12 col-xs-12">
+							<label class="label-control col-lg-3 col-sm-3 col-xs-3">마일리지 잔액 확인</label>
+							<div class="input-group col-lg-9 col-sm-9 col-xs-9">
+						    	<input type="text" class="form-control" placeholder="0 원" id="user-mileage" name="user-mileage">
+						    	<span class="input-group-btn">
+						    		<button class="btn btn-default" type="button"> 마일리지 보유량 조회하기	</button>
+						    	</span>
+							</div>
+		 				</div>
+	 				</div>
+	 				
+				 	<div class="form-group">
+						<div class="col-lg-12 col-sm-12 col-xs-12">
+							<label class="label-control col-lg-3 col-sm-3 col-xs-3">마일리지 지불 금액</label>
+							<div class="input-group col-lg-9 col-sm-9 col-xs-9">
+						    	<input type="text" class="form-control" name="payment-mileage">
+						    	<span class="input-group-btn">
+						    	</span>
+							</div>
+		 				</div>
+	 				</div>
+	 				
+				 	<div class="form-group">
+						<div class="col-lg-12 col-sm-12 col-xs-12">
+							<label class="label-control col-lg-3 col-sm-3 col-xs-3">현금 지불 금액</label>
+							<div class="input-group col-lg-9 col-sm-9 col-xs-9">
+						    	<input type="text" class="form-control" name="payment-cash">
+						    	<span class="input-group-btn">
+						    	</span>
+							</div>
+		 				</div>
+	 				</div>
+	 				
+	 				<div class="form-group">
+						<label class="label-control col-lg-2 col-sm-2 col-xs-2" for="user-id">총 지불 금액</label>
+						<div class="col-lg-4 col-sm-4 col-xs-4">
+							<input type="text" class="form-control" name="payment-total">
+						</div>
+						<label class="label-control col-lg-2 col-sm-2 col-xs-2" for="user-Name">혜택 마일리지</label>
+						<div class="col-lg-4 col-sm-4 col-xs-4">
+							<input type="text" class="form-control" name="user-add-mileage">
+						</div>
+					</div>
+ 				</div>
+ 			</div>
+		</div>
+	</div>
+	
+	<div style="text-align: right">
+		<button type="button" class="btn btn-primary">주문하기</button>
+		<button type="button" class="btn btn-danger">주문취소</button>
+	</div>
+	
+	
+	
+	<!--autoload=false 파라미터를 이용하여 자동으로 로딩되는 것을 막습니다.-->
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+	
+	<script>
+	/** 우편번호 찾기 */
+	function execDaumPostcode() {
+	    daum.postcode.load(function(){
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	              // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+	              $("#postcode").val(data.zonecode);
+	              $("#address").val(data.roadAddress);
+	            }
+	        }).open();
+	    });
+	}
+	</script>
+	
+		
+	<script>
+		var goodsSubCategory = $('#goodsSubCategory');
+		var goodsMainCategory = $('#goodsMainCategory');
+		goodsSubCategory.click(function () {
+			if ($('#goodsMainCategory').val() == '') {
+				alert("메인 카테고리를 먼저 선택해주세요.");
+				goodsMainCategory.focus();
+				return;
+			}
+		});
+		function chainedSub(main) {
+			if(main == ''){
+				goodsSubCategory.append('<option value="">작은 분류</option>');
+			}
+			$.ajax({
+				url: 'user/goods/MySell/GetSubCategory',
+				data: {goodsMainCategory: $('#goodsMainCategory option:selected').val()},
+				dataType: "json",
+				type: 'get',
+				success: function (data) {
+					$('#goodsSubCategory option').remove();
+					if(data.length == 0){
+						goodsSubCategory.append('<option value="">작은 분류</option>');
+					}else {
+						$(data).each(function (i) {
+							goodsSubCategory.append('<option value="' + data[i].goodsCategorySubName + '">'
+									+ data[i].goodsCategorySubName + '</option>');
+						});
+					}
+				},
+				error: function () {
+					alert("Bad Request");
+				}
+			});
+		}
+	</script>
+
+
 	
 </th:block>
 

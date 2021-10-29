@@ -36,7 +36,7 @@
 					<td th:text="${l.memberId1}"></td>
 					<td th:text="${l.launchingBrand}"></td>
 					<td th:text="${l.launchingCompany}"></td>
-					<td th:text="${l.launchingBusiness_reg_num}"></td>
+					<td th:text="${l.launchingBusinessRegNum}"></td>
 					<td th:text="${l.launchingManager}"></td>
 					<td th:text="${l.launchingPhone}"></td>
 					<td th:text="${l.launchingAddr}"></td>
@@ -45,8 +45,7 @@
 					<td th:text="${l.launchingFile}"></td>
 					<td th:text="${l.launchingUrl}"></td>
 					<td>
-						<!-- /removeMember?memberId=id001 -->
-						<a>삭제</a>
+						<a th:href="@{/user/opening/Remove}">삭제</a>
 					</td>
 				</tr>
 			</th:block>

@@ -72,5 +72,20 @@ public class MemberService {
 		}
 		return result;
 	}
+	//5. 입점 내역 삭제 로직
+	public String Remove(String memberId, String memberPw) {
+		String result = "입점 내역 삭제 실패";
+		
+		//입력받은 값 memberId 비밀번호 일치여부
+		Member member = memberMapper.getMemberInfoById(memberId);
+		if(member != null) {
+			if(memberPw.equals(member.getMemberPw())) {
+				//삭제 프로세스
+				memberMapper.Remove(memberId);
+				result = "회원삭제 성공";
+			}
+		}
+		return result;
+	}
 
 }

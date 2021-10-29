@@ -45,6 +45,7 @@
 								<th>입고일자</th>
 								<th>검수일자</th>
 								<th>무게</th>
+								<th>판매가</th>
 								<th>입고여부</th>
 								<th>입고확정버튼</th>
 							</tr>
@@ -57,16 +58,17 @@
 								<td th:text="${saleList.scrapReceivingDate}">입고일자</td>
 								<td th:text="${saleList.scrapInspectionDate}">검수일자</td> <!-- 버튼 누르면 버튼 사라지고 검수 날짜 나왔으면 좋겠다 -->
 								<td>
-								  <input type="text" style= "margin-bottom: 20px;" class="form-control" placeholder="재료 무게" name="scrapWeight"/>
-								 <!-- <div class="col-sm-12">
+								   <!--<input type="text" style= "margin-bottom: 20px;" class="form-control" placeholder="재료 무게" name="scrapWeight"/>-->
+								<div class="col-sm-12">
 								    <div class="input-group">
-								      <input type="text" class="form-control" placeholder="Search for...">
+								      <input type="text" class="form-control" id="scrapWeight" th:value="${saleList.scrapWeight}"placeholder="Search for...">
 								      <span class="input-group-btn">
-								        <button class="btn btn-default" type="button">Go!</button>
+								        <button class="btn btn-default" id="weight-approval-action" th:value="#{saleList.scrapWeight}" type="button">입력</button>
 								      </span>
 								    </div>
-								  </div>/.col-lg-6 -->
+								  </div>
 								</td>
+								<td th:text="${saleList.scrapPrice}"></td>
 								<td>
 									<span class="scrapStatusAmountText" th:if="${saleList.scrapStatusAmount eq 1}">Y</span>
 									<span class="scrapStatusAmountText" th:unless="${saleList.scrapStatusAmount eq 1}">N</span>
@@ -83,7 +85,35 @@
 				</div>
 			</div>
 		<div class="ps__rail-x" style="left: 0px; bottom: -50px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 50px; height: 415px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 36px; height: 299px;"></div></div></div>
+		<!-- 무게 버튼 스크립트 -->
+		<script>
+		$(function(){
+			$('#weight-approval-action').click(function(){
+				var btn = $(this);
+				var scrapWeight =  $(this).parents('tr').find('#scrapWeight');
+				
+				
+				var scrapSaleCode = $(this).val();
+				var request = $.ajax({
+					url: "/admin/scrap/scrapWeightApprovalAjax",
+					method: "GET",
+					data: {scrapSaleCode: scrapSaleCode, scrapWeight : scrapWeight},
+					dataType: "json"
+				});
+				
+					request.done(function( data ) {
+						var result = data.result;
+						scrapWeight.val();
+					 
+					request.fail(function( jqXHR, textStatus ) {
+						alert( "Request failed: " + textStatus );
+					});
+				});
+			});
 		
+								
+		</script>
+		<!-- 승인버튼 스크립트 -->
 		<script>
 			$(function(){
 				$('.sale-approval-action').click(function(){

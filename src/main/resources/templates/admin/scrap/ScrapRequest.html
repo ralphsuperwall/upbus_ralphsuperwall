@@ -35,12 +35,6 @@
 									<input type="text" class="form-control" id="scrapname" readonly="readonly"  th:value="${scrapSaleRequestDetailList.scrapUpcylingList.scrapName}">
 								</div>
 							</div>
-							<!--   <div class="col-md-6">
-								<div class="form-group">
-									<label for="exampleInputPassword1">상세주소</label>
-									<input type="text" class="form-control" id="addr" readonly="readonly" >
-								</div>
-							</div>-->
 							<div class="col-md-6">
 								<div class="form-group">
 										<label for="scrapRequestAmount">개수</label>
@@ -61,22 +55,14 @@
 									
 								</div>
 							</div>
-							
-					<!-- 	<div class="col-md-6">
+							<div class="col-md-6">
 								<div class="form-group">
 									<label class="form-label">사진 업로드</label>
 									<div>
-										<input type="file" class="validation-file" name="imgfile" readonly="readonly" >
+										<img src="" class="validation-file" name="imgfile"  >
 									</div>
 								</div>
-							</div> -->
-							
-						<!--  <div class="col-md-6">
-								<div class="form-group">
-									<label for="exampleInputPassword1">운송장번호</label>
-									<input type="text" class="form-control" id="number" readonly="readonly" >
-								</div>
-							</div>-->
+							</div>
 							<div class="col-md-12" style="text-align: center;">								
 							 	<button th:if="${scrapSaleRequestDetailList.scrapRequestResult eq 1}" th:value="${scrapSaleRequestDetailList.scrapRequestResult}" class="btn btn-danger approval-action" type="button">취소</button>
 								<button th:unless="${scrapSaleRequestDetailList.scrapRequestResult eq 1}" th:value="${scrapSaleRequestDetailList.scrapRequestResult}" class="btn btn-primary approval-action" type="button">승인</button>

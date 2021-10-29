@@ -40,4 +40,7 @@ public interface MemberMapper {
 	
 	//입점 신청
 	public int Application2(Launching launching);
+
+	//입점 내역 삭제
+	public void Remove(String memberId);
 }
