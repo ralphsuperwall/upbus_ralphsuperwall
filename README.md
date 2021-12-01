@@ -35,3 +35,12 @@
 판매가 가능한 상품을 2단계 승인 처리하면 회원이 신청 시 입력한 대로 폼에 받아옵니다. 수정이 필요하다면 수정하여 재고로 등록합니다.<br>
 <br>
 <br>
+단계별 처리 상황을 회원은 내 판매 신청 현황 보기 메뉴에서 확인하고 승인 확인 - 배송 신청 - 배송 - 판매 상황 확인을 진행할 수 있습니다.<br>
+위탁 판매를 신청한 내역이 없을 경우
+<img width="1592" alt="스크린샷 2021-12-01 오후 12 16 41" src="https://user-images.githubusercontent.com/81766957/144180505-39723d4f-9fce-41b8-b16c-cce66c421552.png">
+위탁 판매를 신청한 경우
+<img width="1596" alt="스크린샷 2021-12-01 오후 12 15 09" src="https://user-images.githubusercontent.com/81766957/144180569-18d4e398-3f68-45bd-b3f1-729e595bf667.png">
+위탁 판매 신청이 승인되어 배송 신청을 할 수 있는 경우
+<img width="1580" alt="스크린샷 2021-12-01 오후 12 15 50" src="https://user-images.githubusercontent.com/81766957/144180595-ed37b2bb-75da-4ea7-8a90-4ad9d29432d1.png">
+
+<h3>DESCRIPTION</h3>
