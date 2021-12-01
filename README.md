@@ -42,5 +42,3 @@
 <img width="1596" alt="스크린샷 2021-12-01 오후 12 15 09" src="https://user-images.githubusercontent.com/81766957/144180569-18d4e398-3f68-45bd-b3f1-729e595bf667.png">
 위탁 판매 신청이 승인되어 배송 신청을 할 수 있는 경우
 <img width="1580" alt="스크린샷 2021-12-01 오후 12 15 50" src="https://user-images.githubusercontent.com/81766957/144180595-ed37b2bb-75da-4ea7-8a90-4ad9d29432d1.png">
-
-<h3>DESCRIPTION</h3>
