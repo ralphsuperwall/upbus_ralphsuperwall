@@ -64,10 +64,48 @@
               <td th:text="${l.goodsRequestDate}"></td>
               <td th:if="${l.goodsRequestApproval eq 0}" style="background: mediumpurple">판매 신청이 아직 확인 전이에요.</td>
               <td th:if="${l.goodsRequestApproval eq 1}" style="background: deepskyblue">판매 신청이 승인되었어요! 상품을 발송해주세요.
-                <button type="button" class="btn btn-primary" id="applySeller" disabled>배송 신청</button>
+                <!--<button type="submit" class="btn btn-primary applySeller" form="applyComplete" disabled>배송 신청</button>-->
+                <button th:onclick="'location.href=\''+ @{MySellStatus/applyComplete/{goodsRequestCode}(goodsRequestCode = ${l.goodsRequestCode})} + '\''"
+                        type="button" class="btn btn-primary applySeller" disabled>배송 신청</button>
+               <!-- <script>
+                  var goodsSubCategory = $('#goodsSubCategory');
+                  var goodsMainCategory = $('#goodsMainCategory');
+                  goodsSubCategory.click(function () {
+                    if ($('#goodsMainCategory').val() == '') {
+                      alert("메인 카테고리를 먼저 선택해주세요.");
+                      goodsMainCategory.focus();
+                      return;
+                    }
+                  });
+                  function chainedSub(main) {
+                    if(main == ''){
+                      goodsSubCategory.append('<option value="">작은 분류</option>');
+                    }
+                    $.ajax({
+                      url: 'user/goods/MySell/GetSubCategory',
+                      data: {goodsMainCategory: $('#goodsMainCategory option:selected').val()},
+                      dataType: "json",
+                      type: 'get',
+                      success: function (data) {
+                        $('#goodsSubCategory option').remove();
+                        if(data.length == 0){
+                          goodsSubCategory.append('<option value="">작은 분류</option>');
+                        }else {
+                          $(data).each(function (i) {
+                            goodsSubCategory.append('<option value="' + data[i].goodsCategorySubName + '">'
+                                    + data[i].goodsCategorySubName + '</option>');
+                          });
+                        }
+                      },
+                      error: function () {
+                        alert("Bad Request");
+                      }
+                    });
+                  }
+                </script>-->
                 <button type="button" class="btn btn-danger">신청 취소</button>
               </td>
-              <td th:if="${l.goodsRequestApproval eq 2}" style="background: lightgreen">위탁 판매가 완료되었어요. 판매되기를 기다려주세요.</td>
+              <td th:if="${l.goodsRequestApproval eq 2}" style="background: lightgreen">위탁 판매가 시작되었어요. 판매되기를 기다려주세요.</td>
               <td th:if="${l.goodsRequestApproval eq 3}" style="background: orangered">상품이 판매될 수 없었어요. 반송 주소를 입력해주세요.</td>
             </tr>
           </th:block>
@@ -87,18 +125,51 @@
                 4. 주소를 잘못 기입하거나 부재 등의 이유로 2회 방문 시도 후에도 발송이 되지 않으면 접수가 취소됩니다. <br>
                 5. 상기 이유로 접수가 거절된 경우 고객님의 부담(착불)으로 반송 처리됩니다. <br><br>
                 <div style="font-size: x-large; font-weight: bolder">
-                  위 내용에 동의합니다 <input type="checkbox" style="zoom: 1.5" id="sellerAgreement">
+                  위 내용에 동의합니다 <input type="checkbox" style="zoom: 1.5" class="sellerAgreement">
+                </div>
+                <div>
+                  동의하지 않으시면 <button type="button" class="btn btn-danger" onclick="buttonExampleCancel();">신청 취소</button>하실 수 있습니다.
                 </div>
                 <script>
                   $(function (){
-                    $("#sellerAgreement").change(function(){
-                      if($("#sellerAgreement").is(":checked")){
-                        $("#applySeller").attr("disabled", false);
+                    var sellerAgreement = $(".sellerAgreement");
+                    var applySeller = $(".applySeller");
+                    sellerAgreement.change(function(){
+                      if(sellerAgreement.is(":checked")){
+                        applySeller.attr("disabled", false);
                       }else{
-                        $("#applySeller").attr("disabled", true);
+                        applySeller.attr("disabled", true);
                       }
                     });
                   });
+
+                  function applyComplete(){
+                    var memberName = document.getElementById('memberName');
+                    var memberAddr = document.getElementById('memberAddr');
+                    var memberPhoneNumber = document.getElementById('memberPhoneNumber');
+
+                    if(memberName.value == '') {
+                      alert("발송 고객님의 이름을 입력해주세요");
+                      return false;
+                    }else if(memberAddr.value == '') {
+                      alert("방문 택배를 접수하실 주소를 입력해주세요.");
+                      return false;
+                    }else if(memberPhoneNumber.value == '') {
+                      alert("발송 고객님의 전화번호를 입력해주세요.");
+                      return false;
+                    }else{
+                      alert("방문 택배 접수 완료! 보내실 상품을 포장해주세요.")
+                      return true;
+                    }
+                  }
+
+                  function buttonExampleCancel() {
+                    alert("신청 취소는 상단에 있는 신청 내역의 신청 취소 버튼을 클릭해주세요.");
+                  }
+
+                  function buttonExampleApply() {
+                    alert("배송 신청은 상단에 있는 신청 내역의 배송 신청 버튼을 클릭해주세요.");
+                  }
                 </script>
               </div>
             </div>
@@ -106,28 +177,27 @@
             <tbody>
             <tr class="table-active">
               <h3 style="font-weight: bolder; color: blue">발송자 이름, 주소, 전화번호를 확인하세요.
-                발송자 정보가 맞으면 접수 완료할 상품의 <button type="button" class="btn btn-primary" onclick="buttonex();">배송 신청</button>버튼을
+                발송자 정보가 맞으면 접수 완료할 상품의 <button type="button" class="btn btn-primary" onclick="buttonExampleApply();">배송 신청</button>을
                 클릭해주세요.</h3>
-              <script>
-                function buttonex() {
-                  alert("배송 신청은 상단에 있는 신청 내역의 배송 신청 버튼을 클릭해주세요.");
-                }
-              </script>
             </tr>
-            <tr class="table-active">
-              <td>발송 고객 이름</td>
-              <td>
-                <input type="text" class="form-control" th:value="${memberName}" name="logisticsContractCode">
-              </td>
-              <td>발송 주소</td>
-              <td>
-                <input type="text" class="form-control" th:value="${memberAddr}" name="logisticsCode">
-              </td>
-              <td>발송 고객 전화번호</td>
-              <td>
-                <input type="text" class="form-control" th:value="${memberPhoneNumber}" name="logisticsPer">
-              </td>
-            </tr>
+
+              <form id="applyComplete" method="post" onsubmit="return applyComplete();">
+                <!--<form th:action="@{/MySellStatus/applyComplete}" id="applyComplete" method="post" onsubmit="return applyComplete();">-->
+                <tr class="table-active">
+                  <td>발송 고객 이름</td>
+                  <td>
+                    <input type="text" class="form-control" id="memberName" th:value="${memberName}" name="memberName">
+                  </td>
+                  <td>발송 주소</td>
+                  <td>
+                    <input type="text" class="form-control" id="memberAddr" th:value="${memberAddr}" name="memberAddr">
+                  </td>
+                  <td>발송 고객 전화번호</td>
+                  <td>
+                    <input type="text" class="form-control" id="memberPhoneNumber" th:value="${memberPhoneNumber}" name="memberPhoneNumber">
+                  </td>
+                </tr>
+              </form>
             </tbody>
           </table>
         </th:block>

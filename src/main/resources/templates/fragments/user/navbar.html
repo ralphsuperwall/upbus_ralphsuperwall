@@ -4,23 +4,19 @@
 
 		<nav id="navbar-pc" class="hidden-sm hidden-xs navbar navbar-default row" onclick="navClick()" >		 	
 		 	<a class="col-md-2 navbar-option">
-  				내 정보
+  				MENU BAR ::
 			</a>
 		 	<a class="col-md-2 navbar-option">
-  				후원
+				내 업사이클링 상품 위탁 판매 신청하기
 			</a>
 			<a class="col-md-2 navbar-option">
-  				입점
+				(클릭하세요)
 			</a>
 			<a class="col-md-2 navbar-option">
-  				업사이클링 
-  				<br>재료
 			</a>	
 			<a class="col-md-2 navbar-option">
-  				상품
 			</a>
 			<a class="col-md-2 navbar-option">
-  				클래스
 			</a>
 		</nav>
 		<nav id="navbar-mobile" class="visible-sm visible-xs navbar navbar-default row">
@@ -31,106 +27,24 @@
 		</nav>
 		<div class="collapse row" id="collapse1">
 			<div class="col-md-2" >
-				 <ul class="navbar-detail">
-				  	<li class="navbar-detail-li">
-				  		<a th:if="${session.SID == null }" th:href="@{/user/member/Signup}">회원 가입(강현석)</a>
-				  	</li>
-				  	<li class="navbar-detail-li">
-				  		<a th:href="@{/user/member/MemberDeleteWarning}" th:unless="${session.SID == null }">회원 탈퇴(강현석)</a>
-				  	</li>
-				  	<li class="navbar-detail-li">
-				  		<a th:href="@{/user/member/Modify}" th:unless="${session.SID == null }">회원 정보 수정(강현석)</a>
-				  	</li>
-				  	<li class="navbar-detail-li">
-				  		<a th:href="@{/user/member/Cart}">장바구니(차현송)</a>	
-				  	</li>
-				  	<li class="navbar-detail-li">
-				  		<a th:href="@{/user/member/MyGrade}">내 활동 등급(이준혁)</a>	
-				  	</li>
-				  	<li class="navbar-detail-li">
-				  		<a th:href="@{/user/member/MyExp}">내 활동 경험치(이준혁)</a>	
-				  	</li>
-				  	<li class="navbar-detail-li">
-				  		<a th:href="@{/user/member/MyMileage}">마일리지 조회(차현송)</a>	
-				  	</li>
-				  	<li class="navbar-detail-li">
-				  		<a th:href="@{/user/member/MyClass}">클래스 참가 현황(최다실)</a>	
-				  	</li>
-				  	<li class="navbar-detail-li">
-				  		<a th:href="@{/user/member/MyRevenue}">수익 조회(차현송)</a>	
-				  	</li>
-				  </ul>
+			</div>
+			<div class="col-md-2" >
+			</div>
+			<div class="col-md-2" >
+			</div>
+			<div class="col-md-2" >
 			</div>
 			<div class="col-md-2" >
 			  	<ul class="navbar-detail">
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/donation/Application}">후원 신청(차현송)</a>
-			  		</li>
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/donation/List}">후원 내역(차현송)</a>
-			  		</li>
-			  	</ul>
-			</div>
-			<div class="col-md-2" >
-			  	<ul class="navbar-detail">
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/opening/Application}" th:unless="${session.SID == null}">입점 신청(강현석)</a>
-			  		</li>
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/opening/List}" th:unless="${session.SID == null }" >입점 내역(강현석)</a>
-			  		</li>
-			  	</ul>
-			</div>
-			<div class="col-md-2" >
-			  	<ul class="navbar-detail">
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/scrap/List}">업사이클링 재료 목록(이경훈)</a>
-			  		</li>
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/scrap/Application}">업사이클링 재료 신청(이경훈)</a>
-			  		</li>
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/scrap/Sell}">업사이클링 재료 판매(이경훈)</a>
-			  		</li>
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/scrap/Buy}">업사이클링 재료 구매(이경훈)</a>	
-			  		</li>
-			  	</ul>
-			</div>
-			<div class="col-md-2" >
-			  	<ul class="navbar-detail">
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/goods/EnterpriseList}">기업 판매 상품 목록(강현석)</a>
-			  		</li>
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/goods/MemberList}">위탁 판매 상품 목록(이경훈)</a>
-			  		</li>
 			  		<li class="navbar-detail-li">
 			  			<a th:href="@{/user/goods/MySell}">내가 만든 업사이클링 상품 팔기(이준혁)</a>
 			  		</li>
 					<li class="navbar-detail-li">
 						<a th:href="@{/user/goods/MySellStatus}">내 판매 신청 조회(이준혁)</a>
 					</li>
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/goods/Order}">상품 주문(최다실)</a>	
-			  		</li>
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/goods/OrderList}">주문 현황(최다실)</a>	
-			  		</li>
 			  	</ul>
 			</div>
 			<div class="col-md-2" >
-			  	<ul class="navbar-detail">
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/class/ClassAddTeacher}">클래스 강사 신청(최다실)</a>
-			  		</li>
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/class/Enrollment}">클래스 등록(최다실)</a>
-			  		</li>
-			  		<li class="navbar-detail-li">
-			  			<a th:href="@{/user/class/Application}">클래스 참가 신청(최다실)</a>
-			  		</li>
-			  	</ul>
 			</div>
 		</div>
 	</div>	

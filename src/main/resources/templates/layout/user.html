@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
+<html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<!-- th:replace=fragments/head.html (html 확장자를 제외한 경로 :: (해당 html안에 선언된 조각 변수이름) -->
   <head th:replace="fragments/user/head :: userHeadFragment">
    
   </head>
@@ -28,11 +27,8 @@
 	
 	<footer>
 	</footer>
-	
-	
-	    <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
     <script th:src="@{/user/bootstrap/js/bootstrap.min.js}"></script>
 	<script type="text/javascript">
 	var clickCheck = false;

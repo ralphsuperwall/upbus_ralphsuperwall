@@ -7,17 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import thedrivers.upbus.domain.GoodsRequest;
-import thedrivers.upbus.domain.Member;
 import thedrivers.upbus.service.GoodsService;
 
-import java.util.List;
-import java.util.Map;
-
-import thedrivers.upbus.domain.Egoods;
 import thedrivers.upbus.domain.GoodsInventory;
-import thedrivers.upbus.service.GoodsService;
 
 @RequestMapping("/admin/goods")
 @Controller
@@ -78,17 +71,6 @@ public class GoodsController {
 	public String secondDisapproval(@PathVariable String goodsRequestCode) {
 		goodsService.secondDisapproval(goodsRequestCode);
 		return "redirect:/admin/goods/MemberSellManage";
-	}
-
-
-	@GetMapping("/EnterpriseSellManage")
-	public String EnterpriseSellManage(Model model) {
-		model.addAttribute("title", "UPBUS");
-		model.addAttribute("h1text", "기업 판매 상품 판매 관리");
-		List<Egoods> egoodsList = goodsService.getEgoodsList();
-		
-		model.addAttribute("egoodsList", egoodsList);
-		return pageType+"/EnterpriseSellManage";
 	}
 	
 	@GetMapping("/EnterprisePaymentManage")

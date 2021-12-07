@@ -2,7 +2,6 @@ package thedrivers.upbus.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import thedrivers.upbus.domain.Egoods;
 import thedrivers.upbus.domain.GoodsCategoryMain;
 import thedrivers.upbus.domain.GoodsCategorySub;
 import thedrivers.upbus.domain.GoodsInventory;
@@ -30,8 +29,5 @@ public interface GoodsMapper {
     int getGoodsRequestAmount(String memberId);
 	// 개인위탁판매 재고 리스트 조회
 	public List<GoodsInventory> getGoodsInventory();
-	
-	//기업 상품 목록 조회
-	public List<Egoods> getEgoodsList();
 
 }

@@ -78,11 +78,4 @@ public class ShippingController {
 		return "redirect:/admin/shipping/LogisticsManage";
 	}
 
-
-	@GetMapping("/StatisticsManage")
-	public String statisticsManage(Model model) {
-		model.addAttribute("title", "UPBUS");
-		model.addAttribute("h1text", "배송업체 계약 통계 관리");
-		return pageType+"/StatisticsManage";
-	}
 }

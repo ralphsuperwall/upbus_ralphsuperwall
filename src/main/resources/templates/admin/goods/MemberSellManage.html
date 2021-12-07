@@ -146,7 +146,7 @@
 	</div>
 
 	<div class="col-md-12">
-		<div class="card">
+		<div class="card" style="background: antiquewhite">
 			<div class="card-header">
 				<h4>3단계</h4>
 				<h5>재고 등록 단계</h5>
@@ -174,28 +174,28 @@
 							<th:block th:if="${lStat.index % 2 == 1}">
 								<tr class="table-active">
 									<td>
-										<input th:value="${l.goodsRequestCode}" readonly>
+										<input class="form-control" th:value="${l.goodsRequestCode}" readonly>
 									</td>
 									<td>
-										<input th:value="${l.goodsSellerId}" readonly>
+										<input class="form-control" th:value="${l.goodsSellerId}" readonly>
 									</td>
 									<td>
-										<input th:value="${l.goodsRequestName}">
+										<input class="form-control" th:value="${l.goodsRequestName}">
 									</td>
 									<td>
-										<input th:value="${l.goodsCategorySubName}">
+										<input class="form-control" th:value="${l.goodsCategorySubName}">
 									</td>
 									<td>
-										<input th:value="${l.goodsRequestPrice}">
+										<input class="form-control" th:value="${l.goodsRequestPrice}">
 									</td>
 									<td>
-										<input th:value="${l.goodsRequestAmount}">
+										<input class="form-control" th:value="${l.goodsRequestAmount}">
 									</td>
 									<td>
-										<input th:value="${l.goodsRequestDesc}">
+										<input class="form-control" th:value="${l.goodsRequestDesc}">
 									</td>
 									<td>
-										<input th:value="${l.goodsRequestDate}">
+										<input class="form-control" th:value="${l.goodsRequestDate}">
 									</td>
 									<td><button type="button" class="btn btn-outline-info btn-sm">등록 완료</button></td>
 								</tr>
@@ -203,28 +203,28 @@
 							<th:block th:unless="${lStat.index % 2 == 1}">
 								<tr>
 									<td>
-										<input th:value="${l.goodsRequestCode}" readonly>
+										<input class="form-control" th:value="${l.goodsRequestCode}" readonly>
 									</td>
 									<td>
-										<input th:value="${l.goodsSellerId}" readonly>
+										<input class="form-control" th:value="${l.goodsSellerId}" readonly>
 									</td>
 									<td>
-										<input th:value="${l.goodsRequestName}">
+										<input class="form-control" th:value="${l.goodsRequestName}">
 									</td>
 									<td>
-										<input th:value="${l.goodsCategorySubName}">
+										<input class="form-control" th:value="${l.goodsCategorySubName}">
 									</td>
 									<td>
-										<input th:value="${l.goodsRequestPrice}">
+										<input class="form-control" th:value="${l.goodsRequestPrice}">
 									</td>
 									<td>
-										<input th:value="${l.goodsRequestAmount}">
+										<input class="form-control" th:value="${l.goodsRequestAmount}">
 									</td>
 									<td>
-										<input th:value="${l.goodsRequestDesc}">
+										<input class="form-control" th:value="${l.goodsRequestDesc}">
 									</td>
 									<td>
-										<input th:value="${l.goodsRequestDate}">
+										<input class="form-control" th:value="${l.goodsRequestDate}">
 									</td>
 									<td><button type="button" class="btn btn-outline-info btn-sm">등록 완료</button></td>
 								</tr>

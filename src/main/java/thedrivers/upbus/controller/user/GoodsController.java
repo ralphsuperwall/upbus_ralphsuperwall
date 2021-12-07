@@ -74,12 +74,7 @@ public class GoodsController {
 
 		return checkResult;
 	}
-	/*@GetMapping("user/goods/MySell/{code}")
-	public String getMySell(@PathVariable(value = "service") String service){
-		if(service.equals(""))
 
-		return "";
-	}*/
 
 	@GetMapping(value = "user/goods/MySell/GetSubCategory", produces = "application/json")
 	@ResponseBody
@@ -90,32 +85,35 @@ public class GoodsController {
 		return goodsCategorySubList;
 	}
 
-	
-	@GetMapping("/EnterpriseList")
-	public String goodsRequest1(Model model) {
-		
-		/*아이디를 세션에서 받아와야 함 - 회원 테이블 연동 후
+
+	/**
+	 * 고객 위탁 판매 진행 상황을 확인하는 MySellStatus 페이지
+	 */
+	@GetMapping("/MySellStatus")
+	public String mySellStatus(Model model) {
+
+        /*아이디를 세션에서 받아와야 함 - 회원 테이블 연동 후
         String sellerId = (String) session.getAttribute("SID");*/
-		
-		/**
-		 * 고객 위탁 판매 MySell에서 자동으로 상품코드를 부여함
-		 */
-		String goodsRequestCode = goodsService.getGoodsRequestCode();
-		
-		/**
-		 * 고객 위탁 판매 MySell에서 고객이 상품 카테고리를 선택할 때 데이터베이스의 상품 카테고리를 불러오는 기능
-		 */
-		List<GoodsCategoryMain> goodsCategoryMainList = goodsService.getGoodsCategoryMainList();
-		
-		model.addAttribute("goodsRequestCode", goodsRequestCode);
-		model.addAttribute("goodsCategoryMainList", goodsCategoryMainList);
+		List<GoodsRequest> mySellStatus = goodsService.mySellStatus("id001");
+		List<Member> applyMember = goodsService.getApplyMember("id001");
+		String memberName = applyMember.get(0).getMemberName();
+		String memberAddr = applyMember.get(0).getMemberAddr();
+		String memberPhoneNumber = applyMember.get(0).getMemberPhoneNumber();
+		model.addAttribute("mySellStatus", mySellStatus);
+		model.addAttribute("memberName", memberName);
+		model.addAttribute("memberAddr", memberAddr);
+		model.addAttribute("memberPhoneNumber", memberPhoneNumber);
 		model.addAttribute("title", "UPBUS");
-		model.addAttribute("h1text", "내가 만든 업사이클링 상품 판매 위탁하기");
-		List<Egoods> egoodsList = goodsService.getEgoodsList();
-		
-		model.addAttribute("egoodsList", egoodsList);
-		return pageType+"/EnterpriseList";
-		
+		model.addAttribute("h1text", "업사이클링 상품 위탁 판매 신청 진행 상황");
+		return pageType+"/MySellStatus";
+
+	}
+
+	@GetMapping("/MySellStatus/applyComplete/{goodsRequestCode}")
+	public String firstApproval(@PathVariable String goodsRequestCode) {
+		System.out.println(goodsRequestCode);
+		/*System.out.println(goodsRequestSeller);*/
+		return "redirect:/user/goods/MySellStatus";
 	}
 	
 	/**
@@ -143,12 +141,7 @@ public class GoodsController {
 		
 		return checkResult;
 	}
-	/*@GetMapping("user/goods/MySell/{code}")
-	public String getMySell(@PathVariable(value = "service") String service){
-		if(service.equals(""))
 
-		return "";
-	}*/
 	
 	@GetMapping(value = "user/goods/EnterpriseList/GetSubCategory", produces = "application/json")
 	@ResponseBody
@@ -159,66 +152,13 @@ public class GoodsController {
 		return goodsCategorySubList;
 	}
 
-	/**
-	 * 고객 위탁 판매 진행 상황을 확인하는 MySellStatus 페이지
-	 */
-	@GetMapping("/MySellStatus")
-	public String mySellStatus(Model model) {
 
-        /*아이디를 세션에서 받아와야 함 - 회원 테이블 연동 후
-        String sellerId = (String) session.getAttribute("SID");*/
-		List<GoodsRequest> mySellStatus = goodsService.mySellStatus("id001");
-		List<Member> applyMember = goodsService.getApplyMember("id001");
-		String memberName = applyMember.get(0).getMemberName();
-		String memberAddr = applyMember.get(0).getMemberAddr();
-		String memberPhoneNumber = applyMember.get(0).getMemberPhoneNumber();
-		model.addAttribute("mySellStatus", mySellStatus);
-		model.addAttribute("memberName", memberName);
-		model.addAttribute("memberAddr", memberAddr);
-		model.addAttribute("memberPhoneNumber", memberPhoneNumber);
-		model.addAttribute("title", "UPBUS");
-		model.addAttribute("h1text", "업사이클링 상품 위탁 판매 신청 진행 상황");
-		return pageType+"/MySellStatus";
-
-	}
 
 	@GetMapping("/MemberList")
 	public String memberList(Model model) {
 		model.addAttribute("title", "UPBUS");
 		model.addAttribute("h1text", "위탁 판매 상품 목록");
 		return pageType+"/MemberList";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	@GetMapping("/Order")
-	public String order(Model model) {
-		model.addAttribute("title", "UPBUS");
-		model.addAttribute("h1text", "상품 주문");
-		
-		/**
-		 * 고객 위탁 판매 MySell에서 고객이 상품 카테고리를 선택할 때 데이터베이스의 상품 카테고리를 불러오는 기능
-		 */
-		List<GoodsCategoryMain> goodsCategoryMainList = goodsService.getGoodsCategoryMainList();
-		
-		model.addAttribute("goodsCategoryMainList", goodsCategoryMainList);
-		List<Egoods> egoodsList = goodsService.getEgoodsList();
-		
-		model.addAttribute("egoodsList", egoodsList);
-		return pageType+"/Order";
-	}
-	
-	
-	@GetMapping("/OrderList")
-	public String orderList(Model model) {
-		model.addAttribute("title", "UPBUS");
-		model.addAttribute("h1text", "주문 현황");
-		return pageType+"/OrderList";
 	}
 
 }
